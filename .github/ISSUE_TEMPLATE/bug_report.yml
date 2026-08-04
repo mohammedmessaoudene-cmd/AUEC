@@ -1,0 +1,14 @@
+name: Bug report
+description: Report a reproducible defect
+body:
+  - type: textarea
+    attributes:
+      label: Reproduction
+      description: Include exact version, platform, manifest and observed output.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Security or invariant impact
+    validations:
+      required: true

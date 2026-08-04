@@ -1,0 +1,3 @@
+binding,pass,fail,skip,verdict
+JSON-RPC,79,1,185,NO_GO
+HTTP+JSON,76,2,187,NO_GO

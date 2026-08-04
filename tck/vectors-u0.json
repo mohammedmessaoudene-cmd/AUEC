@@ -1,0 +1,32 @@
+{
+  "profile": "AUEC-0.1-U0",
+  "status": "prepublication",
+  "vectors": [
+    {
+      "id": "U0-STRUCT-001",
+      "input": {
+        "auecVersion": "0.1",
+        "manifestId": "minimal",
+        "resources": {},
+        "nodes": [
+          {
+            "id": "n1",
+            "op": "hash.sha256"
+          }
+        ],
+        "exports": []
+      },
+      "expect": "structurally-valid"
+    },
+    {
+      "id": "U0-STRUCT-002",
+      "input": {
+        "manifestId": "missing-version",
+        "resources": {},
+        "nodes": [],
+        "exports": []
+      },
+      "expect": "structurally-invalid"
+    }
+  ]
+}

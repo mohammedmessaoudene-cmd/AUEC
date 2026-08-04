@@ -1,0 +1,31 @@
+key,source_class,primary_or_official,human_verification_required
+SaltzerSchroeder1975,peer-reviewed or dissertation,yes,yes
+Denning1976,peer-reviewed or dissertation,yes,yes
+HaberStornetta1991,peer-reviewed or dissertation,yes,yes
+Fielding2000,peer-reviewed or dissertation,yes,yes
+Haas2017,peer-reviewed or dissertation,yes,yes
+W3CWasm2026,official standard/project,yes,yes
+WASI03_2026,official standard/project,yes,yes
+RFC8785,official standard/project,yes,yes
+RFC9334,official standard/project,yes,yes
+RFC2119,official standard/project,yes,yes
+RFC8174,official standard/project,yes,yes
+PROVO2013,official standard/project,yes,yes
+Kang2017,peer-reviewed or dissertation,yes,yes
+Li2018,peer-reviewed or dissertation,yes,yes
+Matsubara2022,peer-reviewed or dissertation,yes,yes
+Shao2019,preprint,no,yes
+LocalSplitter2026,preprint,no,yes
+MCP2025,official standard/project,yes,yes
+MCP2026,official standard/project,yes,yes
+MCPConformance2026,official standard/project,yes,yes
+MCPSEP2025,official standard/project,yes,yes
+A2A2026,official standard/project,yes,yes
+A2ATCK2026,official standard/project,yes,yes
+InToto2019,peer-reviewed or dissertation,yes,yes
+ACMAuthorship2026,official standard/project,yes,yes
+Basu2026,preprint,no,yes
+YeTan2026,preprint,no,yes
+MishraSharad2026,preprint,no,yes
+Zhou2026,preprint,no,yes
+Figuera2026,preprint,no,yes

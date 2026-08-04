@@ -1,0 +1,63 @@
+\section{System Model, Threats, and Requirements}
+\label{sec:model}
+
+\subsection{Entities and trust boundary}
+We distinguish five logical roles (Figure~\ref{fig:architecture}).
+\begin{itemize}
+  \item \textbf{Planner $P$:} a remote AI service or agent that proposes a manifest. $P$ is not trusted with local authority.
+  \item \textbf{User agent $U$:} the host-controlled decision point. It parses the proposal, intersects it with local policy, requests consent when required, and selects admissible placement.
+  \item \textbf{Executor $X$:} a local, edge, or cloud substrate admitted by $U$ for one node under an effective contract.
+  \item \textbf{Binding $B$:} MCP, A2A, HTTP, or an offline envelope. $B$ transports messages but does not determine authority.
+  \item \textbf{Verifier $V$:} a party that checks canonical results, receipt continuity, and any additional signature or attestation profile.
+\end{itemize}
+
+The local policy is trusted relative to the remote proposal. The operating system, compiler, runtime, and hardware are not assumed infallible. A production deployment would require a more carefully delimited trusted computing base and independent evaluation.
+
+\begin{figure*}[!t]
+\centering
+\resizebox{0.98\textwidth}{!}{%
+\begin{tikzpicture}[
+  node distance=14mm and 18mm,
+  box/.style={draw,rounded corners,minimum height=11mm,minimum width=32mm,align=center,fill=aiewlight,font=\footnotesize},
+  authority/.style={draw,rounded corners,very thick,minimum height=13mm,minimum width=50mm,align=center,fill=white,font=\footnotesize},
+  arrow/.style={-{Latex[length=2.6mm]},thick},
+  note/.style={font=\scriptsize,align=center,text=aiewdark,fill=white,inner sep=1.5pt}
+]
+\node[box] (planner) {Remote planner $P$\\proposes a manifest};
+\node[authority,right=23mm of planner] (ua) {Host-controlled user agent $U$\\computes the effective contract};
+\node[box,right=23mm of ua] (verify) {Verifier $V$\\checks receipts};
+\node[box,below=18mm of ua,xshift=-41mm] (local) {Local executor\\U0 or WASI profile};
+\node[box,below=18mm of ua] (edge) {Approved edge\\executor};
+\node[box,below=18mm of ua,xshift=41mm] (cloud) {Approved cloud\\operation};
+\draw[arrow] (planner) -- node[above=2pt,note]{MCP / A2A / HTTP\\binding $B$} (ua);
+\draw[arrow] (ua) -- node[above=2pt,note]{typed results\\and receipts} (verify);
+\draw[arrow] (ua) -- (local);
+\draw[arrow] (ua) -- (edge);
+\draw[arrow] (ua) -- (cloud);
+\node[note,below=8mm of edge] {The binding transports a proposal; only $U$ computes the effective contract.};
+\end{tikzpicture}%
+}
+\Description{A remote planner proposes a manifest to a host-controlled user agent. The user agent intersects the proposal with local policy and dispatches admitted nodes to local, edge, or cloud executors. Typed results and chained receipts are checked by a verifier.}
+\caption{AUEC trust boundary and execution roles.}
+\label{fig:architecture}
+\end{figure*}
+
+\subsection{Adversary model}
+The planner may be malicious, compromised, or influenced by prompt-injected content. It can attempt to widen capabilities, lower data classifications, amplify output, force an expensive placement, reuse stale consent, or present a model assertion as authority. A network attacker may alter messages. A tenant may replay a valid request with different input or policy. A verifier may receive a truncated, reordered, or equivocated receipt sequence. The implementation may contain parser, concurrency, persistence, or boundary errors.
+
+The base profile does not address a compromised kernel, malicious toolchain, microarchitectural side channels, or semantic deception inside a probabilistic model. Those risks are outside the claims of this study.
+
+\subsection{Requirements}
+The design follows eight requirements.
+\begin{itemize}
+  \item \textbf{REQ-1 - Host authority:} The planner proposes; the host may narrow or reject the proposal but cannot be induced to widen authority.
+  \item \textbf{REQ-2 - Transport neutrality:} Semantically equivalent manifests have the same contract meaning across bindings.
+  \item \textbf{REQ-3 - Least authority:} Filesystem, network, process, model, device, and accelerator interfaces are unavailable unless a profile and host policy grant them.
+  \item \textbf{REQ-4 - Information monotonicity:} A node cannot downgrade the classification induced by its inputs, and the host's egress ceiling is a hard bound.
+  \item \textbf{REQ-5 - Resource boundedness:} Planner budgets are upper bounds that host policy may reduce further.
+  \item \textbf{REQ-6 - Epistemic non-escalation:} A \claimkind{} or \hypkind{} cannot become action authority without an explicit verification transition and any consent required for the exact action.
+  \item \textbf{REQ-7 - Tamper-evident execution evidence:} Deterministic runs produce canonical receipts for which modification of a complete chain is detectable under stated cryptographic assumptions.
+  \item \textbf{REQ-8 - Binding compatibility:} Unnegotiated MCP and A2A behavior remains available.
+\end{itemize}
+
+These requirements are stronger than a successful tool invocation and substantially weaker than a production security certification.

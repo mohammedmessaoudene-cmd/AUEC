@@ -1,0 +1,19 @@
+path_pattern,spdx_expression,role
+reference-runtime/**,AGPL-3.0-only,official coupled runtime
+tests/**,AGPL-3.0-only,runtime-coupled tests
+examples/run_example.py,AGPL-3.0-only,runtime-coupled example
+examples/*.json,Apache-2.0,standalone interoperability vectors
+schemas/**,Apache-2.0,interoperability schemas
+tck/**,Apache-2.0,conformance material
+sdk/**,Apache-2.0,separable SDK
+bindings/**,Apache-2.0,separable bindings
+scripts/**,Apache-2.0,build and verification utilities
+.github/**,Apache-2.0,non-publishing repository automation
+docs/**,CC-BY-4.0,specification and documentation
+standards/**,CC-BY-4.0,standardization notes
+evidence/**,CC-BY-4.0,bounded project evidence summaries
+*.md,CC-BY-4.0,root narrative files
+*.json,CC-BY-4.0,root metadata
+*.cff,CC-BY-4.0,citation metadata
+LICENSES/**,LicenseRef-License-Text,canonical license texts
+LICENSE,LicenseRef-Mixed-License-Routing-Notice,routing notice

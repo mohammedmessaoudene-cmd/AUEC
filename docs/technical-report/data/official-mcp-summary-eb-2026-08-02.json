@@ -1,0 +1,62 @@
+{
+  "results": [
+    {
+      "expected_failures_file": null,
+      "name": "stable-2025-11-25-active",
+      "options": [
+        "--suite",
+        "active",
+        "--spec-version",
+        "2025-11-25"
+      ],
+      "returncode": 0,
+      "runner_package": "mcp-official-stable (exact binary retained in sealed EB-2026-08-02 archive)",
+      "scenarios": 30,
+      "status_counts": {
+        "INFO": 1,
+        "SUCCESS": 39
+      },
+      "sut_mutated": false,
+      "sut_stderr_bytes": 0
+    },
+    {
+      "expected_failures_file": null,
+      "name": "final-2026-07-28-active",
+      "options": [
+        "--suite",
+        "active",
+        "--spec-version",
+        "2026-07-28"
+      ],
+      "returncode": 0,
+      "runner_package": "mcp-official-alpha10 (exact binary retained in sealed EB-2026-08-02 archive)",
+      "scenarios": 20,
+      "status_counts": {
+        "INFO": 1,
+        "SUCCESS": 22
+      },
+      "sut_mutated": false,
+      "sut_stderr_bytes": 0
+    },
+    {
+      "expected_failures_file": null,
+      "name": "draft-2026-07-28-official",
+      "options": [
+        "--suite",
+        "draft",
+        "--spec-version",
+        "2026-07-28"
+      ],
+      "returncode": 0,
+      "runner_package": "mcp-official-alpha10 (exact binary retained in sealed EB-2026-08-02 archive)",
+      "scenarios": 19,
+      "status_counts": {
+        "SUCCESS": 85
+      },
+      "sut_mutated": false,
+      "sut_stderr_bytes": 0
+    }
+  ],
+  "sanitization_note": "Absolute host paths removed from this publication summary; the sealed EB-2026-08-02 archive is preserved unchanged in the master evidence package.",
+  "schema": "aiew.eb-2026-08-02.official-mcp-profiles.v1"
+}

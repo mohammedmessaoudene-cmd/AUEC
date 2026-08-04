@@ -1,0 +1,107 @@
+\section{AUEC Design}
+\label{sec:design}
+
+\subsection{Manifest as a proposal}
+An AUEC manifest is a versioned directed acyclic graph $G=(N,E)$ containing resources, global budgets, nodes, and exports. Each node $n\in N$ names an operation, inputs, requested effect, admissible placements, declared result metadata, and local budgets. Unknown normative fields are rejected unless a negotiated extension defines them. Ambiguity is therefore a protocol error rather than an implementation choice. In the accompanying draft specification, capitalized requirement keywords are interpreted according to BCP 14 \cite{RFC2119,RFC8174}.
+
+The host does not execute the manifest as ambient code. It parses the proposal, resolves references, validates the graph, and computes the effective contract. Let $C_p(n)$ denote the capabilities proposed for node $n$ and $C_h(n)$ those permitted by host policy. The effective set is
+\begin{equation}
+C_{\mathrm{eff}}(n)=C_p(n)\cap C_h(n).
+\label{eq:caps}
+\end{equation}
+Placement is narrowed in the same way:
+\begin{equation}
+P_{\mathrm{eff}}(n)=P_p(n)\cap P_h(n), \qquad P_{\mathrm{eff}}(n)\neq\varnothing.
+\label{eq:placement}
+\end{equation}
+If the intersection is empty, the node is rejected rather than silently redirected.
+
+For every bounded resource $q$, the effective limit is
+\begin{equation}
+b_{\mathrm{eff}}^q(n)=\min\{b_p^q(n),b_h^q(n)\}.
+\label{eq:budget}
+\end{equation}
+The base profile bounds manifest bytes, node count, wall time, and canonical output bytes. Later profiles may add memory, accelerator time, network volume, or energy; the present evaluation does not measure those quantities.
+
+\paragraph{Policy-monotonicity invariant}
+Equations~\ref{eq:caps}--\ref{eq:budget} make the effective contract no more permissive than either input policy. A planner request cannot create a capability absent from $C_h$, add a placement absent from $P_h$, or increase a host budget. This invariant assumes a trusted policy interpreter and extension processing that cannot bypass the intersection step.
+
+\subsection{Information classification and egress}
+The base information-classification lattice is
+\begin{equation}
+\textsf{public}\sqsubset\textsf{internal}\sqsubset\textsf{confidential}\sqsubset\textsf{secret}.
+\end{equation}
+For a node $n$ with input set $I(n)$, the declared output class must satisfy
+\begin{equation}
+\ell_{\mathrm{out}}(n)\sqsupseteq
+\operatorname{lub}\!\left\{\ell(x)\mid x\in I(n)\right\},
+\label{eq:classification}
+\end{equation}
+where $\operatorname{lub}$ denotes the least upper bound in the lattice. The host egress ceiling $\ell_h^{\max}$ is independent of the manifest. An export is admitted only when $\ell_{\mathrm{out}}\sqsubseteq \ell_h^{\max}$. The \Uzero profile prohibits export of \textsf{secret} data. This rule prevents explicit downgrading; it is not a noninterference theorem and does not account for timing or other side channels.
+
+\subsection{Epistemic status, representation, and authority}
+A result has three orthogonal dimensions:
+\begin{align}
+\kappa(x)&\in\{\factkind{},\claimkind{},\hypkind{}\},\label{eq:epistemic-kind}\\
+\rho(x)&\in\{\textsf{inline},\textsf{artifact}\},\\
+\ell(x)&\in\{\textsf{public},\textsf{internal},\textsf{confidential},\textsf{secret}\}.
+\end{align}
+The epistemic kind $\kappa$ describes how a value may be used as knowledge. A \factkind{} is deterministic under the declared operation semantics; it is not a claim of universal real-world truth. A \claimkind{} is probabilistic, and a \hypkind{} is a candidate explanation. Representation distinguishes inline values from content-addressed artifacts, while confidentiality is expressed only by $\ell$.
+
+The compact U0 wire vocabulary predates this conceptual separation and uses one field for a subset of result tags. The normative model treats the three dimensions independently; a future schema revision should expose that separation while retaining a versioned compatibility path.
+
+The authority rule is asymmetric:
+\begin{equation}
+\begin{aligned}
+\operatorname{Auth}_U(x,a) \Rightarrow {}& \kappa(x)=\factkind \\
+&\wedge\operatorname{validated}_U(x,a) \\
+&\wedge\operatorname{consent}_U(a).
+\end{aligned}
+\label{eq:authority}
+\end{equation}
+The predicate $\operatorname{validated}_U(x,a)$ is an authorization-time check performed by the host. It binds the value's declared provenance and operation evidence to the exact action $a$; it is distinct from the producer's \factkind{} label. The consent predicate is true when host policy either permits $a$ without a separate prompt or records approval bound to the action digest. Confidence alone never changes authority.
+
+\paragraph{Epistemic non-escalation invariant}
+No execution path may derive action authority solely from a claim or hypothesis. Enforcement occurs at the authorization boundary rather than in model prompting, so the rule remains meaningful when the planner is probabilistic or prompt-injected.
+
+\subsection{Deterministic U0 profile}
+\Uzero contains pure operations such as identity, SHA-256, safe-integer sum, JSON projection, concatenation, literal length, literal redaction, literal search, and deduplication. Nodes are local-only and have no filesystem, network, process, model, device, or accelerator capability. Outputs are deterministic. In the current U0 wire vocabulary they carry either the \texttt{fact} tag or the legacy \texttt{artifact} tag; the conceptual model treats artifact representation separately from epistemic status. Richer profiles may be layered above U0 only if they preserve policy intersection, information monotonicity, and epistemic non-escalation.
+
+\subsection{Canonicalization}
+Cross-language hashing requires deterministic serialization. The reference profile rejects duplicate object keys, floating-point values, non-finite numbers, unsafe integers, unpaired surrogates, and unknown normative fields. Object keys are ordered lexicographically by Unicode scalar sequence; strings are UTF-8; integers use shortest decimal form; and insignificant whitespace is absent. This follows the objective of JSON canonicalization \cite{RFC8785} while intentionally accepting a narrower value domain.
+
+\subsection{Receipt chain}
+For node $n_i$, the receipt body contains the manifest digest $m$, sequence index $i$, node identifier, operation, requested effect $\varepsilon_i$, placement $p_i$, canonical input digest, typed output digest, and predecessor $r_{i-1}$. The receipt is
+\begin{equation}
+\begin{split}
+r_i=H\bigl(\operatorname{Canon}(&m,i,n_i,op_i,\varepsilon_i,p_i,\\
+&h_i^{\mathrm{in}},h_i^{\mathrm{out}},r_{i-1})\bigr),
+\end{split}
+\label{eq:receipt}
+\end{equation}
+with fixed genesis value $r_0=0^{256}$. A terminal record binds the final receipt to the export digest.
+
+\begin{figure}[!t]
+\centering
+\begin{tikzpicture}[
+  stage/.style={draw,rounded corners,minimum width=0.94\columnwidth,text width=0.84\columnwidth,minimum height=8mm,align=center,font=\footnotesize,fill=aiewlight},
+  node distance=3.5mm
+]
+\node[stage] (parse) {Bounded parsing and schema validation};
+\node[stage,below=of parse] (policy) {Policy intersection, graph, and information-flow checks};
+\node[stage,below=of policy] (exec) {Deterministic execution under effective budgets};
+\node[stage,below=of exec] (receipt) {Typed results and chained receipts};
+\draw[-{Latex[length=2mm]},thick] (parse) -- (policy);
+\draw[-{Latex[length=2mm]},thick] (policy) -- (exec);
+\draw[-{Latex[length=2mm]},thick] (exec) -- (receipt);
+\end{tikzpicture}
+\Description{The U0 pipeline validates bounded input, intersects the proposal with policy, executes deterministic operations, and emits typed results with chained receipts.}
+\caption{U0 admission and execution pipeline.}
+\label{fig:pipeline}
+\end{figure}
+
+\paragraph{Tamper-detection proposition}
+Assume that $H$ is collision resistant, canonicalization is deterministic, and the verifier possesses an authentic terminal digest. Any modification, insertion, deletion, or reordering within the complete receipt sequence changes the recomputed terminal digest except with negligible collision probability. The proposition does not establish freshness, prevent rollback to an older complete chain, or attest the platform. Durable replay state, trusted time, signatures, and remote attestation are separate profiles.
+
+\subsection{Binding semantics}
+Bindings carry the same canonical manifest and structured contract result. Transport success states only that a message exchange completed. AUEC reports a separate state such as accepted, rejected, completed, aborted, or input-required. Transport metadata may negotiate a versioned extension, but it cannot expand host policy.

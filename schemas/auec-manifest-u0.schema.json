@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aiew.example.invalid/schema/auec-manifest-u0.json",
+  "title": "AUEC U0 manifest structural schema",
+  "description": "Prepublication structural schema; semantic policy checks remain normative in the AUEC draft specification.",
+  "type": "object",
+  "required": [
+    "auecVersion",
+    "manifestId",
+    "resources",
+    "nodes",
+    "exports"
+  ],
+  "properties": {
+    "auecVersion": {
+      "const": "0.1"
+    },
+    "manifestId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "resources": {
+      "type": "object"
+    },
+    "nodes": {
+      "type": "array",
+      "minItems": 1
+    },
+    "exports": {
+      "type": "array"
+    }
+  },
+  "additionalProperties": true
+}

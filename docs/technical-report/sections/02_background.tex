@@ -1,0 +1,55 @@
+\section{Background and Related Work}
+\label{sec:background}
+
+\subsection{Portable networked execution}
+The Web separated resource transfer, representation, and local execution, allowing independently developed implementations to converge on common behavior. Architectural constraints such as statelessness and uniform interfaces likewise made interoperation a system property rather than a library convention \cite{Fielding2000}. \AUEC adopts this portability objective, but the browser threat model does not transfer unchanged: an AI planner may construct requests from untrusted documents and probabilistic inferences, so the local authority boundary must be explicit.
+
+WebAssembly provides a portable low-level code format while leaving environmental access to the embedder \cite{Haas2017,W3CWasm2026}. WASI 0.3 adds asynchronous component primitives \cite{WASI03_2026}. These technologies define execution substrates. They do not specify the hybrid-work proposal, information-flow policy, epistemic status, or receipt semantics studied here. \AUEC treats them as possible hosts for later profiles.
+
+\subsection{Tool and agent interoperability protocols}
+MCP standardizes discovery and invocation of tools, resources, and prompts, and its revisions are accompanied by conformance tooling \cite{MCP2025,MCP2026,MCPConformance2026}. At the evidence cutoff, the official release registry identified 2025-11-25 as the latest stable revision and 2026-07-28 as a release candidate whose specification remained in draft form. A2A standardizes discovery, messages, tasks, streaming, and artifacts between agents whose internals may remain opaque \cite{A2A2026,A2ATCK2026}. Both protocols serve as bindings in this work.
+
+Binding and contract remain separate. A generic A2A message must remain valid when the peer does not implement \AUEC{}. An MCP exchange may succeed at the transport layer while host policy rejects the embedded execution proposal. The binding carries the proposal; the contract result records whether it was accepted, narrowed, completed, aborted, or left waiting for input.
+
+\subsection{Edge, split, and local--cloud AI execution}
+Partitioning computation between devices and servers is well established. Neurosurgeon schedules neural-network layers across mobile and cloud resources \cite{Kang2017}; Edgent combines DNN partitioning with early exits \cite{Li2018}; survey work organizes split computing around latency, energy, bandwidth, and accuracy trade-offs \cite{Matsubara2022}; and BottleNet++ studies compression at the partition boundary \cite{Shao2019}. These systems optimize a particular model or workload. \AUEC instead specifies how heterogeneous planners and hosts describe admissible work, hard policy constraints, and evidence.
+
+Local-Splitter is close to the deployment motivation. Its 2026 preprint evaluates local routing, prompt compression, caching, and related tactics for coding agents, with workload-dependent reductions in cloud-token use \cite{LocalSplitter2026}. Those measurements are prior work, not results for \AUEC{}. They also show why savings and quality must be measured together. The present evaluation concerns protocol conformance and causal test sensitivity.
+
+\subsection{Capability security and information flow}
+Fail-safe defaults, complete mediation, and least privilege are longstanding principles of secure system design \cite{SaltzerSchroeder1975}. Information-flow lattices provide a compact representation of monotonic security classes \cite{Denning1976}. \AUEC applies these principles to remote proposals: no ambient interface is granted, and an output cannot be classified below the least upper bound of its inputs.
+
+The four-level lattice used here is deliberately modest. It is not a complete mandatory-access-control model and does not establish noninterference. Its purpose is to make a portable no-downgrade rule and an egress ceiling testable in the deterministic base profile.
+
+\subsection{Provenance, tamper evidence, and attestation}
+PROV-O supplies a vocabulary for interoperable provenance \cite{PROVO2013}. Hash chaining and time-stamping have a long history in tamper-evident records \cite{HaberStornetta1991}. RATS separates attesters, verifiers, evidence, and appraisal policy \cite{RFC9334}, while in-toto binds software supply-chain steps to signed metadata \cite{InToto2019}.
+
+\AUEC receipts occupy a narrower layer: they bind the declared steps and canonical results of one execution. A valid chain does not prove that the host was uncompromised, that a probabilistic claim is true, that the chain is fresh, or that no side channel exists. Signatures, durable replay protection, trusted time, and platform attestation belong to additional profiles.
+
+\subsection{Contemporary agent contracts, receipts, and delegation evidence}
+Recent systems address adjacent parts of this problem. NabaOS classifies statements by epistemic source and checks them against HMAC-signed tool receipts to detect hallucinated or misstated tool results \cite{Basu2026}. Its decision is primarily a posteriori: the receipt helps a user assess whether a response is grounded. \AUEC places a coarser epistemic distinction at the authorization boundary, before a value may influence a consequential local effect.
+
+Agent Contracts formalizes multidimensional resource limits and conservation laws for hierarchical agent delegation \cite{YeTan2026}. \AUEC uses a related narrowing principle at a different boundary: a remote planner proposes work to a host that independently controls capabilities, placement, egress, and budgets. Delegation-scoped observability binds execution events to a delegation context for cross-tool reconstruction \cite{MishraSharad2026}; capability-governance work binds tool identities to certificates and verifiable ledgers \cite{Zhou2026}; and receiver-attested receipts move evidence generation to the service that observes an action \cite{Figuera2026}. These systems strengthen grounding, attribution, or audit. They do not replace the host-computed execution contract studied here, and several provide stronger receipt trust models than the unsigned \Uzero chain.
+
+\subsection{Positioning}
+Table~\ref{tab:positioning} locates the contribution. No component is claimed as novel in isolation. The distinctive design choice is to combine host-controlled policy intersection, placement and budget constraints, epistemic authorization, and portable tamper-evident receipts in one contract that can traverse existing agent protocols. Whether this composition is legally novel or broadly useful requires evidence beyond the present artifact.
+
+\begin{table*}[!t]
+\caption{Positioning relative to adjacent mechanisms. Entries describe normative coverage of the listed concern, not overall system capability.}
+\label{tab:positioning}
+\centering
+\scriptsize
+\begin{tabularx}{\textwidth}{@{}p{0.17\textwidth}YYYYY@{}}
+\toprule
+Mechanism & Tool/agent messaging & Portable local code & Placement and budget semantics & Epistemic authority rule & Portable execution receipts \\
+\midrule
+MCP & Native & Not its role & Implementation-specific & Not normative & Not normative \\
+A2A & Native & Not its role & Not normative & Not normative & Not normative \\
+WebAssembly/WASI & Not its role & Native & Host-defined & Not its role & Not its role \\
+Split-computing systems & Workload-specific & Model-specific & Native to optimizer & Not typical & Experimental logs \\
+PROV-O/RATS/in-toto & Evidence/provenance & Not its role & Policy-specific & Attestation-dependent & Evidence structures \\
+Recent agent-governance systems & System-specific & Varies & Partial or native & Partial & Native in some systems \\
+AUEC (this work) & Through bindings & Profile-dependent & Normative & Normative & Normative \\
+\bottomrule
+\end{tabularx}
+\end{table*}

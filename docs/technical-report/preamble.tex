@@ -1,0 +1,79 @@
+\usepackage{cmap}
+\input{glyphtounicode}
+\pdfgentounicode=1
+\usepackage{booktabs}
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\usepackage{multirow}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{url}
+\usepackage{xspace}
+\usepackage{etoolbox}
+\usepackage[hidelinks,unicode]{hyperref}
+\usepackage[nameinlink,noabbrev]{cleveref}
+\usepackage{balance}
+
+\ifdefined\pdftrailerid
+  \pdftrailerid{AUEC-v0.35.0-prestandard-public-technical-report}
+\fi
+
+\usetikzlibrary{arrows.meta,positioning,fit,shapes.geometric,calc,backgrounds}
+\pgfplotsset{compat=1.18}
+\interdisplaylinepenalty=2500
+\clubpenalty=10000
+\widowpenalty=10000
+\displaywidowpenalty=10000
+\emergencystretch=1em
+\setlist[itemize,enumerate]{nosep,leftmargin=*,topsep=2pt}
+\setlist[description]{style=multiline,leftmargin=11mm,labelwidth=10mm,nosep,topsep=2pt}
+\renewcommand{\arraystretch}{1.08}
+\hyphenation{AUEC AIEW Web-Assembly inter-operability canonical-ization author-ization epistemic}
+
+\definecolor{aiewgray}{RGB}{92,98,106}
+\definecolor{aiewlight}{RGB}{242,244,247}
+\definecolor{aiewdark}{RGB}{32,36,42}
+\lstdefinelanguage{AUECJSON}{%
+  basicstyle=\ttfamily\scriptsize,
+  string=[s]{"}{"},
+  stringstyle=\color{black},
+  comment=[l]{//},
+  commentstyle=\color{aiewgray},
+  breaklines=true,
+  showstringspaces=false,
+  columns=fullflexible,
+  keepspaces=true
+}
+\lstset{language=AUECJSON,frame=single,rulecolor=\color{aiewgray!45},backgroundcolor=\color{aiewlight}}
+
+\newcommand{\AIEW}{\textsc{AIEW}\xspace}
+\newcommand{\AUEC}{\textsc{AUEC}\xspace}
+\newcommand{\Uzero}{\textsc{U0}\xspace}
+\newcommand{\claimkind}{\texttt{claim}}
+\newcommand{\factkind}{\texttt{fact}}
+\newcommand{\hypkind}{\texttt{hypothesis}}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\reportversion}{0.35.0-prestandard}
+\newcommand{\evidenceid}{EB-2026-08-02}
+\newcommand{\evidencehash}{\texttt{e8d07f31\allowbreak 08bfaae7\allowbreak 3b165c66\allowbreak 3ba29930\allowbreak 57d6fc84\allowbreak 4931f85e\allowbreak f74b3dd5\allowbreak b187c59c}}
+\newcommand{\RepositoryURL}{}
+\newcommand{\ReportDOI}{}
+\newcommand{\releasecoordinates}{%
+  \ifstrempty{\RepositoryURL}{}{Repository: \url{\RepositoryURL}.\space}%
+  \ifstrempty{\ReportDOI}{}{DOI: \href{https://doi.org/\ReportDOI}{\ReportDOI}.}%
+}
+\providecommand{\Description}[1]{}
+
+\crefname{figure}{Fig.}{Figs.}
+\Crefname{figure}{Fig.}{Figs.}
+\crefname{table}{Table}{Tables}
+\Crefname{table}{Table}{Tables}
+\crefname{section}{Section}{Sections}
+\Crefname{section}{Section}{Sections}
+\crefname{equation}{Eq.}{Eqs.}
+\Crefname{equation}{Equation}{Equations}

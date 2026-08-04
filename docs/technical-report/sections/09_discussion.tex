@@ -1,0 +1,24 @@
+\section{Discussion}
+\label{sec:discussion}
+
+\subsection{A contract layer rather than another transport}
+A practical standards path should extend adopted protocols rather than introduce another network stack. MCP already provides discovery and tool invocation and a formal Specification Enhancement Proposal process \cite{MCPSEP2025}; A2A provides agent discovery, messages, tasks, and artifacts. \AUEC adds optional execution semantics that can be negotiated through those transports. Offline and browser bindings remain possible without making any binding normative for the contract itself.
+
+\subsection{From the IAScript intuition to an authority contract}
+The project began with a JavaScript-like intuition: a remote AI service should be able to describe portable work that heterogeneous local user agents understand. That intuition survives as an authoring and interoperability goal, but it is not an adequate security boundary. Sending general-purpose remote code would reproduce the very authority problem the design is meant to solve.
+
+A future IAScript-style language can therefore serve as a developer-facing syntax that compiles to an AUEC manifest. The host executes only the admitted contract, not the source language's apparent intent. The distinctive contribution is not declarative policy or capability intersection in isolation. It is the placement of epistemic validation at the same boundary that narrows capabilities, placement, egress, budgets, and effects, followed by portable execution evidence. This design addresses a proposer that may be probabilistic, mistaken, or prompt-injected.
+
+\subsection{Adoption incentives}
+Provider GPU savings are not assumed to be the primary incentive. More immediate motivations are data minimization, offline operation, latency, predictable API expenditure, organizational control, and auditable delegated work. These benefits can be pursued without exposing model internals or modifying the remote model.
+
+\subsection{Performance and quality}
+Local--cloud partitioning can reduce bandwidth, latency, energy, or cloud-token use, but the optimum depends on workload and may reduce quality \cite{Kang2017,Li2018,Matsubara2022,LocalSplitter2026}. The base profile does not prescribe an optimizer. It supplies hard constraints and evidence around which an optimizer can be evaluated. A provider-authorized study should compare cloud-only, local-preprocessing, and hybrid modes on paired workloads, measuring task quality, latency, tokens, energy, privacy leakage, and erroneous local-routing decisions.
+
+\subsection{Standardization strategy}
+A staged process is more credible than a single broad proposal. The first release should publish U0 manifests, canonicalization rules, receipts, and authority vectors. Independent implementations should precede any representation freeze. A narrow MCP extension can then negotiate contract metadata, while an A2A extension note preserves generic messages. A WASI component profile should follow only when host capabilities, cancellation, and preemption are testable. Protocol conformance must remain separate from production security certification.
+
+Combining a transport, authoring language, runtime, economic model, and split-inference mechanism in one proposal would make both review and adoption unnecessarily difficult.
+
+\subsection{Artifact publication and licensing}
+The release separates the open contract from its reference implementation: narrative specifications and documentation use CC BY 4.0, separable interoperability material uses Apache-2.0, and the reference runtime uses AGPL-3.0-only. The specification can therefore be implemented independently without reusing the reciprocal runtime. This distribution choice is not evidence of legal novelty or standards adoption.

@@ -1,0 +1,38 @@
+\section{Evaluation Methodology}
+\label{sec:evaluation}
+
+The evaluation asks whether the tested deterministic contract is compatible with existing protocol bindings and whether selected conformance outcomes are causally sensitive to the implementation mechanisms claimed. End-to-end utility and production security are outside the study defined in \Cref{sec:scope}.
+
+\subsection{Use of AI tools in the research workflow}
+OpenAI ChatGPT and Codex assisted with literature discovery and synthesis, initial drafting, reference-runtime and test generation, debugging, evidence organization, \LaTeX{} preparation, and deterministic artifact automation. Their outputs were treated as candidate material rather than evidence. Protocol counts were taken from sealed execution records; claims were checked against the claim--evidence matrix and cited primary sources. The human author selected the research questions, accepted or rejected proposed changes, and remains responsible for the report.
+
+\subsection{Research questions}
+\begin{itemize}
+  \item \textbf{RQ1 - Binding compatibility:} Can one gateway satisfy unchanged official MCP scenarios for the tested stable, 2026-07-28 release-candidate, and associated draft profiles while preserving strict manifest admission?
+  \item \textbf{RQ2 - Causal sensitivity:} Do selected green outcomes become red when the corresponding implementation mechanisms are disabled?
+  \item \textbf{RQ3 - Evidence integrity:} Are incompatible or incomplete results retained rather than hidden in expected-failure baselines?
+  \item \textbf{RQ4 - Claim boundary:} Which conclusions follow from conformance evidence, and which require independent, production, or provider-level experiments?
+\end{itemize}
+
+\subsection{Evidence-bundle admission}
+The study uses sealed Evidence Bundle \evidenceid{}, identified by SHA-256 \evidencehash. The bundle contains exact runner packages and lockfiles used to execute official scenarios without local modifications. No expected-failure baseline was configured. Raw standard output, standard error, per-profile summaries, and release decisions are retained.
+
+\subsection{Official MCP profiles}
+The profiles were executed separately:
+\begin{itemize}
+  \item MCP revision 2025-11-25, active scenarios, official runner 0.1.16;
+  \item MCP 2026-07-28 release-candidate profile, active scenarios, official runner 0.2.0-alpha.10;
+  \item the associated tested draft scenario set from the same pinned runner.
+\end{itemize}
+The separation prevents a combined count from being interpreted as evidence for a particular revision. Exact scenario registries are archived with the bundle.
+
+\subsection{Causal negative controls}
+A green suite is weak evidence when the relevant code path is not exercised. Four isolated mutations are therefore applied to disposable SUT copies while preserving each scenario's preconditions: the strict manifest executor is placed first in the tool list; HTTP optional-whitespace removal is disabled; \code{InputRequiredResult} is disabled; and subscription handling is broken while the capability remains advertised. The targeted scenario must fail for each mutation, after which the unmodified implementation is restored and rerun. These controls test four mechanisms rather than the runner as a whole.
+
+\subsection{A2A preservation test}
+The pinned upstream A2A TCK is executed unchanged for JSON-RPC and HTTP+JSON. No local patch is labeled official. Failures and skips remain in the report, so unfavorable evidence is not redefined during publication preparation.
+
+\subsection{Metrics and decision rules}
+For MCP, we record runner identity, profile, scenario count, success, failure, informational checks, and expected-failure configuration. Each negative control records the mutation, targeted scenario, observed failure, and post-restoration result. A2A results retain pass, fail, and skip counts without turning non-applicable tests into evidence of conformance.
+
+RQ1 is supported only when all applicable official MCP checks pass with no expected-failure baseline. RQ2 requires a single-mechanism mutation to turn its target red and restoration to return it to green. RQ3 requires preservation of the red A2A record. RQ4 is answered through the claim--evidence matrix, which distinguishes executed, implementation-supported, proposed, inherited, red, and blocked evidence.

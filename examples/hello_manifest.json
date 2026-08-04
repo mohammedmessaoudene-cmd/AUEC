@@ -1,0 +1,40 @@
+{
+  "auecVersion": "0.1",
+  "manifestId": "aiew-public-hello",
+  "profile": "U0-pure",
+  "resources": {
+    "message": {
+      "classification": "public",
+      "value": "hello AIEW"
+    }
+  },
+  "budgets": {
+    "maxNodes": 2,
+    "maxOutputBytes": 4096,
+    "maxWallMs": 1000
+  },
+  "nodes": [
+    {
+      "id": "hash",
+      "op": "hash.sha256",
+      "inputs": {
+        "value": {
+          "resource": "message"
+        }
+      },
+      "params": {},
+      "effect": "pure",
+      "placement": {
+        "allowed": [
+          "local"
+        ],
+        "preferred": "local"
+      },
+      "output": {
+        "epistemic": "fact",
+        "classification": "public",
+        "export": true
+      }
+    }
+  ]
+}

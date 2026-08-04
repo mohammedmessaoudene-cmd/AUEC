@@ -1,0 +1,22 @@
+{
+  "schema": "aiew.eb-2026-08-02.os-matrix.v1",
+  "windows": {
+    "status": "PASS_NATIVE_EXECUTED",
+    "caption": "Microsoft Windows 11 Professionnel",
+    "version": "10.0.26200",
+    "build": "26200",
+    "architecture": "64 bits",
+    "python": "3.11.9"
+  },
+  "linux_vm_or_bare_metal": {
+    "status": "BLOCKED",
+    "probe": "HCS_E_HYPERV_NOT_INSTALLED",
+    "hypervisor_present": false,
+    "inherited_container_evidence": "NOT_PROMOTED"
+  },
+  "actual_macos": {
+    "status": "BLOCKED",
+    "reason": "No actual macOS host available"
+  },
+  "three_os_gate": "BLOCKED"
+}

@@ -1,0 +1,23 @@
+\section{Security Analysis}
+\label{sec:security}
+
+\subsection{The planner is an untrusted proposer}
+The planner never owns host policy. A model-generated manifest, prompt-injected document, or compromised cloud account cannot create authority merely by naming it. A host may expose a bounded resource handle, but the manifest cannot convert that handle into arbitrary path access. Text such as ``ignore policy'' remains data and has no effect on dispatch.
+
+\subsection{Parser and graph boundary}
+Manifests are bounded by byte length, nesting depth, item count, node count, output size, and wall time. The parser rejects duplicate keys, floating-point and non-finite values, unsafe integers, invalid Unicode, and unknown normative fields. Graph validation rejects cycles and unresolved references before execution. These controls reduce ambiguity and amplification; they do not eliminate denial-of-service risks in richer profiles.
+
+\subsection{Capabilities and effects}
+\Uzero admits pure operations under local placement and exposes no ambient filesystem, network, process, model, device, or accelerator interface. Capability-bearing profiles require separately specified host interfaces. WebAssembly's embedder-controlled environment is a suitable substrate for portable components, but host imports and embedder configuration remain part of the trusted computing base \cite{W3CWasm2026}.
+
+\subsection{Information flow and egress}
+Classification monotonicity prevents explicit downgrading, and \textsf{secret} egress is disallowed in the base profile. These rules do not prove noninterference. Timing, output length, access patterns, error behavior, embeddings, and future model interfaces may leak information. Production profiles require side-channel analysis and explicit, testable declassification procedures.
+
+\subsection{Epistemic and action safety}
+The rule \claimkind~$\neq$ authority addresses a recurrent agent hazard: a probabilistic statement can be syntactically valid and still false. It is an authorization rule, not a hallucination detector. U0 enforces the conservative base case by excluding claims and hypotheses from executable outputs and allowing only pure effects. Richer profiles would need an explicit verifier and action-bound authorization path. When human approval is required, consent must bind the exact action digest.
+
+\subsection{Receipt guarantees and limits}
+Given deterministic canonicalization, collision resistance, and an authentic terminal digest, the receipt chain detects internal modification, insertion, deletion, and reordering of a complete execution record. It does not establish freshness, prevent rollback to an older complete chain, or attest platform integrity. Persistent replay state, signatures, trusted time, and RATS-style appraisal are separate layers \cite{RFC9334}.
+
+\subsection{Residual risk}
+The artifact is not a production sandbox. It lacks an external penetration test, an independently developed implementation, independently signed builds, and a production-grade multi-tenant review. A compromised operating system can subvert policy enforcement and receipts. A deterministic operation may also be reproducible yet undesirable when the admission policy is wrong. These limitations preclude production deployment at this stage.

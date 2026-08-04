@@ -1,0 +1,21 @@
+\title{AUEC: A Contract Layer for Verifiable\\Hybrid AI Execution}
+
+\author{Mohammed Messaoudene%
+\thanks{M. Messaoudene is a Maître de conférences B (MCB) at Belhadj Bouchaib University of Ain Temouchent, Ain Temouchent, Algeria (e-mail: mohammed.messaoudene@univ-temouchent.edu.dz; ORCID: 0009-0007-4665-2548). This affiliation identifies the author's academic appointment only and does not imply sponsorship, collaboration, or endorsement by the university.}}
+
+\markboth{AUEC Technical Report, v0.35.0-prestandard, August 2026}%
+{Messaoudene: A Contract Layer for Verifiable Hybrid AI Execution}
+
+\hypersetup{
+  pdfauthor={Mohammed Messaoudene},
+  pdftitle={AUEC: A Contract Layer for Verifiable Hybrid AI Execution},
+  pdfsubject={Technical report for a research pre-standard; not peer reviewed},
+  pdfkeywords={AUEC, AIEW, hybrid AI execution, host authority, epistemic non-escalation, tamper-evident receipts, MCP, A2A}
+}
+\pdfinfo{/Author (Mohammed Messaoudene)}
+
+\newcommand{\AUECAbstract}{%
+AI agents increasingly bridge remote models and local resources. Protocols such as MCP and A2A standardize discovery and invocation, while the authority semantics of hybrid execution remain largely product-specific: what data may be read, where an operation may run, which effects and egress are allowed, which budgets apply, how a result should be interpreted, and what evidence remains after execution. This report presents the AI Universal Execution Contract (AUEC), a transport-independent layer for bounded delegation. A remote planner submits a declarative execution graph; a host-controlled user agent derives the effective contract by intersecting that proposal with local capability, placement, information-flow, egress, and budget policies. AUEC separates epistemic status, representation, and information classification, and prevents an unvalidated claim from acquiring execution authority. Its deterministic U0 profile admits pure operations and emits canonical, hash-linked receipts. A Python reference runtime exposes MCP, A2A, and transport-neutral HTTP bindings. Pinned, unmodified official MCP runners pass 39/39 applicable checks for revision 2025-11-25, 22/22 for the tested 2026-07-28 release-candidate profile, and 85/85 for the associated tested draft suite. Four isolated negative controls each make the corresponding scenario fail and return it to success after restoration. Unmodified A2A testing remains incomplete (79/80 JSON-RPC and 76/78 HTTP+JSON). The artifact supports compatibility for the tested deterministic contract and causal sensitivity for four mechanisms; production security and end-to-end utility remain outside this evaluation.}
+
+\newcommand{\AUECKeywords}{%
+hybrid AI execution, protocol interoperability, host authority, capability security, epistemic non-escalation, information flow, provenance, tamper-evident receipts, MCP, A2A}

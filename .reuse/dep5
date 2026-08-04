@@ -1,0 +1,15 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: AIEW/AUEC
+Source: REPOSITORY_URL_TO_SET
+
+Files: reference-runtime/* reference-runtime/** tests/* examples/run_example.py
+Copyright: 2026 Mohammed Messaoudene
+License: AGPL-3.0-only
+
+Files: schemas/* schemas/** tck/* tck/** sdk/* sdk/** bindings/* bindings/** examples/*.json scripts/*.py .github/* .github/**
+Copyright: 2026 Mohammed Messaoudene
+License: Apache-2.0
+
+Files: docs/* docs/** standards/* standards/** paper/* paper/** *.md prompts/* prompts/**
+Copyright: 2026 Mohammed Messaoudene
+License: CC-BY-4.0

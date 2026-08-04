@@ -1,0 +1,21 @@
+\section{Reproducibility and Artifact Availability}
+\label{sec:artifact}
+
+The release candidate contains three public layers: the report sources, bibliography, figures, and claim--evidence matrix; a repository candidate containing the specification, reference runtime, examples, and public tests; and selected conformance summaries with checksums identifying the underlying forensic record.
+
+Evidence Bundle \evidenceid{} has SHA-256 \evidencehash. The repository candidate includes the official MCP summary, negative-control report, A2A report, operating-system matrix, and machine-readable validation summary. Public smoke tests exercise successful execution and receipt verification, secret-egress rejection, duplicate-key rejection, canonical floating-point rejection, and the pure local default policy.
+
+\ifdefempty{\RepositoryURL}{%
+Release coordinates are omitted from this private review build and are injected only after separate GitHub and Zenodo publication authorization.%
+}{%
+The public repository is \url{\RepositoryURL}. \ifdefempty{\ReportDOI}{}{The archived release is identified by DOI \href{https://doi.org/\ReportDOI}{\ReportDOI}.}%
+}
+
+\subsection{Reproduction commands}
+From the repository root:
+\begin{lstlisting}
+make test
+make technical-report
+make audit
+\end{lstlisting}
+The prepared CI workflow executes the tests and report build on a clean Linux runner. The claim--evidence matrix labels each assertion as executed, implementation-supported, proposed, inherited, red, or blocked.

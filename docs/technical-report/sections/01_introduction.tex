@@ -1,0 +1,32 @@
+\section{Introduction}
+\label{sec:introduction}
+
+\IEEEPARstart{R}{emote} AI services can already ask local agents to read files, execute tests, or invoke applications. The unresolved problem is the portable meaning of those actions. Across providers and hosts, the same request should answer the same questions: Which resources may be accessed? Which effects are permitted? Where may each operation run? What resource limits apply? How should a result be interpreted? What evidence can another implementation verify after the run?
+
+Most deployed agent loops keep these semantics inside product-specific code. A tool descriptor names an operation, a model selects it, and a host decides whether to invoke it. That arrangement enables rapid deployment, but it leaves authority, placement, and audit meaning outside the interoperability boundary. A successful tool call does not reveal whether the returned value is deterministic or probabilistic. A local audit log may be useful to one product without being portable to another. Transport success may also be mistaken for policy acceptance after the host has narrowed or rejected the proposed work.
+
+The original design question behind the broader \emph{AI Execution Web} (\AIEW) was whether AI services need an analogue of the Web's portable client-side execution model. The analogy is useful only if authority remains local. JavaScript mattered because independently implemented user agents converged on a shared execution model, not merely because browsers consumed client CPU. \AUEC carries that portability objective into AI delegation while replacing raw remote code with a bounded proposal. A host-controlled user agent validates the proposal, intersects it with local policy, and admits only the resulting contract.
+
+\AUEC occupies a semantic layer above existing transports and below application-specific planners and executors. MCP is the primary binding studied here; A2A provides an additional agent-to-agent path. Later profiles may use WebAssembly and WASI as execution substrates. The contract binds a proposed computation to host authority, information-flow rules, resource limits, result semantics, and portable evidence without redefining the transport or virtual machine.
+
+Here, \emph{verifiable} means that another implementation can check admission decisions, canonical result encodings, and receipt continuity under explicit assumptions. The term does not imply semantic truth, an uncompromised executor, or remote platform attestation.
+
+\subsection{Problem statement}
+A remote planner proposes work to a heterogeneous host. The planner may be correct, buggy, compromised, or influenced by untrusted context; the host owns the local data and resources and remains the final authority. The research problem is to define a provider-neutral contract that (i) describes a useful deterministic subset of hybrid work, (ii) cannot widen host authority or weaken data restrictions, (iii) distinguishes epistemic status from representation and confidentiality, and (iv) preserves the same contract semantics across transport bindings while exposing testable evidence.
+
+\subsection{Contributions}
+The report makes five bounded contributions.
+\begin{enumerate}
+  \item \textbf{A hybrid-execution contract.} A declarative directed acyclic graph specifies operations, inputs, requested effects, admissible placements, result metadata, data classification, and resource budgets. Effective authority is derived by intersecting the remote proposal with host policy.
+  \item \textbf{Epistemic non-escalation.} Deterministic facts, probabilistic claims, and hypotheses are separated from representation and confidentiality metadata. A value may influence consequential authority only after authorization-time validation and any action-bound consent required by the host.
+  \item \textbf{Portable tamper-evident evidence.} Canonical encodings and hash-linked node receipts bind a run to its manifest, inputs, outputs, placement, effect, and predecessor.
+  \item \textbf{A reference implementation over existing bindings.} A deterministic \Uzero profile is exposed through MCP, A2A, and HTTP without allowing transport metadata to widen host policy.
+  \item \textbf{A falsifiable conformance study.} Unchanged official MCP runners are paired with four causal negative controls. Incomplete A2A results remain visible rather than being relabeled as expected failures.
+\end{enumerate}
+
+\subsection{Contribution boundary and non-claims}
+\label{sec:scope}
+The individual ingredients have substantial prior art: capability systems, policy intersection, resource budgets, information-flow lattices, cryptographic logs, portable execution, and agent protocols all predate this work. The contribution evaluated here is their composition into one transport-independent contract for a probabilistic remote proposer: host policy determines effective authority; epistemic validation constrains which values may authorize effects; and canonical receipts preserve execution evidence across bindings. The study does not establish production isolation, provider cost savings, semantic truth of model outputs, legal novelty, or adoption by a standards body.
+
+\subsection{Paper organization}
+\Cref{sec:background} positions the work relative to portable execution, agent protocols, recent agent-governance systems, local--cloud partitioning, capability security, and provenance. \Cref{sec:model} defines the roles, adversary, and requirements. \Cref{sec:design} presents the contract and its invariants. \Cref{sec:implementation} describes the reference runtime and bindings. \Cref{sec:evaluation,sec:results} give the evaluation method and results. \Cref{sec:security,sec:discussion,sec:validity} discuss security, implications, and limitations, and \Cref{sec:artifact} documents reproducibility.

@@ -1,0 +1,6 @@
+path_pattern,source_basis,rights_status,license,commercial_alternative
+reference-runtime/**,project-controlled reference implementation,author-asserted pending final rights review,AGPL-3.0-only,limited to demonstrably controlled files
+tests/**,runtime-coupled tests,author-asserted pending final rights review,AGPL-3.0-only,limited to demonstrably controlled files
+schemas/**;tck/**;sdk/**;bindings/**,separable interoperability material,author-asserted pending third-party notice review,Apache-2.0,no promise for third-party contributions
+docs/**;standards/**,specification and narrative material,author-asserted pending final rights review,CC-BY-4.0,not applicable
+LICENSES/**,canonical license texts,third-party license texts retained,LicenseRef-License-Text,not applicable

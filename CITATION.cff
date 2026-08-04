@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+message: "If you use AIEW/AUEC, please cite this software release and its technical report."
+title: "AIEW/AUEC: Verifiable Hybrid AI Execution"
+type: software
+version: "0.35.0-prestandard"
+date-released: "2026-08-04"
+repository-code: "https://github.com/mohammedmessaoudene-cmd/AUEC"
+abstract: >-
+  A provider- and transport-neutral research pre-standard and reference
+  runtime for bounded, verifiable hybrid execution between remote AI systems
+  and host-controlled local agents. Licensing is assigned by path: CC-BY-4.0
+  for specifications and narrative documentation, Apache-2.0 for separable
+  interoperability material, and AGPL-3.0-only for the reference runtime.
+authors:
+  - family-names: Messaoudene
+    given-names: Mohammed
+    affiliation: "Belhadj Bouchaib University of Ain Temouchent, Algeria"
+    email: "mohammed.messaoudene@univ-temouchent.edu.dz"
+    orcid: "https://orcid.org/0009-0007-4665-2548"
+keywords:
+  - artificial intelligence
+  - hybrid execution
+  - Model Context Protocol
+  - WebAssembly
+  - verifiable computing
+  - edge AI
+  - standardization

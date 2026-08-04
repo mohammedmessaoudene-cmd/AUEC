@@ -1,0 +1,16 @@
+{
+  "schema": "aiew.eb-2026-08-02.final-validation.v1",
+  "BUILD-21_admission": "PASS_WITH_MISSING_PHYSICAL_SIDECAR_DOCUMENTED",
+  "mcp_stable": "39/39 PASS",
+  "mcp_final": "22/22 PASS",
+  "mcp_draft": "85/85 PASS",
+  "official_negative_controls": "4/4 PASS",
+  "BUILD-20_BUILD-21_regressions": 0,
+  "a2a_jsonrpc": "79/80",
+  "a2a_http_json": "76/78",
+  "windows": "PASS_NATIVE",
+  "linux_vm_or_bare_metal": "BLOCKED",
+  "macos": "BLOCKED",
+  "external_interop": "NO_GO",
+  "production": "NO_GO"
+}

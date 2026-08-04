@@ -1,0 +1,14 @@
+AIEW/AUEC is a mixed-license repository. No single license applies to every file.
+
+1. Reference runtime, gateway, control plane, execution engine, tightly coupled
+   modules, official server package, wheel, runtime-coupled tests, and the
+   coupled example: AGPL-3.0-only.
+2. Schemas, conformance vectors, TCK, SDK, separable protocol bindings,
+   independent interoperability examples, and build/verification utilities:
+   Apache-2.0.
+3. AUEC specification, public technical report, narrative documentation,
+   architecture explanations, diagrams, governance, and standardization
+   documents: CC BY 4.0.
+
+Canonical texts are in LICENSES/. Exact routing is in LICENSE_MAP.csv and
+LICENSING.md. Third-party notices are preserved separately.

@@ -1,0 +1,18 @@
+name: Specification proposal
+description: Propose a normative AUEC change
+body:
+  - type: textarea
+    attributes:
+      label: Problem and use case
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Proposed normative text
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Compatibility, security and test vectors
+    validations:
+      required: true

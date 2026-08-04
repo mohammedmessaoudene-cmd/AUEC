@@ -1,0 +1,32 @@
+\section{Reference Implementation}
+\label{sec:implementation}
+
+\subsection{Runtime structure}
+The reference implementation is written in Python and separates canonicalization, schema and semantic validation, operation dispatch, idempotency state, receipt verification, and protocol bindings. It neither invokes a shell nor evaluates planner-supplied Python or JavaScript. Operations are selected from a fixed registry and receive immutable, validated inputs.
+
+Admission follows the phases shown in Figure~\ref{fig:pipeline}. The order is observable: multi-fault inputs must produce stable error families. Parse and schema failures precede graph failures; graph failures precede information-flow and budget failures. Portable error families appear on the wire, while detailed implementation diagnostics remain local.
+
+\subsection{Host policy and operation registry}
+Host policy declares admitted profiles, operations, effects, placements, classification ceilings, claim-export rules, and budget maxima. The policy is loaded independently of manifest content. Runtime data cannot create authority. For example, text found in a local resource cannot enable network access or register a new operation.
+
+The default \Uzero policy admits pure local operations only. Any profile that exposes filesystem, process, network, model, accelerator, or device access must provide a separately specified host interface. Naming a capability in a manifest is insufficient to obtain it.
+
+The implementation enforces epistemic non-escalation conservatively in \Uzero: a node may emit only a deterministic value tagged \texttt{fact} or, under the legacy U0 vocabulary, \texttt{artifact}; every admitted operation declares the \texttt{pure} effect. Consequently, U0 contains no transition that turns a claim into action authority. The verification and action-bound consent transitions in Equation~\ref{eq:authority} are normative requirements for richer profiles; they are not experimentally validated by the U0 conformance study.
+
+\subsection{Persistence and idempotency}
+A SQLite/WAL store records tenants, idempotency keys, request digests, and completed results. Reusing a key with the same tenant and request returns the recorded result; reusing it with different content is rejected. A single-flight map suppresses concurrent duplicate work within one process. The implementation does not claim distributed exactly-once execution across multiple hosts.
+
+Receipt journals are hash linked and flushed before a terminal state is exposed. Earlier engineering stages include recovery and tamper tests, but journal durability is not the independent variable in the conformance study reported here.
+
+\subsection{MCP binding}
+The gateway supports the tested stable 2025-11-25 profile and the pinned 2026-07-28 profile. Ordinary MCP tools remain separate from manifest admission. A read-only, zero-argument runtime-information tool is advertised before the strict manifest executor so that a generic conformance fixture can call the first tool without weakening manifest validation. Modern paths implement request metadata, header/body consistency, input-required results, progress streams, and subscriptions.
+
+The gateway does not reinterpret protocol success as execution-contract acceptance. A manifest error remains an AUEC rejection even when the enclosing MCP request was delivered successfully.
+
+\subsection{A2A and HTTP bindings}
+The A2A gateway exposes agent discovery, JSON-RPC and HTTP+JSON operations, task lifecycle, artifacts, and optional AUEC metadata. Generic A2A messages remain valid without the extension. A transport-neutral HTTP interface supports direct experiments and isolates contract tests from protocol-specific fixtures.
+
+A2A is an incomplete evidence path in this study because the unchanged upstream TCK remains red. Locally patched TCK behavior is not reported as official conformance.
+
+\subsection{Packaging and reproducibility}
+The artifact contains pinned runner packages and lockfiles, raw conformance outputs, source archives, a wheel, an SBOM, cryptographic hashes, and deterministic ZIP construction. Evidence Bundle \evidenceid{} was executed natively on Windows 11. Linux VM or bare-metal and macOS evidence were unavailable at that checkpoint and are therefore reported as external-validity gaps.

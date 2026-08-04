@@ -1,0 +1,27 @@
+{
+  "word_count": 5648,
+  "sentence_count": 356,
+  "mean_sentence_words": 15.43,
+  "median_sentence_words": 14,
+  "max_sentence_words": 52,
+  "sentences_ge_45_words": 2,
+  "sentences_ge_60_words": 0,
+  "semicolons": 43,
+  "colons": 39,
+  "emdash_like": 0,
+  "promotional_terms": [],
+  "placeholder_terms": [],
+  "formulaic_ai_phrases": [],
+  "charged_terms": [],
+  "repeated_fivegrams_ge_4": [],
+  "long_sentences": [
+    {
+      "words": 52,
+      "text": "Architectural constraints such as statelessness and uniform interfaces likewise made interoperation a system property rather than a library convention . adopts this portability objective, but the browser threat model does not transfer unchanged: an AI planner may construct requests from untrusted documents and probabilistic inferences, so the local authority boundary must be explicit."
+    },
+    {
+      "words": 50,
+      "text": "The research problem is to define a provider-neutral contract that (i) describes a useful deterministic subset of hybrid work, (ii) cannot widen host authority or weaken data restrictions, (iii) distinguishes epistemic status from representation and confidentiality, and (iv) preserves the same contract semantics across transport bindings while exposing testable evidence. ."
+    }
+  ]
+}

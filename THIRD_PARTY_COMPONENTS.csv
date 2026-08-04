@@ -1,0 +1,7 @@
+component,version_or_profile,relationship,license_or_terms,vendored,notice_status
+Python,">=3.11",runtime platform,Python-2.0,false,not vendored
+setuptools,">=68",build dependency,MIT,false,not vendored
+wheel,unspecified,build dependency,MIT,false,not vendored
+MCP,"2025-11-25 and tested 2026-07-28 profile",interoperability target,third-party specification,false,name acknowledged
+A2A,"1.0",interoperability target,third-party specification,false,name acknowledged
+IEEEtran,report document class,paper build dependency,LaTeX Project Public License or package terms,false,not vendored in repository snapshot

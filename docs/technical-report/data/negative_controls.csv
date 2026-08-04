@@ -1,0 +1,5 @@
+mutation,scenario,success,failure,warning,outcome
+first-tool-ordering,http-header-validation,12,1,0,detected
+ows-trimming,http-header-validation,12,1,0,detected
+input-required-result,input-required-result-basic-elicitation,0,1,0,detected
+subscription-runtime,server-stateless,26,2,2,detected

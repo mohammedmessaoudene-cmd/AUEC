@@ -1,0 +1,4 @@
+profile,runner,scenarios,success,failure,info,baseline
+active-2025-11-25,0.1.16,30,39,0,1,none
+active-2026-07-28,0.2.0-alpha.10,20,22,0,1,none
+draft-2026-07-28,0.2.0-alpha.10,19,85,0,0,none

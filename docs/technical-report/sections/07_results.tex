@@ -1,0 +1,85 @@
+\section{Results}
+\label{sec:results}
+
+\subsection{Official MCP conformance}
+Table~\ref{tab:mcp-results} reports the unchanged official-runner results. A scenario may emit more than one conformance check, so the check count can exceed the scenario count. All applicable checks pass, no expected-failure baseline is configured, and the SUT standard-error logs are empty.
+
+\begin{table}[t]
+\caption{Official MCP conformance results in Evidence Bundle \evidenceid.}
+\label{tab:mcp-results}
+\centering
+\begin{tabular}{lrrrr}
+\toprule
+Profile & Scen. & Pass & Fail & Info \\
+\midrule
+2025-11-25 active & 30 & 39 & 0 & 1 \\
+2026-07-28 RC profile & 20 & 22 & 0 & 1 \\
+2026-07-28 tested draft & 19 & 85 & 0 & 0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+These counts support RQ1 for the exact runner--profile combinations listed in \Cref{sec:evaluation}. They do not imply compatibility with every MCP implementation, future revision, or optional extension.
+
+\subsection{Causal negative controls}
+Each isolated mutation made its targeted official scenario fail, and restoration returned the scenario to success (Table~\ref{tab:negative-controls}). The results show that tool ordering, optional-whitespace handling, input-required results, and subscription behavior were exercised rather than merely advertised.
+
+\begin{table*}[!t]
+\caption{Causal negative controls. S, F, and W denote success, failure, and warning checks in the mutated run.}
+\label{tab:negative-controls}
+\centering
+\scriptsize
+\begin{tabularx}{\textwidth}{@{}Y >{\raggedright\arraybackslash}p{0.34\textwidth} >{\centering\arraybackslash}p{0.14\textwidth} >{\centering\arraybackslash}p{0.08\textwidth}@{}}
+\toprule
+Disabled mechanism & Official scenario & Mutated result & Outcome \\
+\midrule
+Safe zero-argument tool ordering & \path{http-header-validation} & 12 S / 1 F & detected \\
+HTTP optional-whitespace removal & \path{http-header-validation} & 12 S / 1 F & detected \\
+\code{InputRequiredResult} & \texttt{input-required-result-basic-elicitation} & 0 S / 1 F & detected \\
+Subscription runtime while advertised & \path{server-stateless} & 26 S / 2 F / 2 W & detected \\
+\bottomrule
+\end{tabularx}
+\end{table*}
+
+The controls support RQ2 for these mechanisms; they do not establish the fault-detection power of the complete runner.
+
+\subsection{A2A results remain incomplete}
+Table~\ref{tab:a2a-results} preserves the upstream A2A results. JSON-RPC has one failure and HTTP+JSON has two. The high skip count reflects capability and transport conditions in the upstream suite; skipped tests are not counted as conformance evidence.
+
+\begin{table}[t]
+\caption{Unmodified upstream A2A TCK results retained as red evidence.}
+\label{tab:a2a-results}
+\centering
+\begin{tabular}{lrrr}
+\toprule
+Binding & Pass & Fail & Skip \\
+\midrule
+JSON-RPC & 79 & 1 & 185 \\
+HTTP+JSON & 76 & 2 & 187 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The engineering record associates the failures with upstream TCK behavior that was publicly under discussion at the evidence date. That diagnosis is not used to redefine the outcome: official A2A conformance remains unsupported. Preserving the unfavorable result supports RQ3.
+
+\subsection{Interpretation}
+The evidence supports three conclusions. The gateway interoperates with the tested official MCP profiles; the four selected mechanisms causally affect their targeted outcomes; and the artifact separates green transport conformance from unresolved A2A and external-validation gates. Claims outside that boundary remain excluded by \Cref{sec:scope}.
+
+\begin{figure}[!t]
+\centering
+\begin{tikzpicture}[
+  level/.style={draw,rounded corners,minimum width=0.94\columnwidth,text width=0.86\columnwidth,minimum height=9mm,align=center,font=\footnotesize},
+  node distance=2.5mm
+]
+\node[level,fill=aiewlight] (design) {Design invariants and unit tests\\[-1pt]\scriptsize Status: present};
+\node[level,above=of design,fill=aiewlight] (conf) {Unchanged official conformance\\[-1pt]\scriptsize Status: present for MCP};
+\node[level,above=of conf,fill=aiewlight] (causal) {Causal negative controls\\[-1pt]\scriptsize Status: present for four mechanisms};
+\node[level,above=of causal,fill=white,very thick] (external) {Independent implementation, audit, and workload pilot\\[-1pt]\scriptsize Status: not yet available};
+\draw[-{Latex[length=2mm]},thick] (design) -- (conf);
+\draw[-{Latex[length=2mm]},thick] (conf) -- (causal);
+\draw[-{Latex[length=2mm]},thick] (causal) -- (external);
+\end{tikzpicture}
+\Description{An evidence ladder progresses from design invariants and unit tests to unchanged official conformance, causal negative controls, and finally independent implementation, audit, and workload trials.}
+\caption{Evidence hierarchy used to delimit the claims.}
+\label{fig:evidence-ladder}
+\end{figure}

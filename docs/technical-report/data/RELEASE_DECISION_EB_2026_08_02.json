@@ -1,0 +1,31 @@
+{
+  "schema": "aiew.eb-2026-08-02.release-decision.v1",
+  "decision": "GO_OFFICIAL_MCP_DRAFT_APPLICABLE_EVIDENCE_CHECKPOINT",
+  "verdicts": [
+    "PASS_OFFICIAL_MCP_2025_11_25_ACTIVE",
+    "PASS_OFFICIAL_MCP_2026_07_28_ACTIVE",
+    "PASS_OFFICIAL_MCP_DRAFT_APPLICABLE",
+    "PASS_OFFICIAL_NEGATIVE_CONTROLS_4_OF_4",
+    "PASS_BUILD-20_BUILD-21_NO_REGRESSION",
+    "NO_GO_OFFICIAL_A2A_CONFORMANCE",
+    "NO_GO_EXTERNAL_INTEROP_CANDIDATE",
+    "NO_GO_U2_PRODUCTION_SECURITY",
+    "NO_GO_PRODUCTION",
+    "NO_CLAIM_STANDARD_ADOPTION",
+    "NO_CLAIM_DARPA_CERTIFICATION",
+    "LEGAL_NOVELTY_UNKNOWN"
+  ],
+  "mcp": {
+    "stable": "39/39 PASS",
+    "final": "22/22 PASS",
+    "draft": "85/85 PASS",
+    "negative_controls": "4/4 PASS"
+  },
+  "a2a": {
+    "jsonrpc": "79/80",
+    "http_json": "76/78",
+    "status": "NO_GO"
+  },
+  "external_interop": "NO_GO",
+  "production": "NO_GO"
+}
