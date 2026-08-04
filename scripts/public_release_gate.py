@@ -112,7 +112,7 @@ def main() -> int:
         "doi = 10.5281/zenodo.21796636",
         "publicationDate = 2026-08-04",
         "githubPublicationPerformed = true",
-        "zenodoPublicationPerformed = false",
+        "zenodoPublicationPerformed = true",
         "doiReserved = true",
         "journalSubmissionPerformed = false",
         "standardsSubmissionPerformed = false",
