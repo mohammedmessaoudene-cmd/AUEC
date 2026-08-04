@@ -17,8 +17,8 @@ provider-authorized workload trials remain future evidence.
 This repository is the public research pre-standard source for AUEC
 `0.35.0-prestandard`. The corresponding versioned release is published at
 <https://github.com/mohammedmessaoudene-cmd/AUEC/releases/tag/v0.35.0-prestandard>.
-The Zenodo DOI is recorded after the corresponding software deposit is
-published.
+The corresponding Zenodo software deposit is identified by
+<https://doi.org/10.5281/zenodo.21796636>.
 
 ## Mixed licensing by path
 

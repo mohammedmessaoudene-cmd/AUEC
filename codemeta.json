@@ -4,6 +4,7 @@
   "name": "AIEW/AUEC: Verifiable Hybrid AI Execution",
   "version": "0.35.0-prestandard",
   "datePublished": "2026-08-04",
+  "identifier": "https://doi.org/10.5281/zenodo.21796636",
   "codeRepository": "https://github.com/mohammedmessaoudene-cmd/AUEC",
   "description": "Mixed-license research pre-standard for bounded and verifiable hybrid AI execution.",
   "license": [

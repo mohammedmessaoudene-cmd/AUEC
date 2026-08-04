@@ -87,6 +87,8 @@ def main() -> int:
         errors.append("CITATION repository coordinate mismatch")
     if 'date-released: "2026-08-04"' not in citation:
         errors.append("CITATION release date mismatch")
+    if 'doi: "10.5281/zenodo.21796636"' not in citation:
+        errors.append("CITATION DOI mismatch")
 
     with (ROOT / "LICENSE_MAP.csv").open(encoding="utf-8", newline="") as stream:
         rows = list(csv.DictReader(stream))
@@ -107,10 +109,11 @@ def main() -> int:
     record = (ROOT / "PUBLICATION_RECORD.md").read_text(encoding="utf-8")
     for invariant in (
         "repositoryUrl = https://github.com/mohammedmessaoudene-cmd/AUEC",
+        "doi = 10.5281/zenodo.21796636",
         "publicationDate = 2026-08-04",
         "githubPublicationPerformed = true",
         "zenodoPublicationPerformed = false",
-        "doiReserved = false",
+        "doiReserved = true",
         "journalSubmissionPerformed = false",
         "standardsSubmissionPerformed = false",
         "externalContactPerformed = false",

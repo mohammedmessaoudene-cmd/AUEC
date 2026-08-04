@@ -5,6 +5,7 @@ type: software
 version: "0.35.0-prestandard"
 date-released: "2026-08-04"
 repository-code: "https://github.com/mohammedmessaoudene-cmd/AUEC"
+doi: "10.5281/zenodo.21796636"
 abstract: >-
   A provider- and transport-neutral research pre-standard and reference
   runtime for bounded, verifiable hybrid execution between remote AI systems

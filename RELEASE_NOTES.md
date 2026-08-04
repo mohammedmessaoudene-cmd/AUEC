@@ -21,4 +21,4 @@ Repository: <https://github.com/mohammedmessaoudene-cmd/AUEC>
 
 Release: <https://github.com/mohammedmessaoudene-cmd/AUEC/releases/tag/v0.35.0-prestandard>
 
-The Zenodo DOI is added after the corresponding software record is published.
+Zenodo DOI: <https://doi.org/10.5281/zenodo.21796636>
