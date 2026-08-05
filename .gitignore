@@ -7,3 +7,9 @@ build/
 dist/
 .venv/
 venv/
+docs/technical-report/main_public.aux
+docs/technical-report/main_public.bbl
+docs/technical-report/main_public.blg
+docs/technical-report/main_public.log
+docs/technical-report/main_public.out
+docs/technical-report/main_public.pdf

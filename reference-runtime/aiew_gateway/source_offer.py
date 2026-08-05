@@ -8,8 +8,8 @@ import re
 from typing import Any
 from urllib.parse import urlparse
 
-RUNTIME_VERSION = "0.35.0a1"
-RELEASE_TAG = "v0.35.0-prestandard"
+RUNTIME_VERSION = "0.36.0a1"
+RELEASE_TAG = "v0.36.0-prestandard"
 
 
 def source_offer_payload(

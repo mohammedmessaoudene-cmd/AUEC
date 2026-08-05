@@ -2,14 +2,17 @@ cff-version: 1.2.0
 message: "If you use AIEW/AUEC, please cite this software release and its technical report."
 title: "AIEW/AUEC: Verifiable Hybrid AI Execution"
 type: software
-version: "0.35.0-prestandard"
-date-released: "2026-08-04"
+version: "0.36.0-prestandard"
+date-released: "2026-08-06"
 repository-code: "https://github.com/mohammedmessaoudene-cmd/AUEC"
-doi: "10.5281/zenodo.21796636"
+url: "https://github.com/mohammedmessaoudene-cmd/AUEC/releases/tag/v0.36.0-prestandard"
+doi: "10.5281/zenodo.21815335"
 abstract: >-
   A provider- and transport-neutral research pre-standard and reference
   runtime for bounded, verifiable hybrid execution between remote AI systems
-  and host-controlled local agents. Licensing is assigned by path: CC-BY-4.0
+  and host-controlled local agents. The U0 operation-intersection and
+  epistemic-admission guards, plus a pure authorization predicate, are covered
+  by isolated causal mutations. Licensing is assigned by path: CC-BY-4.0
   for specifications and narrative documentation, Apache-2.0 for separable
   interoperability material, and AGPL-3.0-only for the reference runtime.
 authors:

@@ -6,7 +6,7 @@ treatment of capability and placement intersection, information-flow and
 budget constraints, epistemic validation at the authorization boundary, and
 portable tamper-evident execution receipts.
 
-Status: `0.35.0-prestandard`. This is a research pre-standard and reference
+Status: `0.36.0-prestandard` research pre-release. This is a research pre-standard and reference
 implementation. It is not an adopted standard, a production security
 certification, or an endorsed project. The preserved A2A results remain
 incomplete. Independent implementations, external security review, and
@@ -14,11 +14,19 @@ provider-authorized workload trials remain future evidence.
 
 ## Publication status
 
-This repository is the public research pre-standard source for AUEC
-`0.35.0-prestandard`. The corresponding versioned release is published at
+The historical public source AUEC `0.35.0-prestandard` remains available at
 <https://github.com/mohammedmessaoudene-cmd/AUEC/releases/tag/v0.35.0-prestandard>.
-The corresponding Zenodo software deposit is identified by
+Its Zenodo software deposit is identified by
 <https://doi.org/10.5281/zenodo.21796636>.
+
+Version `0.36.0-prestandard`, released at
+<https://github.com/mohammedmessaoudene-cmd/AUEC/releases/tag/v0.36.0-prestandard>
+and archived under <https://doi.org/10.5281/zenodo.21815335>, adds causal
+mutation evidence for the U0 host-operation intersection and
+epistemic-admission guards. It also includes a
+pure authorization predicate that evaluates epistemic status, independent
+validation, host effect policy, and action-bound consent without executing an
+external effect.
 
 ## Mixed licensing by path
 
@@ -47,6 +55,8 @@ python scripts/check_claims.py
 python scripts/scientific_release_gate.py
 python scripts/style_audit.py
 python scripts/public_release_gate.py
+python scripts/run_core_semantic_mutations.py
+python scripts/run_bounded_models.py
 ```
 
 The technical report and reproducible sources are in

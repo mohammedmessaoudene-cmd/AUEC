@@ -4,9 +4,9 @@ This report is a mechanical diagnostic, not a detector of human or AI authorship
 
 ## Metrics
 
-- Words (detex approximation): **5648**
-- Sentences: **356**
-- Mean sentence length: **15.43 words**
+- Words (detex approximation): **6358**
+- Sentences: **398**
+- Mean sentence length: **15.56 words**
 - Median sentence length: **14 words**
 - Longest sentence: **52 words**
 - Sentences at least 45 words: **2**

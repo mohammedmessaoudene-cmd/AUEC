@@ -6,7 +6,7 @@ MCP 2025-11-25, A2A 1.0 JSON-RPC, HTTP+JSON, and browser-adapter surfaces.
 It is an engineering alpha, not a production security boundary.
 """
 
-__version__ = "0.35.0a1"
+__version__ = "0.36.0a1"
 
 from .core import GatewayState
 from .server import GatewayHTTPServer, create_server

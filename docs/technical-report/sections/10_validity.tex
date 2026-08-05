@@ -5,16 +5,16 @@
 Conformance checks measure protocol behavior rather than full security, usability, utility, or semantic correctness. A \factkind{} denotes a deterministic result under an operation's semantics; it is not a formal assertion of real-world truth.
 
 \paragraph{Internal validity}
-The implementation and most supporting engineering were produced within one program, creating a risk of common-mode assumptions. Unchanged external runners reduce that risk but do not eliminate it. The four negative controls show that their target mechanisms are exercised; they do not establish comprehensive mutation adequacy.
+The implementation and most supporting engineering were produced within one program, creating a risk of common-mode assumptions. Unchanged external runners reduce that risk but do not eliminate it. The four transport controls and three semantic controls show that their target mechanisms are exercised; they do not establish comprehensive mutation adequacy. The mutation harness, tests, and SUT were prepared within the same project.
 
 \paragraph{External validity}
 The results apply to the listed MCP runner versions and the Python reference gateway. They do not establish compatibility with all SDKs, operating systems, browsers, or providers. Evidence Bundle \evidenceid{} includes native Windows execution; Linux VM or bare-metal and macOS remained unavailable at that checkpoint.
 
 \paragraph{Conclusion validity}
-The MCP and A2A counts are exact artifact observations. No statistical inference is drawn from them, and results from local-routing or split-computing literature are not reinterpreted as measurements of AUEC.
+The MCP and A2A counts are exact historical artifact observations. The 345 model cases are exhaustive only over the declared finite domains. No statistical inference is drawn from either category, and results from local-routing or split-computing literature are not reinterpreted as measurements of AUEC.
 
 \paragraph{Artifact validity}
-Sealed archives, hashes, lockfiles, and raw outputs improve traceability but cannot show that the development host was uncompromised. The provenance is local and unsigned. Independent builds and transparency logs remain external gates.
+Sealed archives, hashes, lockfiles, exact mutation diffs, executed-line traces, and raw outputs improve traceability but cannot show that the development host was uncompromised. Statement-line coverage is measured with an internal AST-and-trace method; branch coverage is not reported. The provenance is local and unsigned. Independent builds and transparency logs remain external gates.
 
 \paragraph{Standards evolution}
 MCP, A2A, WASI, and browser-agent interfaces evolve rapidly. A transport-neutral contract reduces coupling, but each binding still requires maintenance as upstream wire shapes and conformance scenarios change.

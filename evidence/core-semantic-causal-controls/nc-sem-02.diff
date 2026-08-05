@@ -1,0 +1,11 @@
+--- a/reference-runtime/aiew_uc/model.py
++++ b/reference-runtime/aiew_uc/model.py
+@@ -264,7 +264,7 @@
+         _keys(output, required={"epistemic", "classification", "export"}, allowed={"epistemic", "classification", "export"}, name="output")
+         if output["epistemic"] not in EPISTEMIC:
+             raise AUECError("E_SCHEMA", "invalid epistemic kind")
+-        if output["epistemic"] not in {"fact", "artifact"}:
++        if output["epistemic"] not in {"fact", "artifact", "claim"}:
+             raise AUECError("E_EPISTEMIC", "deterministic U0 operations emit only fact or artifact")
+         _classification(output["classification"], "output classification")
+         _exact_bool(output["export"], "output.export")

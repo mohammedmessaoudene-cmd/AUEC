@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.36.0-prestandard - 2026-08-06
+
+- added isolated causal mutations for host-operation intersection and U0
+  epistemic admission;
+- added a pure executable authorization predicate covering epistemic status,
+  independent validation, host effect policy, and digest-bound consent;
+- checked 345 cases over explicitly declared finite capability, placement,
+  budget, and authority domains with no counterexample;
+- separated official protocol conformance, transport-mechanism controls,
+  internal core-semantic controls, and bounded-model evidence;
+- preserved the historical `0.35.0-prestandard` tag, assets, and Zenodo record;
+- published as a GitHub pre-release and as a Zenodo `New version` derived
+  from the historical 0.35.0 record.
+
 ## 0.35.0-prestandard - 2026-08-04
 
 - introduced the public AUEC semantic-version identity;

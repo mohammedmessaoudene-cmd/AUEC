@@ -43,6 +43,27 @@ Subscription runtime while advertised & \path{server-stateless} & 26 S / 2 F / 2
 
 The controls support RQ2 for these mechanisms; they do not establish the fault-detection power of the complete runner.
 
+\subsection{Core-semantic causal controls}
+Table~\ref{tab:semantic-controls} reports the three internal semantic controls. In each case the unmodified implementation rejects the prohibited input, one exact mutation enables it, the focused safety test fails on the executed target line, and the original source returns to the same rejection after the temporary copy is discarded.
+
+\begin{table*}[!t]
+\caption{Core-semantic causal controls. These are internal AUEC tests, not official MCP or A2A conformance.}
+\label{tab:semantic-controls}
+\centering
+\scriptsize
+\begin{tabularx}{\textwidth}{@{}p{0.12\textwidth}Y Y Y p{0.11\textwidth}@{}}
+\toprule
+Control & Baseline & Single mutant & Restored & Result \\
+\midrule
+NC-SEM-01 & Host removes \code{hash.sha256}; \code{E\_OPERATION} & Host membership check removed; operation succeeds & \code{E\_OPERATION} & red/green \\
+NC-SEM-02 & U0 output tagged \code{claim}; \code{E\_EPISTEMIC} & \code{claim} added to the U0 admission set; node succeeds & \code{E\_EPISTEMIC} & red/green \\
+NC-SEM-03 & Consequential decision based on \code{claim}; denied & Predicate treats \code{claim} as \code{fact}; authorized & denied & red/green \\
+\bottomrule
+\end{tabularx}
+\end{table*}
+
+The finite checker reports 64 capability pairs, 96 planner-capability additions, 64 placement pairs, 25 budget pairs, and 96 authority states: 345 checked cases in total and no counterexample. Of the authority states, three consequential cases are authorized, each satisfying fact status, independent validation, host effect admission, and the declared consent condition. These counts support RQ5 only for the published finite domains and implementation paths.
+
 \subsection{A2A results remain incomplete}
 Table~\ref{tab:a2a-results} preserves the upstream A2A results. JSON-RPC has one failure and HTTP+JSON has two. The high skip count reflects capability and transport conditions in the upstream suite; skipped tests are not counted as conformance evidence.
 
@@ -63,7 +84,7 @@ HTTP+JSON & 76 & 2 & 187 \\
 The engineering record associates the failures with upstream TCK behavior that was publicly under discussion at the evidence date. That diagnosis is not used to redefine the outcome: official A2A conformance remains unsupported. Preserving the unfavorable result supports RQ3.
 
 \subsection{Interpretation}
-The evidence supports three conclusions. The gateway interoperates with the tested official MCP profiles; the four selected mechanisms causally affect their targeted outcomes; and the artifact separates green transport conformance from unresolved A2A and external-validation gates. Claims outside that boundary remain excluded by \Cref{sec:scope}.
+The evidence supports four separated conclusions. Historical official-runner records support compatibility for their exact MCP profiles. Four selected transport mechanisms causally affect their direct probes. The three AUEC semantic guards are sensitive to exact single mutations, and the declared finite models contain no counterexample. None of these results changes the unresolved A2A and external-validation gates. Claims outside that boundary remain excluded by \Cref{sec:scope}.
 
 \begin{figure}[!t]
 \centering
@@ -71,15 +92,17 @@ The evidence supports three conclusions. The gateway interoperates with the test
   level/.style={draw,rounded corners,minimum width=0.94\columnwidth,text width=0.86\columnwidth,minimum height=9mm,align=center,font=\footnotesize},
   node distance=2.5mm
 ]
-\node[level,fill=aiewlight] (design) {Design invariants and unit tests\\[-1pt]\scriptsize Status: present};
-\node[level,above=of design,fill=aiewlight] (conf) {Unchanged official conformance\\[-1pt]\scriptsize Status: present for MCP};
-\node[level,above=of conf,fill=aiewlight] (causal) {Causal negative controls\\[-1pt]\scriptsize Status: present for four mechanisms};
+\node[level,fill=aiewlight] (design) {Design invariants and finite models\\[-1pt]\scriptsize Status: present in declared domains};
+\node[level,above=of design,fill=aiewlight] (semantic) {Core-semantic causal controls\\[-1pt]\scriptsize Status: three isolated mutations};
+\node[level,above=of semantic,fill=aiewlight] (conf) {Historical unchanged official conformance\\[-1pt]\scriptsize Status: present for MCP};
+\node[level,above=of conf,fill=aiewlight] (causal) {Transport-mechanism controls\\[-1pt]\scriptsize Status: four isolated mutations};
 \node[level,above=of causal,fill=white,very thick] (external) {Independent implementation, audit, and workload pilot\\[-1pt]\scriptsize Status: not yet available};
-\draw[-{Latex[length=2mm]},thick] (design) -- (conf);
+\draw[-{Latex[length=2mm]},thick] (design) -- (semantic);
+\draw[-{Latex[length=2mm]},thick] (semantic) -- (conf);
 \draw[-{Latex[length=2mm]},thick] (conf) -- (causal);
 \draw[-{Latex[length=2mm]},thick] (causal) -- (external);
 \end{tikzpicture}
-\Description{An evidence ladder progresses from design invariants and unit tests to unchanged official conformance, causal negative controls, and finally independent implementation, audit, and workload trials.}
+\Description{An evidence ladder progresses from bounded models to core-semantic controls, historical official conformance, transport controls, and external validation.}
 \caption{Evidence hierarchy used to delimit the claims.}
 \label{fig:evidence-ladder}
 \end{figure}

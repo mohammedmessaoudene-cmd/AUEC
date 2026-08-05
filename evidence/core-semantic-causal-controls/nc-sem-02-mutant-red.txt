@@ -1,0 +1,18 @@
+test_nc_sem_02_u0_claim_output_is_rejected (test_core_semantic_controls.CoreSemanticCausalControls.test_nc_sem_02_u0_claim_output_is_rejected) ... FAIL
+
+======================================================================
+FAIL: test_nc_sem_02_u0_claim_output_is_rejected (test_core_semantic_controls.CoreSemanticCausalControls.test_nc_sem_02_u0_claim_output_is_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<CANDIDATE_ROOT>\tests\test_core_semantic_controls.py", line 46, in test_nc_sem_02_u0_claim_output_is_rejected
+    self.assertEqual(result["status"], "rejected")
+AssertionError: 'succeeded' != 'rejected'
+- succeeded
++ rejected
+
+
+----------------------------------------------------------------------
+Ran 1 test in 4.360s
+
+FAILED (failures=1)
+{"success": false, "test": "test_core_semantic_controls.CoreSemanticCausalControls.test_nc_sem_02_u0_claim_output_is_rejected", "testsRun": 1}

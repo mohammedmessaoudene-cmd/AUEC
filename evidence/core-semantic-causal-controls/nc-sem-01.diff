@@ -1,0 +1,11 @@
+--- a/reference-runtime/aiew_uc/model.py
++++ b/reference-runtime/aiew_uc/model.py
+@@ -240,7 +240,7 @@
+         if node_id in node_by_id:
+             raise AUECError("E_DUPLICATE_ID", "duplicate node id")
+         op = node["op"]
+-        if not isinstance(op, str) or op not in PURE_OPS or op not in policy["allowedOps"]:
++        if not isinstance(op, str) or op not in PURE_OPS:
+             raise AUECError("E_OPERATION", "operation is unsupported or forbidden")
+         if node["effect"] != "pure" or node["effect"] not in policy["allowedEffects"]:
+             raise AUECError("E_EFFECT", "U0 operation must be pure")

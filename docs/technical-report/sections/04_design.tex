@@ -61,6 +61,8 @@ The authority rule is asymmetric:
 \end{equation}
 The predicate $\operatorname{validated}_U(x,a)$ is an authorization-time check performed by the host. It binds the value's declared provenance and operation evidence to the exact action $a$; it is distinct from the producer's \factkind{} label. The consent predicate is true when host policy either permits $a$ without a separate prompt or records approval bound to the action digest. Confidence alone never changes authority.
 
+Version 0.36.0 includes a pure executable form of this predicate. It returns an authorization decision and reason codes but has no effect-dispatch interface. This separates evidence about the decision rule from any claim about production action execution.
+
 \paragraph{Epistemic non-escalation invariant}
 No execution path may derive action authority solely from a claim or hypothesis. Enforcement occurs at the authorization boundary rather than in model prompting, so the rule remains meaningful when the planner is probabilistic or prompt-injected.
 

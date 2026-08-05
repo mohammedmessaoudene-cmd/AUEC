@@ -8,7 +8,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 PAPER = ROOT / "docs" / "technical-report"
 OUT_MD = PAPER / "editorial" / "LANGUAGE_STYLE_METRICS.md"
-OUT_JSON = ROOT / "release" / "v0.35.0-prestandard" / "language-style-metrics.json"
+OUT_JSON = ROOT / "release" / "v0.36.0-prestandard" / "language-style-metrics.json"
 
 PROMOTIONAL = {
     "groundbreaking", "revolutionary", "game-changing", "breakthrough", "unprecedented",

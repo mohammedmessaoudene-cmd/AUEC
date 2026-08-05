@@ -60,7 +60,11 @@ def main() -> int:
         "PUBLICATION_RECORD.md",
         "PUBLIC_RIGHTS_PROVENANCE_MAP.csv",
         "scripts/scientific_release_gate.py",
-        "docs/technical-report/AUEC_Technical_Report_v0.35.0-prestandard.pdf",
+        "reference-runtime/aiew_uc/authority.py",
+        "tests/test_core_semantic_controls.py",
+        "evidence/core-semantic-causal-controls/mutation-summary.json",
+        "evidence/bounded-models.json",
+        "docs/technical-report/AUEC_Technical_Report_v0.36.0-prestandard.pdf",
     }
     for rel in sorted(required):
         if not (ROOT / rel).is_file():
@@ -69,7 +73,7 @@ def main() -> int:
     zenodo = json.loads((ROOT / ".zenodo.json").read_text(encoding="utf-8"))
     if zenodo.get("upload_type") != "software":
         errors.append("Zenodo upload_type is not software")
-    if zenodo.get("version") != "0.35.0-prestandard":
+    if zenodo.get("version") != "0.36.0-prestandard":
         errors.append("Zenodo version mismatch")
     if zenodo.get("license") != "other-open":
         errors.append("Zenodo record-level license must be other-open")
@@ -79,16 +83,22 @@ def main() -> int:
             errors.append(f"Zenodo mixed-license explanation missing: {marker}")
     if "does not replace the governing per-path licenses" not in zenodo_description:
         errors.append("Zenodo record-level license disclaimer is missing")
+    related = {
+        (item.get("identifier"), item.get("relation"))
+        for item in zenodo.get("related_identifiers", [])
+    }
+    if ("https://doi.org/10.5281/zenodo.21796636", "isNewVersionOf") not in related:
+        errors.append("Zenodo historical-version relation is missing")
 
     citation = (ROOT / "CITATION.cff").read_text(encoding="utf-8")
-    if 'version: "0.35.0-prestandard"' not in citation:
+    if 'version: "0.36.0-prestandard"' not in citation:
         errors.append("CITATION version mismatch")
     if 'repository-code: "https://github.com/mohammedmessaoudene-cmd/AUEC"' not in citation:
         errors.append("CITATION repository coordinate mismatch")
-    if 'date-released: "2026-08-04"' not in citation:
+    if 'date-released: "2026-08-06"' not in citation:
         errors.append("CITATION release date mismatch")
-    if 'doi: "10.5281/zenodo.21796636"' not in citation:
-        errors.append("CITATION DOI mismatch")
+    if 'doi: "10.5281/zenodo.21815335"' not in citation:
+        errors.append("CITATION reserved version DOI mismatch")
 
     with (ROOT / "LICENSE_MAP.csv").open(encoding="utf-8", newline="") as stream:
         rows = list(csv.DictReader(stream))
@@ -109,11 +119,17 @@ def main() -> int:
     record = (ROOT / "PUBLICATION_RECORD.md").read_text(encoding="utf-8")
     for invariant in (
         "repositoryUrl = https://github.com/mohammedmessaoudene-cmd/AUEC",
-        "doi = 10.5281/zenodo.21796636",
-        "publicationDate = 2026-08-04",
-        "githubPublicationPerformed = true",
-        "zenodoPublicationPerformed = true",
-        "doiReserved = true",
+        "historicalVersion = 0.35.0-prestandard",
+        "historicalDoi = 10.5281/zenodo.21796636",
+        "historicalGithubPublicationPerformed = true",
+        "historicalZenodoPublicationPerformed = true",
+        "candidateVersion = 0.36.0-prestandard",
+        "candidateDoi = 10.5281/zenodo.21815335",
+        "candidatePublicationDate = 2026-08-06",
+        "candidateTagCreated = false",
+        "candidateGithubPublicationPerformed = false",
+        "candidateZenodoPublicationPerformed = false",
+        "candidateDoiReserved = true",
         "journalSubmissionPerformed = false",
         "standardsSubmissionPerformed = false",
         "externalContactPerformed = false",
@@ -148,7 +164,15 @@ def main() -> int:
         for error in errors:
             print(f"- {error}")
         return 1
-    print(f"PUBLIC RELEASE GATE PASS: {sum(1 for p in ROOT.rglob('*') if p.is_file())} files")
+    public_files = sum(
+        1
+        for path in ROOT.rglob("*")
+        if path.is_file()
+        and ".git" not in path.parts
+        and "__pycache__" not in path.parts
+        and path.suffix.lower() not in {".pyc", ".pyo"}
+    )
+    print(f"PUBLIC RELEASE GATE PASS: {public_files} files")
     return 0
 
 

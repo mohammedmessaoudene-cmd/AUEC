@@ -1,0 +1,87 @@
+{
+  "controls": [
+    {
+      "baseline": {
+        "case": "nc-sem-01",
+        "error": "E_OPERATION",
+        "status": "rejected"
+      },
+      "id": "NC-SEM-01",
+      "mutant": {
+        "case": "nc-sem-01",
+        "error": null,
+        "status": "succeeded"
+      },
+      "mutationNeedleCount": 1,
+      "originalSha256": "95e79e7486b37d886594abb8ceeaafc95ff727f565b78ee4a64e3db246d281fe",
+      "restorationTest": "GREEN",
+      "restored": {
+        "case": "nc-sem-01",
+        "error": "E_OPERATION",
+        "status": "rejected"
+      },
+      "safetyTestUnderMutant": "RED",
+      "source": "reference-runtime/aiew_uc/model.py",
+      "targetLine": 243,
+      "targetLineExecuted": true
+    },
+    {
+      "baseline": {
+        "case": "nc-sem-02",
+        "error": "E_EPISTEMIC",
+        "status": "rejected"
+      },
+      "id": "NC-SEM-02",
+      "mutant": {
+        "case": "nc-sem-02",
+        "error": null,
+        "status": "succeeded"
+      },
+      "mutationNeedleCount": 1,
+      "originalSha256": "95e79e7486b37d886594abb8ceeaafc95ff727f565b78ee4a64e3db246d281fe",
+      "restorationTest": "GREEN",
+      "restored": {
+        "case": "nc-sem-02",
+        "error": "E_EPISTEMIC",
+        "status": "rejected"
+      },
+      "safetyTestUnderMutant": "RED",
+      "source": "reference-runtime/aiew_uc/model.py",
+      "targetLine": 267,
+      "targetLineExecuted": true
+    },
+    {
+      "baseline": {
+        "authorized": false,
+        "case": "nc-sem-03",
+        "reasons": [
+          "E_AUTHORITY_EPISTEMIC"
+        ]
+      },
+      "id": "NC-SEM-03",
+      "mutant": {
+        "authorized": true,
+        "case": "nc-sem-03",
+        "reasons": []
+      },
+      "mutationNeedleCount": 1,
+      "originalSha256": "175b5ae9e4a20faa62e0b8b61b199b092e0d3eb58406d7494534cfaf49774b94",
+      "restorationTest": "GREEN",
+      "restored": {
+        "authorized": false,
+        "case": "nc-sem-03",
+        "reasons": [
+          "E_AUTHORITY_EPISTEMIC"
+        ]
+      },
+      "safetyTestUnderMutant": "RED",
+      "source": "reference-runtime/aiew_uc/authority.py",
+      "targetLine": 91,
+      "targetLineExecuted": true
+    }
+  ],
+  "noExternalEffectExecuted": true,
+  "schemaVersion": 1,
+  "singleMutantIsolation": true,
+  "verdict": "PASS"
+}

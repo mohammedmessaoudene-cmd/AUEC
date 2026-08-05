@@ -6,6 +6,7 @@ import time
 from copy import deepcopy
 from typing import Any
 
+from .authority import AuthorityDecision, evaluate_authority
 from .canonical import canonical_json_bytes, canonical_json_text, digest_json, sha256_bytes
 from .errors import AUECError
 from .model import CLASS_RANK, PURE_OPS, ValidatedManifest, classification_max, default_host_policy as _default_policy, validate_manifest
@@ -200,6 +201,19 @@ class UniversalRuntime:
             if manifest_id is not None:
                 result["manifestId"] = manifest_id
             return result
+
+    def evaluate_authority(
+        self,
+        request: dict[str, Any],
+        authority_policy: dict[str, Any],
+    ) -> dict[str, Any]:
+        """Run the bounded decision predicate without executing an action."""
+
+        decision: AuthorityDecision = evaluate_authority(
+            deepcopy(request),
+            deepcopy(authority_policy),
+        )
+        return decision.to_dict()
 
     def _execute_validated(self, validated: ValidatedManifest, started_ns: int) -> dict[str, Any]:
         manifest = validated.raw

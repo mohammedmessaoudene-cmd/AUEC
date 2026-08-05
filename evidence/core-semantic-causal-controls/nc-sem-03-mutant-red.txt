@@ -1,0 +1,15 @@
+test_nc_sem_03_claim_never_authorizes_consequential_effect (test_core_semantic_controls.CoreSemanticCausalControls.test_nc_sem_03_claim_never_authorizes_consequential_effect) ... FAIL
+
+======================================================================
+FAIL: test_nc_sem_03_claim_never_authorizes_consequential_effect (test_core_semantic_controls.CoreSemanticCausalControls.test_nc_sem_03_claim_never_authorizes_consequential_effect)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<CANDIDATE_ROOT>\tests\test_core_semantic_controls.py", line 55, in test_nc_sem_03_claim_never_authorizes_consequential_effect
+    self.assertFalse(decision["authorized"])
+AssertionError: True is not false
+
+----------------------------------------------------------------------
+Ran 1 test in 0.396s
+
+FAILED (failures=1)
+{"success": false, "test": "test_core_semantic_controls.CoreSemanticCausalControls.test_nc_sem_03_claim_never_authorizes_consequential_effect", "testsRun": 1}

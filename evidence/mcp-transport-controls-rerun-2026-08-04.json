@@ -1,0 +1,41 @@
+{
+  "baseline": {
+    "inputRequired": true,
+    "selectedTool": true,
+    "subscriptionAck": true
+  },
+  "causalControls": 4,
+  "controls": [
+    {
+      "causal": true,
+      "mutatedProbePassed": false,
+      "mutationDetected": true,
+      "name": "first-tool-reverted-to-strict-manifest-executor",
+      "restoredProbePassed": true
+    },
+    {
+      "causal": true,
+      "mutatedProbePassed": false,
+      "mutationDetected": true,
+      "name": "rfc9110-ows-trimming-disabled",
+      "restoredProbePassed": true
+    },
+    {
+      "causal": true,
+      "mutatedProbePassed": false,
+      "mutationDetected": true,
+      "name": "input-required-state-machine-disabled",
+      "restoredProbePassed": true
+    },
+    {
+      "causal": true,
+      "mutatedProbePassed": false,
+      "mutationDetected": true,
+      "name": "subscriptions-runtime-disabled-while-capabilities-still-advertised",
+      "restoredProbePassed": true
+    }
+  ],
+  "evidenceClass": "internal transport-mechanism causal rerun; not official protocol conformance",
+  "pass": true,
+  "totalControls": 4
+}

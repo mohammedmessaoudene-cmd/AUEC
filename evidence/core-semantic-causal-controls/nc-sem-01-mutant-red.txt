@@ -1,0 +1,18 @@
+test_nc_sem_01_host_allowlist_blocks_requested_operation (test_core_semantic_controls.CoreSemanticCausalControls.test_nc_sem_01_host_allowlist_blocks_requested_operation) ... FAIL
+
+======================================================================
+FAIL: test_nc_sem_01_host_allowlist_blocks_requested_operation (test_core_semantic_controls.CoreSemanticCausalControls.test_nc_sem_01_host_allowlist_blocks_requested_operation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<CANDIDATE_ROOT>\tests\test_core_semantic_controls.py", line 38, in test_nc_sem_01_host_allowlist_blocks_requested_operation
+    self.assertEqual(result["status"], "rejected")
+AssertionError: 'succeeded' != 'rejected'
+- succeeded
++ rejected
+
+
+----------------------------------------------------------------------
+Ran 1 test in 4.759s
+
+FAILED (failures=1)
+{"success": false, "test": "test_core_semantic_controls.CoreSemanticCausalControls.test_nc_sem_01_host_allowlist_blocks_requested_operation", "testsRun": 1}

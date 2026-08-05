@@ -1,24 +1,25 @@
-# AUEC v0.35.0-prestandard - IEEE-style technical report source
+# AUEC v0.36.0-prestandard - technical report source
 
 This directory builds the named-author independent technical report:
 
 ```text
-main_public.tex -> AUEC_Technical_Report_v0.35.0-prestandard.pdf
+main_public.tex -> AUEC_Technical_Report_v0.36.0-prestandard.pdf
 ```
 
 ## Status
 
-- Independent technical report / research pre-standard
-- Not peer reviewed
-- IEEE-style layout is used for readability only
-- Not affiliated with, submitted to, or endorsed by IEEE
-- No IEEE logo, copyright notice, volume, issue, DOI, or acceptance claim
-- GitHub and Zenodo publication remain separately authorized actions
-- Journal submission remains paused
+- Research pre-standard technical report
+- Two-column technical layout
+- No journal logo, copyright notice, volume, issue, DOI, or acceptance claim
+- Candidate GitHub and Zenodo actions remain unperformed
 
 ## Versioning
 
-Public documents use semantic versioning (`AUEC v0.35.0-prestandard`). Internal engineering labels are excluded from public filenames and prose. The evidence bundle cited by the report has the stable public identifier `EB-2026-08-02` and is independently versioned from the report.
+Public documents use semantic versioning (`AUEC v0.36.0-prestandard`).
+Internal engineering labels are excluded from public filenames and prose. The
+historical official-protocol evidence bundle retains the identifier
+`EB-2026-08-02`; new core-semantic evidence is identified separately as
+`CS-2026-08-04`.
 
 ## Build
 

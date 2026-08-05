@@ -2,13 +2,19 @@
 
 ## Permitted public claims
 
-The following statements are supported by the sealed EB-2026-08-02 evidence:
+Historical official-protocol statements remain supported by sealed evidence
+bundle `EB-2026-08-02`. Core-semantic statements are supported separately by
+`CS-2026-08-04`.
 
 1. A deterministic AUEC U0 reference runtime and multi-binding gateway were implemented.
 2. The unchanged official MCP conformance runner recorded 39/39 active checks for `2025-11-25`, 22/22 active checks for `2026-07-28`, and 85/85 checks in the tested draft suite.
-3. Four causal negative controls deliberately disabled distinct mechanisms and caused the official runner to become red.
+3. Four historical causal controls deliberately disabled distinct transport mechanisms. A current internal mechanism-level rerun is green at baseline, red under each mutation, and green after restoration; this rerun is not official conformance.
 4. The delivered archive was built reproducibly, verified by manifest, and reconstructed byte-identically after clean extraction.
 5. A2A official conformance was not achieved in EB-2026-08-02; the red evidence was retained.
+6. NC-SEM-01 causally exercises the U0 host-operation allowlist.
+7. NC-SEM-02 causally exercises the conservative U0 exclusion of claim-tagged outputs.
+8. NC-SEM-03 causally exercises a pure authorization predicate against claim-to-authority escalation without executing an external effect.
+9. Finite models cover 345 declared cases without a counterexample; no unbounded proof is claimed.
 
 ## Prohibited or unsupported claims
 

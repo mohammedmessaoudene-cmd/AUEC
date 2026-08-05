@@ -1,0 +1,48 @@
+{
+  "counterexamples": [],
+  "counts": {
+    "authorityStates": 96,
+    "authorizedConsequentialStates": 3,
+    "budgetPairs": 25,
+    "capabilityPairs": 64,
+    "emptyPlacementIntersectionsRejected": 27,
+    "placementPairs": 64,
+    "plannerCapabilityAdditions": 96,
+    "totalChecked": 345
+  },
+  "declaredDomains": {
+    "booleans": [
+      false,
+      true
+    ],
+    "budgetValues": [
+      1,
+      2,
+      4,
+      8,
+      16
+    ],
+    "capabilities": [
+      "hash.sha256",
+      "text.length",
+      "json.project"
+    ],
+    "effectClasses": [
+      "pure",
+      "consequential"
+    ],
+    "epistemicStatuses": [
+      "fact",
+      "claim",
+      "hypothesis"
+    ],
+    "placements": [
+      "local",
+      "edge",
+      "cloud"
+    ]
+  },
+  "schemaVersion": 1,
+  "scope": "Exhaustive only over the finite domains declared above; not an unbounded formal proof.",
+  "verdict": "PASS"
+}

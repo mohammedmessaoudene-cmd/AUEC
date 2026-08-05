@@ -1,7 +1,7 @@
 \section{Evaluation Methodology}
 \label{sec:evaluation}
 
-The evaluation asks whether the tested deterministic contract is compatible with existing protocol bindings and whether selected conformance outcomes are causally sensitive to the implementation mechanisms claimed. End-to-end utility and production security are outside the study defined in \Cref{sec:scope}.
+The evaluation asks whether the tested deterministic contract is compatible with existing protocol bindings, whether selected transport mechanisms affect their probes, and whether the central U0 authority guards are causally exercised. End-to-end utility and production security are outside the study defined in \Cref{sec:scope}.
 
 \subsection{Use of AI tools in the research workflow}
 OpenAI ChatGPT and Codex assisted with literature discovery and synthesis, initial drafting, reference-runtime and test generation, debugging, evidence organization, \LaTeX{} preparation, and deterministic artifact automation. Their outputs were treated as candidate material rather than evidence. Protocol counts were taken from sealed execution records; claims were checked against the claim--evidence matrix and cited primary sources. The human author selected the research questions, accepted or rejected proposed changes, and remains responsible for the report.
@@ -12,6 +12,7 @@ OpenAI ChatGPT and Codex assisted with literature discovery and synthesis, initi
   \item \textbf{RQ2 - Causal sensitivity:} Do selected green outcomes become red when the corresponding implementation mechanisms are disabled?
   \item \textbf{RQ3 - Evidence integrity:} Are incompatible or incomplete results retained rather than hidden in expected-failure baselines?
   \item \textbf{RQ4 - Claim boundary:} Which conclusions follow from conformance evidence, and which require independent, production, or provider-level experiments?
+  \item \textbf{RQ5 - Core semantics:} Do isolated mutations of the U0 host-operation intersection, epistemic-admission guard, and pure authorization predicate enable their prohibited cases and turn focused safety tests red?
 \end{itemize}
 
 \subsection{Evidence-bundle admission}
@@ -29,10 +30,16 @@ The separation prevents a combined count from being interpreted as evidence for 
 \subsection{Causal negative controls}
 A green suite is weak evidence when the relevant code path is not exercised. Four isolated mutations are therefore applied to disposable SUT copies while preserving each scenario's preconditions: the strict manifest executor is placed first in the tool list; HTTP optional-whitespace removal is disabled; \code{InputRequiredResult} is disabled; and subscription handling is broken while the capability remains advertised. The targeted scenario must fail for each mutation, after which the unmodified implementation is restored and rerun. These controls test four mechanisms rather than the runner as a whole.
 
+\subsection{Core-semantic causal controls}
+Three further controls target AUEC semantics rather than transport behavior. NC-SEM-01 removes only the membership test against the host operation allowlist. NC-SEM-02 extends the accepted U0 output set with \texttt{claim}, with export disabled to isolate admission from egress. NC-SEM-03 changes the pure authorization predicate so that a \texttt{claim} satisfies its fact condition. Each mutation is made in a separate disposable copy. The harness requires one exact mutation target, a changed source hash, direct observation of the prohibited behavior, a red focused safety test, execution of the mutated line, an unchanged original source hash, and a green restoration test.
+
+\subsection{Finite models}
+The bounded checker enumerates all pairs over three operation capabilities and three placements, five planner--host budget values, and 96 authority states formed from three epistemic statuses, validation, consent requirement, digest equality, effect class, and host effect admission. It checks intersection subsets, rejection of empty placement intersections, minimum effective budgets, and the declared authorization predicate. All state counts and counterexamples are retained. This is an exhaustive finite-domain check, not an unbounded proof.
+
 \subsection{A2A preservation test}
 The pinned upstream A2A TCK is executed unchanged for JSON-RPC and HTTP+JSON. No local patch is labeled official. Failures and skips remain in the report, so unfavorable evidence is not redefined during publication preparation.
 
 \subsection{Metrics and decision rules}
-For MCP, we record runner identity, profile, scenario count, success, failure, informational checks, and expected-failure configuration. Each negative control records the mutation, targeted scenario, observed failure, and post-restoration result. A2A results retain pass, fail, and skip counts without turning non-applicable tests into evidence of conformance.
+For MCP, we record runner identity, profile, scenario count, success, failure, informational checks, and expected-failure configuration. Transport and semantic controls are classified separately. Each semantic control records the exact diff, source hashes, baseline and mutant observations, red test output, executed-line trace, and green restoration. A2A results retain pass, fail, and skip counts without turning non-applicable tests into evidence of conformance.
 
-RQ1 is supported only when all applicable official MCP checks pass with no expected-failure baseline. RQ2 requires a single-mechanism mutation to turn its target red and restoration to return it to green. RQ3 requires preservation of the red A2A record. RQ4 is answered through the claim--evidence matrix, which distinguishes executed, implementation-supported, proposed, inherited, red, and blocked evidence.
+RQ1 is supported only by the historical applicable official MCP checks with no expected-failure baseline. RQ2 requires a single-mechanism mutation to turn its target red and restoration to return it to green. RQ3 requires preservation of the red A2A record. RQ4 is answered through the claim--evidence matrix, which distinguishes official protocol, internal transport, internal core-semantic, bounded-model, red, and blocked evidence. RQ5 requires all three semantic controls to enable their prohibited case, fail the focused safety test on the mutated line, and return green after restoration.

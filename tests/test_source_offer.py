@@ -29,8 +29,8 @@ class SourceOfferTests(unittest.TestCase):
 
     def test_exact_offer_can_be_verified(self) -> None:
         payload = source_offer_payload(
-            source_url="https://example.invalid/auec/releases/v0.35.0-prestandard",
-            source_ref="v0.35.0-prestandard",
+            source_url="https://example.invalid/auec/releases/v0.36.0-prestandard",
+            source_ref="v0.36.0-prestandard",
             source_sha256="a" * 64,
             modified=True,
             modification_notice="local test fixture",
@@ -57,7 +57,7 @@ class SourceOfferTests(unittest.TestCase):
     def test_http_source_endpoint_is_not_exact(self) -> None:
         payload = source_offer_payload(
             source_url="http://example.invalid/source.zip",
-            source_ref="v0.35.0-prestandard",
+            source_ref="v0.36.0-prestandard",
             source_sha256="b" * 64,
         )
         self.assertFalse(payload["exactCorrespondingSource"])

@@ -1,0 +1,11 @@
+--- a/reference-runtime/aiew_uc/authority.py
++++ b/reference-runtime/aiew_uc/authority.py
+@@ -88,7 +88,7 @@
+         raise AUECError("E_AUTHORITY_INPUT", "host effect policy is invalid")
+ 
+     reasons: list[str] = []
+-    status_is_fact = epistemic_status == "fact"
++    status_is_fact = epistemic_status in {"fact", "claim"}
+     if not status_is_fact:
+         reasons.append("E_AUTHORITY_EPISTEMIC")
+     if effect_class not in allowed_effects:
