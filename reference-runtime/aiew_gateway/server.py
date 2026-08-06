@@ -102,6 +102,17 @@ def _protocol_json_loads(raw: bytes) -> Any:
     return value
 
 
+def _validated_response_header(name: Any, value: Any) -> tuple[str, str]:
+    """Reject response headers that could create a second HTTP response."""
+    raw_name = str(name)
+    raw_value = str(value)
+    safe_name = raw_name.replace("\r", "").replace("\n", "").replace(":", "")
+    safe_value = raw_value.replace("\r", "").replace("\n", "")
+    if not safe_name or safe_name != raw_name or safe_value != raw_value:
+        raise ValueError("unsafe HTTP response header")
+    return safe_name, safe_value
+
+
 class GatewayHTTPServer(ThreadingHTTPServer):
     daemon_threads = True
     block_on_close = False
@@ -172,7 +183,8 @@ class GatewayRequestHandler(BaseHTTPRequestHandler):
         self.send_header("Cross-Origin-Resource-Policy", "same-origin")
         if headers:
             for key, value in headers.items():
-                self.send_header(key, value)
+                safe_key, safe_value = _validated_response_header(key, value)
+                self.send_header(safe_key, safe_value)
         self.end_headers()
         if body and status != 304:
             self.wfile.write(body)
@@ -832,7 +844,8 @@ class GatewayRequestHandler(BaseHTTPRequestHandler):
         self.send_header("X-Content-Type-Options", "nosniff")
         if headers:
             for key, value in headers.items():
-                self.send_header(key, value)
+                safe_key, safe_value = _validated_response_header(key, value)
+                self.send_header(safe_key, safe_value)
         self.end_headers()
         self.close_connection = True
 
