@@ -74,5 +74,10 @@ restoration must return it to green. The command performs no consequential
 action, accepts no untrusted shell input, and requires no network or
 credentials. See `docs/DEMO_AUTHORITY_BOUNDARY.md`.
 
+Protocol overlap and routing questions are tracked in
+[MCP Discussion #3202](https://github.com/modelcontextprotocol/modelcontextprotocol/discussions/3202).
+That discussion is a request for technical feedback, not an adoption,
+endorsement, or conformance claim.
+
 The technical report and reproducible sources are in
 `docs/technical-report/`.
