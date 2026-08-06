@@ -1,0 +1,71 @@
+{
+  "consequentialEffects": false,
+  "controls": [
+    {
+      "baseline": {
+        "expected": "rejected:E_OPERATION",
+        "observed": "rejected:E_OPERATION",
+        "oracle": "GREEN"
+      },
+      "mutation": {
+        "expected": "succeeded",
+        "observed": "succeeded",
+        "oracle": "RED_EXPECTED"
+      },
+      "policyDigest": "sha256:33aecab0f92236de05b9ac6d4a21631251d8759210209fb121aabe5fa93a4b56",
+      "receiptDigest": "sha256:53b0eb3afe54fe855f1ff5111593e9523c6c1800e776a0b9e4bf505637818986",
+      "restoration": {
+        "expected": "rejected:E_OPERATION",
+        "observed": "rejected:E_OPERATION",
+        "oracle": "GREEN"
+      },
+      "scenario": "host-policy-intersection"
+    },
+    {
+      "baseline": {
+        "expected": "rejected:E_EPISTEMIC",
+        "observed": "rejected:E_EPISTEMIC",
+        "oracle": "GREEN"
+      },
+      "mutation": {
+        "expected": "succeeded",
+        "observed": "succeeded",
+        "oracle": "RED_EXPECTED"
+      },
+      "policyDigest": "sha256:33aecab0f92236de05b9ac6d4a21631251d8759210209fb121aabe5fa93a4b56",
+      "receiptDigest": "sha256:d00e3f1bd71dc90659f83fa5e262b278c083c5654e18aaef5009b8a2cb0107d8",
+      "restoration": {
+        "expected": "rejected:E_EPISTEMIC",
+        "observed": "rejected:E_EPISTEMIC",
+        "oracle": "GREEN"
+      },
+      "scenario": "epistemic-admission"
+    },
+    {
+      "baseline": {
+        "expected": "fact=authorized;claim=denied",
+        "observed": "fact=authorized;claim=denied",
+        "oracle": "GREEN"
+      },
+      "mutation": {
+        "expected": "claim=authorized",
+        "observed": "claim=authorized",
+        "oracle": "RED_EXPECTED"
+      },
+      "policyDigest": "sha256:33aecab0f92236de05b9ac6d4a21631251d8759210209fb121aabe5fa93a4b56",
+      "receiptDigest": "sha256:64d82cca5969ebae9e6820d5f93cb7f04a5639aae815917af694b71925c05f6b",
+      "restoration": {
+        "expected": "fact=authorized;claim=denied",
+        "observed": "fact=authorized;claim=denied",
+        "oracle": "GREEN"
+      },
+      "scenario": "authority-predicate"
+    }
+  ],
+  "mutationIsolation": "disposable-copy",
+  "networkAccess": false,
+  "profile": "U0",
+  "schema": "auec.authority-boundary-demo.v1",
+  "untrustedShellInput": false,
+  "verdict": "PASS"
+}
