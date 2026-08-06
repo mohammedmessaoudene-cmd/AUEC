@@ -19,4 +19,5 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - run: PYTHONPATH=reference-runtime python -m unittest discover -s tests -v
-      - run: python -m compileall -q reference-runtime tests examples
+      - run: python -m unittest discover -s experimental/mcp-composition/tests -v
+      - run: python -m compileall -q reference-runtime tests examples experimental/mcp-composition
