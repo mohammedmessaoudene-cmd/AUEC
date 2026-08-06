@@ -1,0 +1,171 @@
+{
+  "cases": [
+    {
+      "expectedValid": false,
+      "name": "denied_audit_not_authority",
+      "observedValid": false,
+      "oracle": "GREEN",
+      "reasonCode": "E_HOST_CAPABILITY"
+    },
+    {
+      "expectedValid": false,
+      "name": "denied_claim",
+      "observedValid": false,
+      "oracle": "GREEN",
+      "reasonCode": "E_EPISTEMIC_NOT_AUTHORITY"
+    },
+    {
+      "expectedValid": false,
+      "name": "denied_consent_digest",
+      "observedValid": false,
+      "oracle": "GREEN",
+      "reasonCode": "E_CONSENT_DIGEST"
+    },
+    {
+      "expectedValid": false,
+      "name": "denied_fact_without_validation",
+      "observedValid": false,
+      "oracle": "GREEN",
+      "reasonCode": "E_INDEPENDENT_VALIDATION"
+    },
+    {
+      "expectedValid": false,
+      "name": "denied_host_capability",
+      "observedValid": false,
+      "oracle": "GREEN",
+      "reasonCode": "E_HOST_CAPABILITY"
+    },
+    {
+      "expectedValid": false,
+      "name": "denied_invalid_signature",
+      "observedValid": false,
+      "oracle": "GREEN",
+      "reasonCode": "E_DECLARATION_SIGNATURE"
+    },
+    {
+      "expectedValid": false,
+      "name": "denied_signed_not_authority",
+      "observedValid": false,
+      "oracle": "GREEN",
+      "reasonCode": "E_HOST_CAPABILITY"
+    },
+    {
+      "expectedValid": false,
+      "name": "denied_stale_declaration",
+      "observedValid": false,
+      "oracle": "GREEN",
+      "reasonCode": "E_DECLARATION_STALE"
+    },
+    {
+      "expectedValid": false,
+      "name": "denied_trust_narrows_policy",
+      "observedValid": false,
+      "oracle": "GREEN",
+      "reasonCode": "E_HOST_EFFECT"
+    },
+    {
+      "expectedValid": false,
+      "name": "denied_unknown_field",
+      "observedValid": false,
+      "oracle": "GREEN",
+      "reasonCode": "E_UNKNOWN_CRITICAL_FIELD"
+    },
+    {
+      "expectedValid": false,
+      "name": "denied_version_change",
+      "observedValid": false,
+      "oracle": "GREEN",
+      "reasonCode": "E_DECLARATION_VERSION"
+    },
+    {
+      "expectedValid": true,
+      "name": "positive_authenticated_narrowing",
+      "observedValid": true,
+      "oracle": "GREEN",
+      "reasonCode": "ALLOW_HOST_POLICY"
+    },
+    {
+      "expectedValid": true,
+      "name": "positive_consequential",
+      "observedValid": true,
+      "oracle": "GREEN",
+      "reasonCode": "ALLOW_HOST_POLICY"
+    },
+    {
+      "expectedValid": true,
+      "name": "positive_pure",
+      "observedValid": true,
+      "oracle": "GREEN",
+      "reasonCode": "ALLOW_HOST_POLICY"
+    }
+  ],
+  "consequentialEffects": false,
+  "mutations": [
+    {
+      "baseline": "GREEN",
+      "fixture": "denied_host_capability",
+      "mutant": "RED_EXPECTED",
+      "mutation": "remove-host-intersection",
+      "restoration": "GREEN"
+    },
+    {
+      "baseline": "GREEN",
+      "fixture": "denied_claim",
+      "mutant": "RED_EXPECTED",
+      "mutation": "accept-claim-as-authority",
+      "restoration": "GREEN"
+    },
+    {
+      "baseline": "GREEN",
+      "fixture": "denied_consent_digest",
+      "mutant": "RED_EXPECTED",
+      "mutation": "ignore-consent-digest",
+      "restoration": "GREEN"
+    },
+    {
+      "baseline": "GREEN",
+      "fixture": "denied_signed_not_authority",
+      "mutant": "RED_EXPECTED",
+      "mutation": "signed-declaration-grants-authority",
+      "restoration": "GREEN"
+    },
+    {
+      "baseline": "GREEN",
+      "fixture": "denied_unknown_field",
+      "mutant": "RED_EXPECTED",
+      "mutation": "accept-unknown-critical-field",
+      "restoration": "GREEN"
+    },
+    {
+      "baseline": "GREEN",
+      "fixture": "denied_audit_not_authority",
+      "mutant": "RED_EXPECTED",
+      "mutation": "audit-record-grants-authority",
+      "restoration": "GREEN"
+    }
+  ],
+  "networkRequired": false,
+  "profile": "experimental-draft-aligned-non-conformant",
+  "sep3004Mapping": {
+    "authorityGrantedByRecord": false,
+    "record": {
+      "event_hash": "sha256:942019e6f199153f4b211ee30bfb3af774745366ef738e27274ca45ea69ae8f6",
+      "event_id": "composition-fixture-0001",
+      "event_type": "tool_call",
+      "extensions": {
+        "caller-governance": {
+          "purpose_declared": "exercise bounded composition fixture"
+        }
+      },
+      "occurred_at": "2026-08-06T00:00:00.000Z",
+      "outcome": "allowed",
+      "previous_hash": null,
+      "principal_id": "composition-test-principal",
+      "tool_name": "write-resource"
+    },
+    "verified": true
+  },
+  "status": "PASS",
+  "unexpectedResults": 0,
+  "verdict": "INTERCEPTOR_PROFILE_CANDIDATE"
+}

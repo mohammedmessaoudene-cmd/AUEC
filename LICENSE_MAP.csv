@@ -12,6 +12,7 @@ scripts/**,Apache-2.0,build and verification utilities
 docs/**,CC-BY-4.0,specification and documentation
 standards/**,CC-BY-4.0,standardization notes
 evidence/**,CC-BY-4.0,bounded project evidence summaries
+experimental/**,Apache-2.0,separable interoperability experiments
 *.md,CC-BY-4.0,root narrative files
 *.json,CC-BY-4.0,root metadata
 *.cff,CC-BY-4.0,citation metadata

@@ -1,0 +1,21 @@
+{
+  "capturedAt": "2026-08-06",
+  "status": "experimental-draft-aligned-non-conformant",
+  "proposals": {
+    "SEP-2624": {
+      "headSha": "3a2760642010e30037231ef4d7586750b0654e65",
+      "state": "OPEN",
+      "url": "https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2624"
+    },
+    "SEP-3004": {
+      "headSha": "377f8d260ded5b6854871b2ce3c73621ffcaef1d",
+      "state": "OPEN",
+      "url": "https://github.com/modelcontextprotocol/modelcontextprotocol/pull/3004"
+    },
+    "SEP-3140": {
+      "headSha": "8fd469a51f6bb58511591474a15f25a56d027bfa",
+      "state": "OPEN",
+      "url": "https://github.com/modelcontextprotocol/modelcontextprotocol/pull/3140"
+    }
+  }
+}

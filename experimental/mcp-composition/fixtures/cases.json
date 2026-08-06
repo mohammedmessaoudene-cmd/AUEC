@@ -1,0 +1,482 @@
+{
+  "denied_audit_not_authority": {
+    "expectedValid": false,
+    "request": {
+      "action": {
+        "arguments": {"path": "fixture"},
+        "capability": "delete",
+        "consequential": false,
+        "effect": "read",
+        "egress": "none",
+        "tool": "delete-resource"
+      },
+      "auditRecord": {"event_hash": "sha256:fixture"},
+      "epistemic": {
+        "evidenceDigest": "sha256:fixture",
+        "independentlyValidated": true,
+        "status": "fact"
+      },
+      "hostPolicy": {
+        "allowedCapabilities": ["read"],
+        "allowedEffects": ["read"],
+        "allowedEgress": ["none"],
+        "consentRequiredEffects": ["write", "destructive"],
+        "requireAuthenticatedDeclarationForConsequential": true,
+        "requireIndependentValidation": true
+      }
+    }
+  },
+  "denied_claim": {
+    "expectedValid": false,
+    "request": {
+      "action": {
+        "arguments": {"query": "fixture"},
+        "capability": "read",
+        "consequential": false,
+        "effect": "read",
+        "egress": "none",
+        "tool": "read-resource"
+      },
+      "epistemic": {
+        "evidenceDigest": "sha256:fixture",
+        "independentlyValidated": true,
+        "status": "claim"
+      },
+      "hostPolicy": {
+        "allowedCapabilities": ["read"],
+        "allowedEffects": ["read"],
+        "allowedEgress": ["none"],
+        "consentRequiredEffects": ["write", "destructive"],
+        "requireAuthenticatedDeclarationForConsequential": true,
+        "requireIndependentValidation": true
+      }
+    }
+  },
+  "denied_consent_digest": {
+    "expectedValid": false,
+    "request": {
+      "action": {
+        "arguments": {"value": "fixture"},
+        "capability": "write",
+        "consequential": true,
+        "effect": "write",
+        "egress": "internal",
+        "tool": "write-resource"
+      },
+      "consent": {"actionDigest": "sha256:wrong-action"},
+      "declaration": {
+        "authenticated": true,
+        "capability": "write",
+        "fresh": true,
+        "signatureValid": true,
+        "trust": {
+          "dataSensitivity": "internal",
+          "effect": "writes-data",
+          "egress": "internal",
+          "idempotent": true,
+          "reversible": true
+        },
+        "versionMatches": true
+      },
+      "epistemic": {
+        "evidenceDigest": "sha256:fixture",
+        "independentlyValidated": true,
+        "status": "fact"
+      },
+      "hostPolicy": {
+        "allowedCapabilities": ["read", "write"],
+        "allowedEffects": ["read", "write"],
+        "allowedEgress": ["none", "internal"],
+        "consentRequiredEffects": ["write", "destructive"],
+        "requireAuthenticatedDeclarationForConsequential": true,
+        "requireIndependentValidation": true
+      }
+    }
+  },
+  "denied_fact_without_validation": {
+    "expectedValid": false,
+    "request": {
+      "action": {
+        "arguments": {},
+        "capability": "read",
+        "consequential": false,
+        "effect": "read",
+        "egress": "none",
+        "tool": "read-resource"
+      },
+      "epistemic": {
+        "evidenceDigest": "sha256:fixture",
+        "independentlyValidated": false,
+        "status": "fact"
+      },
+      "hostPolicy": {
+        "allowedCapabilities": ["read"],
+        "allowedEffects": ["read"],
+        "allowedEgress": ["none"],
+        "consentRequiredEffects": ["write", "destructive"],
+        "requireAuthenticatedDeclarationForConsequential": true,
+        "requireIndependentValidation": true
+      }
+    }
+  },
+  "denied_host_capability": {
+    "expectedValid": false,
+    "request": {
+      "action": {
+        "arguments": {},
+        "capability": "delete",
+        "consequential": false,
+        "effect": "read",
+        "egress": "none",
+        "tool": "delete-resource"
+      },
+      "epistemic": {
+        "evidenceDigest": "sha256:fixture",
+        "independentlyValidated": true,
+        "status": "fact"
+      },
+      "hostPolicy": {
+        "allowedCapabilities": ["read"],
+        "allowedEffects": ["read"],
+        "allowedEgress": ["none"],
+        "consentRequiredEffects": ["write", "destructive"],
+        "requireAuthenticatedDeclarationForConsequential": true,
+        "requireIndependentValidation": true
+      }
+    }
+  },
+  "denied_invalid_signature": {
+    "expectedValid": false,
+    "request": {
+      "action": {
+        "arguments": {},
+        "capability": "read",
+        "consequential": false,
+        "effect": "read",
+        "egress": "none",
+        "tool": "read-resource"
+      },
+      "declaration": {
+        "authenticated": true,
+        "capability": "read",
+        "fresh": true,
+        "signatureValid": false,
+        "trust": {
+          "dataSensitivity": "public",
+          "effect": "read-only",
+          "egress": "none",
+          "idempotent": true,
+          "reversible": true
+        },
+        "versionMatches": true
+      },
+      "epistemic": {
+        "evidenceDigest": "sha256:fixture",
+        "independentlyValidated": true,
+        "status": "fact"
+      },
+      "hostPolicy": {
+        "allowedCapabilities": ["read"],
+        "allowedEffects": ["read"],
+        "allowedEgress": ["none"],
+        "consentRequiredEffects": ["write", "destructive"],
+        "requireAuthenticatedDeclarationForConsequential": true,
+        "requireIndependentValidation": true
+      }
+    }
+  },
+  "denied_signed_not_authority": {
+    "expectedValid": false,
+    "request": {
+      "action": {
+        "arguments": {},
+        "capability": "delete",
+        "consequential": false,
+        "effect": "read",
+        "egress": "none",
+        "tool": "delete-resource"
+      },
+      "declaration": {
+        "authenticated": true,
+        "capability": "delete",
+        "fresh": true,
+        "signatureValid": true,
+        "trust": {
+          "dataSensitivity": "public",
+          "effect": "read-only",
+          "egress": "none",
+          "idempotent": true,
+          "reversible": true
+        },
+        "versionMatches": true
+      },
+      "epistemic": {
+        "evidenceDigest": "sha256:fixture",
+        "independentlyValidated": true,
+        "status": "fact"
+      },
+      "hostPolicy": {
+        "allowedCapabilities": ["read"],
+        "allowedEffects": ["read"],
+        "allowedEgress": ["none"],
+        "consentRequiredEffects": ["write", "destructive"],
+        "requireAuthenticatedDeclarationForConsequential": true,
+        "requireIndependentValidation": true
+      }
+    }
+  },
+  "denied_stale_declaration": {
+    "expectedValid": false,
+    "request": {
+      "action": {
+        "arguments": {},
+        "capability": "read",
+        "consequential": false,
+        "effect": "read",
+        "egress": "none",
+        "tool": "read-resource"
+      },
+      "declaration": {
+        "authenticated": true,
+        "capability": "read",
+        "fresh": false,
+        "signatureValid": true,
+        "trust": {
+          "dataSensitivity": "public",
+          "effect": "read-only",
+          "egress": "none",
+          "idempotent": true,
+          "reversible": true
+        },
+        "versionMatches": true
+      },
+      "epistemic": {
+        "evidenceDigest": "sha256:fixture",
+        "independentlyValidated": true,
+        "status": "fact"
+      },
+      "hostPolicy": {
+        "allowedCapabilities": ["read"],
+        "allowedEffects": ["read"],
+        "allowedEgress": ["none"],
+        "consentRequiredEffects": ["write", "destructive"],
+        "requireAuthenticatedDeclarationForConsequential": true,
+        "requireIndependentValidation": true
+      }
+    }
+  },
+  "denied_trust_narrows_policy": {
+    "expectedValid": false,
+    "request": {
+      "action": {
+        "arguments": {},
+        "capability": "read",
+        "consequential": false,
+        "effect": "read",
+        "egress": "none",
+        "tool": "read-resource"
+      },
+      "declaration": {
+        "authenticated": true,
+        "capability": "read",
+        "fresh": true,
+        "signatureValid": true,
+        "trust": {
+          "dataSensitivity": "secret",
+          "effect": "destructive",
+          "egress": "external",
+          "idempotent": false,
+          "reversible": false
+        },
+        "versionMatches": true
+      },
+      "epistemic": {
+        "evidenceDigest": "sha256:fixture",
+        "independentlyValidated": true,
+        "status": "fact"
+      },
+      "hostPolicy": {
+        "allowedCapabilities": ["read"],
+        "allowedEffects": ["read"],
+        "allowedEgress": ["none"],
+        "consentRequiredEffects": ["write", "destructive"],
+        "requireAuthenticatedDeclarationForConsequential": true,
+        "requireIndependentValidation": true
+      }
+    }
+  },
+  "denied_unknown_field": {
+    "expectedValid": false,
+    "request": {
+      "action": {
+        "arguments": {},
+        "capability": "read",
+        "consequential": false,
+        "effect": "read",
+        "egress": "none",
+        "tool": "read-resource"
+      },
+      "criticalFutureAuthority": true,
+      "epistemic": {
+        "evidenceDigest": "sha256:fixture",
+        "independentlyValidated": true,
+        "status": "fact"
+      },
+      "hostPolicy": {
+        "allowedCapabilities": ["read"],
+        "allowedEffects": ["read"],
+        "allowedEgress": ["none"],
+        "consentRequiredEffects": ["write", "destructive"],
+        "requireAuthenticatedDeclarationForConsequential": true,
+        "requireIndependentValidation": true
+      }
+    }
+  },
+  "denied_version_change": {
+    "expectedValid": false,
+    "request": {
+      "action": {
+        "arguments": {},
+        "capability": "read",
+        "consequential": false,
+        "effect": "read",
+        "egress": "none",
+        "tool": "read-resource"
+      },
+      "declaration": {
+        "authenticated": true,
+        "capability": "read",
+        "fresh": true,
+        "signatureValid": true,
+        "trust": {
+          "dataSensitivity": "public",
+          "effect": "read-only",
+          "egress": "none",
+          "idempotent": true,
+          "reversible": true
+        },
+        "versionMatches": false
+      },
+      "epistemic": {
+        "evidenceDigest": "sha256:fixture",
+        "independentlyValidated": true,
+        "status": "fact"
+      },
+      "hostPolicy": {
+        "allowedCapabilities": ["read"],
+        "allowedEffects": ["read"],
+        "allowedEgress": ["none"],
+        "consentRequiredEffects": ["write", "destructive"],
+        "requireAuthenticatedDeclarationForConsequential": true,
+        "requireIndependentValidation": true
+      }
+    }
+  },
+  "positive_authenticated_narrowing": {
+    "expectedValid": true,
+    "request": {
+      "action": {
+        "arguments": {"query": "fixture"},
+        "capability": "read",
+        "consequential": false,
+        "effect": "read",
+        "egress": "none",
+        "tool": "read-resource"
+      },
+      "declaration": {
+        "authenticated": true,
+        "capability": "read",
+        "fresh": true,
+        "signatureValid": true,
+        "trust": {
+          "dataSensitivity": "public",
+          "effect": "read-only",
+          "egress": "none",
+          "idempotent": true,
+          "reversible": true
+        },
+        "versionMatches": true
+      },
+      "epistemic": {
+        "evidenceDigest": "sha256:fixture",
+        "independentlyValidated": true,
+        "status": "fact"
+      },
+      "hostPolicy": {
+        "allowedCapabilities": ["read"],
+        "allowedEffects": ["read"],
+        "allowedEgress": ["none"],
+        "consentRequiredEffects": ["write", "destructive"],
+        "requireAuthenticatedDeclarationForConsequential": true,
+        "requireIndependentValidation": true
+      }
+    }
+  },
+  "positive_consequential": {
+    "expectedValid": true,
+    "request": {
+      "action": {
+        "arguments": {"value": "fixture"},
+        "capability": "write",
+        "consequential": true,
+        "effect": "write",
+        "egress": "internal",
+        "tool": "write-resource"
+      },
+      "consent": {"actionDigest": "AUTO_ACTION_DIGEST"},
+      "declaration": {
+        "authenticated": true,
+        "capability": "write",
+        "fresh": true,
+        "signatureValid": true,
+        "trust": {
+          "dataSensitivity": "internal",
+          "effect": "writes-data",
+          "egress": "internal",
+          "idempotent": true,
+          "reversible": true
+        },
+        "versionMatches": true
+      },
+      "epistemic": {
+        "evidenceDigest": "sha256:fixture",
+        "independentlyValidated": true,
+        "status": "fact"
+      },
+      "hostPolicy": {
+        "allowedCapabilities": ["read", "write"],
+        "allowedEffects": ["read", "write"],
+        "allowedEgress": ["none", "internal"],
+        "consentRequiredEffects": ["write", "destructive"],
+        "requireAuthenticatedDeclarationForConsequential": true,
+        "requireIndependentValidation": true
+      }
+    }
+  },
+  "positive_pure": {
+    "expectedValid": true,
+    "request": {
+      "action": {
+        "arguments": {"query": "fixture"},
+        "capability": "read",
+        "consequential": false,
+        "effect": "read",
+        "egress": "none",
+        "tool": "read-resource"
+      },
+      "epistemic": {
+        "evidenceDigest": "sha256:fixture",
+        "independentlyValidated": true,
+        "status": "fact"
+      },
+      "hostPolicy": {
+        "allowedCapabilities": ["read"],
+        "allowedEffects": ["read"],
+        "allowedEgress": ["none"],
+        "consentRequiredEffects": ["write", "destructive"],
+        "requireAuthenticatedDeclarationForConsequential": true,
+        "requireIndependentValidation": true
+      }
+    }
+  }
+}
