@@ -24,7 +24,9 @@ def _reject_constant(value: str) -> None:
 def _parse_int(value: str) -> int:
     result = int(value, 10)
     if result < MIN_I64 or result > MAX_I64:
-        raise AUECError("E_INTEGER_RANGE", "integer is outside the interoperable safe-integer range")
+        raise AUECError(
+            "E_INTEGER_RANGE", "integer is outside the interoperable safe-integer range"
+        )
     return result
 
 
@@ -44,7 +46,9 @@ def _utf16_sort_key(value: str) -> bytes:
         raise AUECError("E_UNICODE", "unpaired Unicode surrogate is forbidden") from exc
 
 
-def ensure_value(value: Any, *, max_depth: int = 64, max_items: int = 1_000_000) -> None:
+def ensure_value(
+    value: Any, *, max_depth: int = 64, max_items: int = 1_000_000
+) -> None:
     count = 0
 
     def visit(item: Any, depth: int) -> None:
@@ -58,7 +62,10 @@ def ensure_value(value: Any, *, max_depth: int = 64, max_items: int = 1_000_000)
             return
         if isinstance(item, int) and not isinstance(item, bool):
             if item < MIN_I64 or item > MAX_I64:
-                raise AUECError("E_INTEGER_RANGE", "integer is outside the interoperable safe-integer range")
+                raise AUECError(
+                    "E_INTEGER_RANGE",
+                    "integer is outside the interoperable safe-integer range",
+                )
             return
         if isinstance(item, float):
             raise AUECError("E_FLOAT_FORBIDDEN", "floating-point numbers are forbidden")
@@ -72,11 +79,15 @@ def ensure_value(value: Any, *, max_depth: int = 64, max_items: int = 1_000_000)
                 _utf16_sort_key(key)
                 visit(child, depth + 1)
             return
-        if isinstance(item, Sequence) and not isinstance(item, (str, bytes, bytearray, memoryview)):
+        if isinstance(item, Sequence) and not isinstance(
+            item, (str, bytes, bytearray, memoryview)
+        ):
             for child in item:
                 visit(child, depth + 1)
             return
-        raise AUECError("E_VALUE_TYPE", f"unsupported JSON value: {type(item).__name__}")
+        raise AUECError(
+            "E_VALUE_TYPE", f"unsupported JSON value: {type(item).__name__}"
+        )
 
     visit(value, 0)
 
@@ -96,7 +107,12 @@ def strict_json_loads(data: str | bytes, *, max_bytes: int = 2_097_152) -> Any:
         )
     except AUECError:
         raise
-    except (UnicodeDecodeError, json.JSONDecodeError, ValueError, RecursionError) as exc:
+    except (
+        UnicodeDecodeError,
+        json.JSONDecodeError,
+        ValueError,
+        RecursionError,
+    ) as exc:
         raise AUECError("E_JSON", "invalid JSON payload") from exc
     ensure_value(value)
     return value
@@ -150,7 +166,10 @@ def _serialize(value: Any, *, depth: int = 0) -> str:
         return "false"
     if isinstance(value, int) and not isinstance(value, bool):
         if value < MIN_I64 or value > MAX_I64:
-            raise AUECError("E_INTEGER_RANGE", "integer is outside the interoperable safe-integer range")
+            raise AUECError(
+                "E_INTEGER_RANGE",
+                "integer is outside the interoperable safe-integer range",
+            )
         return str(value)
     if isinstance(value, float):
         raise AUECError("E_FLOAT_FORBIDDEN", "floating-point numbers are forbidden")
@@ -163,7 +182,9 @@ def _serialize(value: Any, *, depth: int = 0) -> str:
                 raise AUECError("E_OBJECT_KEY", "object keys must be strings")
             parts.append(_quote(key) + ":" + _serialize(value[key], depth=depth + 1))
         return "{" + ",".join(parts) + "}"
-    if isinstance(value, Sequence) and not isinstance(value, (str, bytes, bytearray, memoryview)):
+    if isinstance(value, Sequence) and not isinstance(
+        value, (str, bytes, bytearray, memoryview)
+    ):
         return "[" + ",".join(_serialize(item, depth=depth + 1) for item in value) + "]"
     raise AUECError("E_VALUE_TYPE", f"unsupported JSON value: {type(value).__name__}")
 

@@ -10,7 +10,19 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SELF = Path(__file__).resolve()
-TEXT_SUFFIXES = {".md", ".txt", ".json", ".csv", ".cff", ".py", ".toml", ".tex", ".bib", ".yml", ".yaml"}
+TEXT_SUFFIXES = {
+    ".md",
+    ".txt",
+    ".json",
+    ".csv",
+    ".cff",
+    ".py",
+    ".toml",
+    ".tex",
+    ".bib",
+    ".yml",
+    ".yaml",
+}
 FORBIDDEN_NAME_PARTS = {"human-signoff", "reviews", "prompts", "outreach", "journal"}
 FORBIDDEN_PUBLIC_MARKERS = (
     r"(?i)\bR\d{1,3}\b",
@@ -41,9 +53,15 @@ def main() -> int:
         for pattern in FORBIDDEN_PUBLIC_MARKERS:
             if re.search(pattern, text):
                 errors.append(f"forbidden public marker {pattern}: {rel}")
-        if re.search(r"(?i)(ghp_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|sk-[A-Za-z0-9]{20,}|AKIA[0-9A-Z]{16}|BEGIN (?:RSA |OPENSSH )?PRIVATE KEY)", text):
+        if re.search(
+            r"(?i)(ghp_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|sk-[A-Za-z0-9]{20,}|AKIA[0-9A-Z]{16}|BEGIN (?:RSA |OPENSSH )?PRIVATE KEY)",
+            text,
+        ):
             errors.append(f"credential pattern: {rel}")
-        if re.search(r"(?i)\b(disability|disabled person|medical diagnosis|health condition)\b", text):
+        if re.search(
+            r"(?i)\b(disability|disabled person|medical diagnosis|health condition)\b",
+            text,
+        ):
             errors.append(f"health disclosure: {rel}")
 
     required = {
@@ -78,7 +96,13 @@ def main() -> int:
     if zenodo.get("license") != "other-open":
         errors.append("Zenodo record-level license must be other-open")
     zenodo_description = zenodo.get("description", "")
-    for marker in ("CC BY 4.0", "Apache-2.0", "AGPL-3.0-only", "LICENSING.md", "LICENSE_MAP.csv"):
+    for marker in (
+        "CC BY 4.0",
+        "Apache-2.0",
+        "AGPL-3.0-only",
+        "LICENSING.md",
+        "LICENSE_MAP.csv",
+    ):
         if marker not in zenodo_description:
             errors.append(f"Zenodo mixed-license explanation missing: {marker}")
     if "does not replace the governing per-path licenses" not in zenodo_description:
@@ -93,7 +117,10 @@ def main() -> int:
     citation = (ROOT / "CITATION.cff").read_text(encoding="utf-8")
     if 'version: "0.36.0-prestandard"' not in citation:
         errors.append("CITATION version mismatch")
-    if 'repository-code: "https://github.com/mohammedmessaoudene-cmd/AUEC"' not in citation:
+    if (
+        'repository-code: "https://github.com/mohammedmessaoudene-cmd/AUEC"'
+        not in citation
+    ):
         errors.append("CITATION repository coordinate mismatch")
     if 'date-released: "2026-08-06"' not in citation:
         errors.append("CITATION release date mismatch")
@@ -137,7 +164,9 @@ def main() -> int:
         if invariant not in record:
             errors.append(f"publication invariant missing: {invariant}")
 
-    metadata = (ROOT / "docs/technical-report/metadata_public.tex").read_text(encoding="utf-8")
+    metadata = (ROOT / "docs/technical-report/metadata_public.tex").read_text(
+        encoding="utf-8"
+    )
     if "Maître de conférences B (MCB)" not in metadata:
         errors.append("author academic appointment is missing")
     if "Belhadj Bouchaib University of Ain Temouchent" not in metadata:
@@ -147,7 +176,10 @@ def main() -> int:
         errors.append("department-level affiliation must be absent")
     if "is with the" in metadata:
         errors.append("collaboration-like affiliation wording must be absent")
-    if "does not imply sponsorship, collaboration, or endorsement by the university" not in metadata:
+    if (
+        "does not imply sponsorship, collaboration, or endorsement by the university"
+        not in metadata
+    ):
         errors.append("employment-only affiliation clarification is missing")
     special_notice_command = "\\" + "IEEEspecialpapernotice"
     if special_notice_command in metadata:

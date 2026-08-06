@@ -38,12 +38,17 @@ def source_files(root: Path, output: Path) -> list[Path]:
         rel = relative.as_posix()
         if path.resolve() == output.resolve():
             continue
-        if any(part in EXCLUDED_DIRECTORY_NAMES or part.endswith(".egg-info") for part in relative.parts):
+        if any(
+            part in EXCLUDED_DIRECTORY_NAMES or part.endswith(".egg-info")
+            for part in relative.parts
+        ):
             continue
         if rel in EXCLUDED_RELATIVE_PATHS or rel.endswith((".pyc", ".pyo")):
             continue
         if path.is_symlink():
-            raise RuntimeError(f"symbolic links are not allowed in the source archive: {rel}")
+            raise RuntimeError(
+                f"symbolic links are not allowed in the source archive: {rel}"
+            )
         files.append(path)
     return sorted(files, key=lambda item: item.relative_to(root).as_posix())
 
@@ -73,7 +78,12 @@ def main() -> int:
             info.create_system = 3
             info.external_attr = (stat.S_IFREG | 0o644) << 16
             info.flag_bits |= 0x800
-            archive.writestr(info, path.read_bytes(), compress_type=zipfile.ZIP_DEFLATED, compresslevel=9)
+            archive.writestr(
+                info,
+                path.read_bytes(),
+                compress_type=zipfile.ZIP_DEFLATED,
+                compresslevel=9,
+            )
 
     print(f"WROTE {output}: {len(files)} files")
     return 0

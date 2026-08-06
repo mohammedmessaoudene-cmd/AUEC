@@ -8,10 +8,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "reference-runtime"))
 
-from aiew_uc.runtime import UniversalRuntime
-from aiew_uc.verification import verify_result
+from aiew_uc.runtime import UniversalRuntime  # noqa: E402
+from aiew_uc.verification import verify_result  # noqa: E402
 
-manifest = json.loads((ROOT / "examples" / "hello_manifest.json").read_text(encoding="utf-8"))
+manifest = json.loads(
+    (ROOT / "examples" / "hello_manifest.json").read_text(encoding="utf-8")
+)
 result = UniversalRuntime().execute(manifest)
 verify_result(result, manifest)
 print(json.dumps(result, indent=2, ensure_ascii=False))

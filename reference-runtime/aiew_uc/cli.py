@@ -2,8 +2,6 @@
 from __future__ import annotations
 
 import argparse
-import json
-import sys
 from pathlib import Path
 
 from .canonical import canonical_json_text, strict_json_load
@@ -12,7 +10,9 @@ from .store import ExecutionStore
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(prog="aiew-uc", description="AIEW Universal Execution Contract reference CLI")
+    parser = argparse.ArgumentParser(
+        prog="aiew-uc", description="AIEW Universal Execution Contract reference CLI"
+    )
     sub = parser.add_subparsers(dest="command", required=True)
     execute = sub.add_parser("execute")
     execute.add_argument("manifest")
@@ -33,10 +33,16 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     policy = strict_json_load(args.policy) if args.policy else default_host_policy()
     runtime = UniversalRuntime(policy)
-    manifest = strict_json_load(args.manifest, max_bytes=policy["budgets"]["maxManifestBytes"])
+    manifest = strict_json_load(
+        args.manifest, max_bytes=policy["budgets"]["maxManifestBytes"]
+    )
     if args.command == "validate":
         result = runtime.execute(manifest)
-        print(canonical_json_text({"valid": result.get("status") != "rejected", "result": result}))
+        print(
+            canonical_json_text(
+                {"valid": result.get("status") != "rejected", "result": result}
+            )
+        )
         return 0 if result.get("status") != "rejected" else 2
     if args.store:
         result = ExecutionStore(Path(args.store)).execute_once(runtime, manifest)

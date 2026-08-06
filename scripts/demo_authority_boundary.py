@@ -38,8 +38,19 @@ MUTATIONS = (
         scenario="host-policy-intersection",
         case="nc-sem-01",
         source="reference-runtime/aiew_uc/model.py",
-        needle='if not isinstance(op, str) or op not in PURE_OPS or op not in policy["allowedOps"]:',
-        replacement="if not isinstance(op, str) or op not in PURE_OPS:",
+        needle=(
+            "if (\n"
+            "            not isinstance(op, str)\n"
+            "            or op not in PURE_OPS\n"
+            '            or op not in policy["allowedOps"]\n'
+            "        ):"
+        ),
+        replacement=(
+            "if (\n"
+            "            not isinstance(op, str)\n"
+            "            or op not in PURE_OPS\n"
+            "        ):"
+        ),
         baseline_expected="rejected:E_OPERATION",
         mutation_expected="succeeded",
         restoration_expected="rejected:E_OPERATION",

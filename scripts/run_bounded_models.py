@@ -12,7 +12,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "reference-runtime"))
 
-from aiew_uc.authority import evaluate_authority
+from aiew_uc.authority import evaluate_authority  # noqa: E402
 
 
 def powerset(values: tuple[str, ...]):
@@ -38,12 +38,20 @@ def main() -> int:
             capability_pairs += 1
             effective = planner & host
             if not effective <= planner or not effective <= host:
-                counterexamples.append({"model": "capability-intersection", "planner": sorted(planner), "host": sorted(host)})
+                counterexamples.append(
+                    {
+                        "model": "capability-intersection",
+                        "planner": sorted(planner),
+                        "host": sorted(host),
+                    }
+                )
             for operation in set(capabilities) - planner:
                 planner_additions += 1
                 expanded = (planner | {operation}) & host
                 if not expanded <= host or not (expanded - effective) <= {operation}:
-                    counterexamples.append({"model": "capability-monotonicity", "operation": operation})
+                    counterexamples.append(
+                        {"model": "capability-monotonicity", "operation": operation}
+                    )
 
     placements = ("local", "edge", "cloud")
     placement_pairs = 0
@@ -55,7 +63,13 @@ def main() -> int:
             if not effective:
                 empty_placement_intersections += 1
             if not effective <= planner or not effective <= host:
-                counterexamples.append({"model": "placement-intersection", "planner": sorted(planner), "host": sorted(host)})
+                counterexamples.append(
+                    {
+                        "model": "placement-intersection",
+                        "planner": sorted(planner),
+                        "host": sorted(host),
+                    }
+                )
 
     budget_values = (1, 2, 4, 8, 16)
     budget_pairs = 0
@@ -64,13 +78,26 @@ def main() -> int:
             budget_pairs += 1
             effective_budget = min(planner_budget, host_budget)
             if effective_budget > planner_budget or effective_budget > host_budget:
-                counterexamples.append({"model": "budget-minimum", "planner": planner_budget, "host": host_budget})
+                counterexamples.append(
+                    {
+                        "model": "budget-minimum",
+                        "planner": planner_budget,
+                        "host": host_budget,
+                    }
+                )
 
     digest = "sha256:" + "1" * 64
     other_digest = "sha256:" + "2" * 64
     authority_states = 0
     authorized_consequential = 0
-    for status, validated, consent_required, digest_matches, effect, host_allows in itertools.product(
+    for (
+        status,
+        validated,
+        consent_required,
+        digest_matches,
+        effect,
+        host_allows,
+    ) in itertools.product(
         ("fact", "claim", "hypothesis"),
         (False, True),
         (False, True),
@@ -121,7 +148,9 @@ def main() -> int:
                 and host_allows
                 and (not consent_required or digest_matches)
             ):
-                counterexamples.append({"model": "consequential-authorization-safety", "state": request})
+                counterexamples.append(
+                    {"model": "consequential-authorization-safety", "state": request}
+                )
 
     payload = {
         "schemaVersion": 1,
@@ -160,7 +189,9 @@ def main() -> int:
         newline="\n",
     )
     print(json.dumps(payload["counts"], sort_keys=True))
-    print(f"BOUNDED MODELS {payload['verdict']}: {len(counterexamples)} counterexamples")
+    print(
+        f"BOUNDED MODELS {payload['verdict']}: {len(counterexamples)} counterexamples"
+    )
     return 0 if not counterexamples else 1
 
 

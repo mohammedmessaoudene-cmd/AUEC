@@ -11,8 +11,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "reference-runtime"))
 
-from aiew_gateway.server import create_server, main
-from aiew_gateway.source_offer import require_exact_source_offer, source_offer_payload
+from aiew_gateway.server import create_server, main  # noqa: E402
+from aiew_gateway.source_offer import (  # noqa: E402
+    require_exact_source_offer,
+    source_offer_payload,
+)
 
 
 class SourceOfferTests(unittest.TestCase):
@@ -43,7 +46,9 @@ class SourceOfferTests(unittest.TestCase):
         thread.start()
         try:
             host, port = server.server_address
-            with urllib.request.urlopen(f"http://{host}:{port}/source", timeout=5) as response:
+            with urllib.request.urlopen(
+                f"http://{host}:{port}/source", timeout=5
+            ) as response:
                 payload = json.loads(response.read())
             self.assertEqual(payload, source_offer_payload())
         finally:

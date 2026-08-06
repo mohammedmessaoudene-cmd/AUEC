@@ -94,9 +94,17 @@ def probe(repo: Path, case: str) -> dict:
 
 def expected_baseline(case: str, observation: dict) -> bool:
     if case == "nc-sem-01":
-        return observation == {"case": case, "status": "rejected", "error": "E_OPERATION"}
+        return observation == {
+            "case": case,
+            "status": "rejected",
+            "error": "E_OPERATION",
+        }
     if case == "nc-sem-02":
-        return observation == {"case": case, "status": "rejected", "error": "E_EPISTEMIC"}
+        return observation == {
+            "case": case,
+            "status": "rejected",
+            "error": "E_EPISTEMIC",
+        }
     return observation.get("case") == case and observation.get("authorized") is False
 
 
@@ -127,9 +135,13 @@ def main() -> int:
         source = ROOT / mutation.path
         original_text = source.read_text(encoding="utf-8")
         if original_text.count(mutation.needle) != 1:
-            raise RuntimeError(f"{mutation.case}: mutation needle count is not exactly one")
+            raise RuntimeError(
+                f"{mutation.case}: mutation needle count is not exactly one"
+            )
         original_hash = sha256(source)
-        line_number = original_text[: original_text.index(mutation.needle)].count("\n") + 1
+        line_number = (
+            original_text[: original_text.index(mutation.needle)].count("\n") + 1
+        )
 
         baseline_observation = probe(ROOT, mutation.case)
         if not expected_baseline(mutation.case, baseline_observation):
@@ -143,23 +155,33 @@ def main() -> int:
             str(baseline_trace),
         )
         if baseline_test.returncode:
-            raise RuntimeError(f"{mutation.case}: baseline safety test failed\n{baseline_test.stdout}")
+            raise RuntimeError(
+                f"{mutation.case}: baseline safety test failed\n{baseline_test.stdout}"
+            )
         baseline_trace_payload = json.loads(baseline_trace.read_text(encoding="utf-8"))
-        if line_number not in baseline_trace_payload["executedLines"].get(mutation.path, []):
-            raise RuntimeError(f"{mutation.case}: baseline did not execute the target line")
+        if line_number not in baseline_trace_payload["executedLines"].get(
+            mutation.path, []
+        ):
+            raise RuntimeError(
+                f"{mutation.case}: baseline did not execute the target line"
+            )
 
         with tempfile.TemporaryDirectory(prefix=f"auec-{mutation.case}-") as temporary:
             mutant_root = Path(temporary) / "candidate"
             shutil.copytree(
                 ROOT,
                 mutant_root,
-                ignore=shutil.ignore_patterns(".git", "__pycache__", "*.pyc", ".pytest_cache"),
+                ignore=shutil.ignore_patterns(
+                    ".git", "__pycache__", "*.pyc", ".pytest_cache"
+                ),
             )
             mutant_source = mutant_root / mutation.path
             mutant_text = original_text.replace(mutation.needle, mutation.replacement)
             mutant_source.write_text(mutant_text, encoding="utf-8", newline="\n")
             if sha256(mutant_source) == original_hash:
-                raise RuntimeError(f"{mutation.case}: mutation did not change the source hash")
+                raise RuntimeError(
+                    f"{mutation.case}: mutation did not change the source hash"
+                )
 
             diff = "".join(
                 difflib.unified_diff(
@@ -169,7 +191,9 @@ def main() -> int:
                     tofile=f"b/{mutation.path}",
                 )
             )
-            (output / f"{mutation.case}.diff").write_text(diff, encoding="utf-8", newline="\n")
+            (output / f"{mutation.case}.diff").write_text(
+                diff, encoding="utf-8", newline="\n"
+            )
 
             mutant_observation = probe(mutant_root, mutation.case)
             if not expected_mutant(mutation.case, mutant_observation):
@@ -183,11 +207,21 @@ def main() -> int:
                 str(mutant_trace_temp),
             )
             if mutant_test.returncode == 0:
-                raise RuntimeError(f"{mutation.case}: safety test stayed green under mutation")
-            mutant_trace_payload = json.loads(mutant_trace_temp.read_text(encoding="utf-8"))
-            if line_number not in mutant_trace_payload["executedLines"].get(mutation.path, []):
-                raise RuntimeError(f"{mutation.case}: mutant test did not execute the target line")
-            shutil.copyfile(mutant_trace_temp, output / f"{mutation.case}-mutant-red-trace.json")
+                raise RuntimeError(
+                    f"{mutation.case}: safety test stayed green under mutation"
+                )
+            mutant_trace_payload = json.loads(
+                mutant_trace_temp.read_text(encoding="utf-8")
+            )
+            if line_number not in mutant_trace_payload["executedLines"].get(
+                mutation.path, []
+            ):
+                raise RuntimeError(
+                    f"{mutation.case}: mutant test did not execute the target line"
+                )
+            shutil.copyfile(
+                mutant_trace_temp, output / f"{mutation.case}-mutant-red-trace.json"
+            )
             (output / f"{mutation.case}-mutant-red.txt").write_text(
                 mutant_test.stdout,
                 encoding="utf-8",
@@ -195,7 +229,9 @@ def main() -> int:
             )
 
         if sha256(source) != original_hash:
-            raise RuntimeError(f"{mutation.case}: original source changed after temporary mutation")
+            raise RuntimeError(
+                f"{mutation.case}: original source changed after temporary mutation"
+            )
         restored_observation = probe(ROOT, mutation.case)
         restored_trace = output / f"{mutation.case}-restored-trace.json"
         restored_test = run(
@@ -205,7 +241,9 @@ def main() -> int:
             "--output",
             str(restored_trace),
         )
-        if restored_test.returncode or not expected_baseline(mutation.case, restored_observation):
+        if restored_test.returncode or not expected_baseline(
+            mutation.case, restored_observation
+        ):
             raise RuntimeError(f"{mutation.case}: restoration was not green")
 
         summary["controls"].append(

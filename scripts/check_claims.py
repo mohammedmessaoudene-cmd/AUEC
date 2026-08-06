@@ -5,7 +5,6 @@ from __future__ import annotations
 
 import argparse
 import re
-import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -22,7 +21,18 @@ SKIP_PARTS = {
     "tmp",
     "dist-prestandard",
 }
-TEXT_SUFFIXES = {".md", ".txt", ".json", ".cff", ".toml", ".tex", ".csv", ".yml", ".yaml", ".py"}
+TEXT_SUFFIXES = {
+    ".md",
+    ".txt",
+    ".json",
+    ".cff",
+    ".toml",
+    ".tex",
+    ".csv",
+    ".yml",
+    ".yaml",
+    ".py",
+}
 FORBIDDEN = {
     r"\bOpenAI is (?:an? )?(?:official )?partner\b": "false OpenAI affiliation",
     r"\bOpenAI (?:co-invented|owns) AIEW\b": "false OpenAI ownership or inventorship",

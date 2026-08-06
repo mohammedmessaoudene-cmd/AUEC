@@ -27,9 +27,7 @@ class AuditRegressionTests(unittest.TestCase):
             (root / "main.tex").write_text(
                 "before\n\\input{child}\nafter\n", encoding="utf-8"
             )
-            (root / "child.tex").write_text(
-                "middle\n\\input{leaf}\n", encoding="utf-8"
-            )
+            (root / "child.tex").write_text("middle\n\\input{leaf}\n", encoding="utf-8")
             (root / "leaf.tex").write_text("leaf\n", encoding="utf-8")
             expanded = module.expand_inputs(root / "main.tex")
         self.assertIn("before", expanded)

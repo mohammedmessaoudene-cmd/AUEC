@@ -22,10 +22,22 @@ def source_offer_payload(
 ) -> dict[str, Any]:
     """Return bounded source-offer metadata and reject hidden modifications."""
 
-    url = source_url if source_url is not None else os.environ.get("AUEC_SOURCE_RELEASE_URL", "")
+    url = (
+        source_url
+        if source_url is not None
+        else os.environ.get("AUEC_SOURCE_RELEASE_URL", "")
+    )
     ref = source_ref or os.environ.get("AUEC_SOURCE_REF", RELEASE_TAG)
-    digest = source_sha256 if source_sha256 is not None else os.environ.get("AUEC_SOURCE_ARCHIVE_SHA256", "")
-    is_modified = modified if modified is not None else os.environ.get("AUEC_BUILD_MODIFIED", "0") == "1"
+    digest = (
+        source_sha256
+        if source_sha256 is not None
+        else os.environ.get("AUEC_SOURCE_ARCHIVE_SHA256", "")
+    )
+    is_modified = (
+        modified
+        if modified is not None
+        else os.environ.get("AUEC_BUILD_MODIFIED", "0") == "1"
+    )
     notice = modification_notice
     if notice is None:
         notice = os.environ.get("AUEC_MODIFICATION_NOTICE", "").strip()

@@ -48,7 +48,12 @@ class ExecutionStore:
         finally:
             conn.close()
 
-    def execute_once(self, runtime: UniversalRuntime, manifest: dict[str, Any], fault_hook: Any | None = None) -> dict[str, Any]:
+    def execute_once(
+        self,
+        runtime: UniversalRuntime,
+        manifest: dict[str, Any],
+        fault_hook: Any | None = None,
+    ) -> dict[str, Any]:
         manifest_id = manifest.get("manifestId")
         if not isinstance(manifest_id, str):
             return runtime.execute(manifest)
@@ -58,12 +63,16 @@ class ExecutionStore:
             if fault_hook is not None:
                 fault_hook("after_begin")
             row = conn.execute(
-                "SELECT manifest_digest, result_json FROM executions WHERE manifest_id = ?", (manifest_id,)
+                "SELECT manifest_digest, result_json FROM executions WHERE manifest_id = ?",
+                (manifest_id,),
             ).fetchone()
             if row is not None:
                 if row[0] != digest:
                     conn.execute("ROLLBACK")
-                    raise AUECError("E_NONCE_COLLISION", "manifestId was reused with different content")
+                    raise AUECError(
+                        "E_NONCE_COLLISION",
+                        "manifestId was reused with different content",
+                    )
                 result = strict_json_loads(row[1])
                 conn.execute("COMMIT")
                 return result
@@ -83,9 +92,13 @@ class ExecutionStore:
 
     def verify(self) -> dict[str, int]:
         with self._connect() as conn:
-            rows = conn.execute("SELECT manifest_digest, result_json, result_digest FROM executions ORDER BY manifest_id").fetchall()
+            rows = conn.execute(
+                "SELECT manifest_digest, result_json, result_digest FROM executions ORDER BY manifest_id"
+            ).fetchall()
         for manifest_digest, result_json, result_digest in rows:
-            if not isinstance(manifest_digest, str) or not manifest_digest.startswith("sha256:"):
+            if not isinstance(manifest_digest, str) or not manifest_digest.startswith(
+                "sha256:"
+            ):
                 raise AUECError("E_STORE", "invalid manifest digest in store")
             result = strict_json_loads(result_json)
             if not isinstance(result, dict) or result.get("auecVersion") != "0.1":

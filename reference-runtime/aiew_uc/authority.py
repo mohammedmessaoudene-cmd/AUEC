@@ -41,9 +41,13 @@ class AuthorityDecision:
         return value
 
 
-def _require_exact_fields(value: Mapping[str, Any], expected: set[str], name: str) -> None:
+def _require_exact_fields(
+    value: Mapping[str, Any], expected: set[str], name: str
+) -> None:
     if set(value) != expected:
-        raise AUECError("E_AUTHORITY_INPUT", f"{name} fields do not match the decision contract")
+        raise AUECError(
+            "E_AUTHORITY_INPUT", f"{name} fields do not match the decision contract"
+        )
 
 
 def evaluate_authority(
@@ -74,17 +78,25 @@ def evaluate_authority(
         raise AUECError("E_AUTHORITY_INPUT", "invalid epistemic status")
     if effect_class not in _EFFECT_CLASSES:
         raise AUECError("E_AUTHORITY_INPUT", "invalid effect class")
-    if not isinstance(independently_validated, bool) or not isinstance(consent_required, bool):
-        raise AUECError("E_AUTHORITY_INPUT", "validation and consent flags must be boolean")
+    if not isinstance(independently_validated, bool) or not isinstance(
+        consent_required, bool
+    ):
+        raise AUECError(
+            "E_AUTHORITY_INPUT", "validation and consent flags must be boolean"
+        )
     if not isinstance(action_digest, str) or not _DIGEST_RE.fullmatch(action_digest):
         raise AUECError("E_AUTHORITY_INPUT", "action digest must be canonical SHA-256")
     if consent_digest is not None and (
         not isinstance(consent_digest, str) or not _DIGEST_RE.fullmatch(consent_digest)
     ):
-        raise AUECError("E_AUTHORITY_INPUT", "consent digest must be null or canonical SHA-256")
-    if not isinstance(allowed_effects, list) or any(
-        effect not in _EFFECT_CLASSES for effect in allowed_effects
-    ) or len(allowed_effects) != len(set(allowed_effects)):
+        raise AUECError(
+            "E_AUTHORITY_INPUT", "consent digest must be null or canonical SHA-256"
+        )
+    if (
+        not isinstance(allowed_effects, list)
+        or any(effect not in _EFFECT_CLASSES for effect in allowed_effects)
+        or len(allowed_effects) != len(set(allowed_effects))
+    ):
         raise AUECError("E_AUTHORITY_INPUT", "host effect policy is invalid")
 
     reasons: list[str] = []
@@ -95,7 +107,11 @@ def evaluate_authority(
         reasons.append("E_AUTHORITY_EFFECT")
     if effect_class == "consequential" and not independently_validated:
         reasons.append("E_AUTHORITY_VALIDATION")
-    if effect_class == "consequential" and consent_required and consent_digest != action_digest:
+    if (
+        effect_class == "consequential"
+        and consent_required
+        and consent_digest != action_digest
+    ):
         reasons.append("E_AUTHORITY_CONSENT")
 
     return AuthorityDecision(
