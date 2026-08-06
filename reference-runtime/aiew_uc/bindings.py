@@ -23,12 +23,22 @@ def mcp_tool_descriptor() -> dict[str, Any]:
             "required": ["manifest"],
             "properties": {"manifest": {"type": "object"}},
         },
-        "annotations": {"readOnlyHint": True, "destructiveHint": False, "openWorldHint": False},
+        "annotations": {
+            "readOnlyHint": True,
+            "destructiveHint": False,
+            "openWorldHint": False,
+        },
     }
 
 
-def handle_mcp_tool_call(runtime: UniversalRuntime, name: str, arguments: dict[str, Any]) -> dict[str, Any]:
-    if name != "aiew.execute_manifest" or set(arguments) != {"manifest"} or not isinstance(arguments["manifest"], dict):
+def handle_mcp_tool_call(
+    runtime: UniversalRuntime, name: str, arguments: dict[str, Any]
+) -> dict[str, Any]:
+    if (
+        name != "aiew.execute_manifest"
+        or set(arguments) != {"manifest"}
+        or not isinstance(arguments["manifest"], dict)
+    ):
         raise AUECError("E_MCP", "invalid AUEC MCP tool call")
     result = runtime.execute(arguments["manifest"])
     return {

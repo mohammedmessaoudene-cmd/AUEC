@@ -20,7 +20,7 @@ from aiew_uc.bindings import (
     handle_mcp_tool_call,
     mcp_tool_descriptor,
 )
-from aiew_uc.canonical import canonical_json_bytes, digest_json
+from aiew_uc.canonical import canonical_json_bytes
 from aiew_uc.errors import AUECError
 from aiew_uc.runtime import UniversalRuntime, default_host_policy
 
@@ -34,15 +34,27 @@ AIEW_GATEWAY_VERSION = "0.36.0a1"
 AIEW_SKILL_ID = "aiew.execute-manifest"
 PNG_1X1 = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAusB9Y9ZkS0AAAAASUVORK5CYII="
 WAV_MINIMAL = base64.b64encode(
-    b"RIFF" + (36).to_bytes(4, "little") + b"WAVEfmt " + (16).to_bytes(4, "little")
-    + (1).to_bytes(2, "little") + (1).to_bytes(2, "little") + (8000).to_bytes(4, "little")
-    + (8000).to_bytes(4, "little") + (1).to_bytes(2, "little") + (8).to_bytes(2, "little")
-    + b"data" + (0).to_bytes(4, "little")
+    b"RIFF"
+    + (36).to_bytes(4, "little")
+    + b"WAVEfmt "
+    + (16).to_bytes(4, "little")
+    + (1).to_bytes(2, "little")
+    + (1).to_bytes(2, "little")
+    + (8000).to_bytes(4, "little")
+    + (8000).to_bytes(4, "little")
+    + (1).to_bytes(2, "little")
+    + (8).to_bytes(2, "little")
+    + b"data"
+    + (0).to_bytes(4, "little")
 ).decode("ascii")
 
 
 def utc_now() -> str:
-    return datetime.now(timezone.utc).isoformat(timespec="milliseconds").replace("+00:00", "Z")
+    return (
+        datetime.now(timezone.utc)
+        .isoformat(timespec="milliseconds")
+        .replace("+00:00", "Z")
+    )
 
 
 def stable_id(prefix: str, value: Any) -> str:
@@ -66,7 +78,9 @@ def protocol_json_bytes(value: Any) -> bytes:
             separators=(",", ":"),
         ).encode("utf-8")
     except (TypeError, ValueError) as exc:
-        raise AUECError("E_A2A_INVALID_PARAMS", "generic A2A value is not valid finite JSON") from exc
+        raise AUECError(
+            "E_A2A_INVALID_PARAMS", "generic A2A value is not valid finite JSON"
+        ) from exc
 
 
 def protocol_digest(value: Any) -> str:
@@ -213,9 +227,7 @@ def mcp_fixture_tools() -> list[dict[str, Any]]:
                 "type": "object",
                 "additionalProperties": False,
                 "required": ["value"],
-                "properties": {
-                    "value": {"type": "string", "x-mcp-header": "value"}
-                },
+                "properties": {"value": {"type": "string", "x-mcp-header": "value"}},
             },
         },
         {
@@ -272,7 +284,9 @@ class GatewayState:
         self._mcp_request_counter = 0
         self._mcp_stream_subscriptions: dict[str, dict[str, Any]] = {}
         self._mcp_subscription_counter = 0
-        self._mcp_state_secret = hashlib.sha256(b"auec-gateway-SEP-2322-state-key").digest()
+        self._mcp_state_secret = hashlib.sha256(
+            b"auec-gateway-SEP-2322-state-key"
+        ).digest()
         self._task_sequence = 0
         self._task_id_sequence = 0
 
@@ -282,7 +296,9 @@ class GatewayState:
     # --------------------------- MCP ---------------------------------
     def mcp_initialize(self, params: dict[str, Any]) -> dict[str, Any]:
         requested = params.get("protocolVersion")
-        protocol = MCP_PROTOCOL_VERSION if requested != MCP_PROTOCOL_VERSION else requested
+        protocol = (
+            MCP_PROTOCOL_VERSION if requested != MCP_PROTOCOL_VERSION else requested
+        )
         return {
             "protocolVersion": protocol,
             "capabilities": {
@@ -291,7 +307,10 @@ class GatewayState:
                 "prompts": {"listChanged": False},
                 "logging": {},
             },
-            "serverInfo": {"name": "auec-gateway-gateway", "version": AIEW_GATEWAY_VERSION},
+            "serverInfo": {
+                "name": "auec-gateway-gateway",
+                "version": AIEW_GATEWAY_VERSION,
+            },
             "instructions": "Executes bounded AUEC U0 manifests; claim values never grant authority.",
         }
 
@@ -357,7 +376,9 @@ class GatewayState:
         ref = params.get("ref")
         argument = params.get("argument")
         if not isinstance(ref, dict) or not isinstance(argument, dict):
-            raise AUECError("E_MCP", "completion/complete requires ref and argument objects")
+            raise AUECError(
+                "E_MCP", "completion/complete requires ref and argument objects"
+            )
         ref_type = ref.get("type")
         if ref_type not in {"ref/prompt", "ref/resource"}:
             raise AUECError("E_MCP", "completion ref type is not supported")
@@ -365,8 +386,12 @@ class GatewayState:
             raise AUECError("E_MCP", "prompt completion ref requires name")
         if ref_type == "ref/resource" and not isinstance(ref.get("uri"), str):
             raise AUECError("E_MCP", "resource completion ref requires uri")
-        if not isinstance(argument.get("name"), str) or not isinstance(argument.get("value"), str):
-            raise AUECError("E_MCP", "completion argument requires string name and value")
+        if not isinstance(argument.get("name"), str) or not isinstance(
+            argument.get("value"), str
+        ):
+            raise AUECError(
+                "E_MCP", "completion argument requires string name and value"
+            )
         return {"completion": {"values": [], "total": 0, "hasMore": False}}
 
     def _mcp_state_token(self, tool: str, round_index: int) -> str:
@@ -377,7 +402,9 @@ class GatewayState:
             separators=(",", ":"),
         ).encode("utf-8")
         encoded = base64.urlsafe_b64encode(payload).rstrip(b"=").decode("ascii")
-        signature = hmac.new(self._mcp_state_secret, payload, hashlib.sha256).hexdigest()
+        signature = hmac.new(
+            self._mcp_state_secret, payload, hashlib.sha256
+        ).hexdigest()
         return f"AUEC1.{encoded}.{signature}"
 
     def _validate_mcp_state(self, token: Any, tool: str, round_index: int) -> None:
@@ -392,7 +419,9 @@ class GatewayState:
         return {"method": method, "params": params}
 
     @staticmethod
-    def _mcp_elicit_request(message: str, properties: dict[str, Any], required: list[str]) -> dict[str, Any]:
+    def _mcp_elicit_request(
+        message: str, properties: dict[str, Any], required: list[str]
+    ) -> dict[str, Any]:
         return GatewayState._mcp_input_request(
             "elicitation/create",
             {
@@ -410,7 +439,9 @@ class GatewayState:
         return GatewayState._mcp_input_request(
             "sampling/createMessage",
             {
-                "messages": [{"role": "user", "content": {"type": "text", "text": text}}],
+                "messages": [
+                    {"role": "user", "content": {"type": "text", "text": text}}
+                ],
                 "maxTokens": max_tokens,
             },
         )
@@ -445,7 +476,9 @@ class GatewayState:
             raise AUECError("E_MCP", f"inputResponses.{key} must be an object")
         return True
 
-    def open_mcp_subscription(self, notifications: dict[str, Any]) -> tuple[str, queue.Queue[dict[str, Any]]]:
+    def open_mcp_subscription(
+        self, notifications: dict[str, Any]
+    ) -> tuple[str, queue.Queue[dict[str, Any]]]:
         if not isinstance(notifications, dict):
             raise AUECError("E_MCP", "notifications filter must be an object")
         with self._lock:
@@ -453,7 +486,9 @@ class GatewayState:
             subscription_id = f"auec-gateway-sub-{self._mcp_subscription_counter:08d}"
             channel: queue.Queue[dict[str, Any]] = queue.Queue(maxsize=16)
             self._mcp_stream_subscriptions[subscription_id] = {
-                "filters": {key for key, enabled in notifications.items() if enabled is True},
+                "filters": {
+                    key for key, enabled in notifications.items() if enabled is True
+                },
                 "queue": channel,
             }
             return subscription_id, channel
@@ -466,7 +501,10 @@ class GatewayState:
         mapping = {
             "tools": ("toolsListChanged", "notifications/tools/list_changed"),
             "prompts": ("promptsListChanged", "notifications/prompts/list_changed"),
-            "resources": ("resourcesListChanged", "notifications/resources/list_changed"),
+            "resources": (
+                "resourcesListChanged",
+                "notifications/resources/list_changed",
+            ),
         }
         if kind not in mapping:
             raise AUECError("E_MCP", "unknown list-change kind")
@@ -495,7 +533,9 @@ class GatewayState:
                 continue
         return delivered
 
-    def _mcp_input_required_tool(self, name: str, params: dict[str, Any]) -> dict[str, Any]:
+    def _mcp_input_required_tool(
+        self, name: str, params: dict[str, Any]
+    ) -> dict[str, Any]:
         responses = self._mcp_responses(params)
 
         if name == "test_input_required_result_elicitation":
@@ -504,19 +544,31 @@ class GatewayState:
                     "What is your name?", {"name": {"type": "string"}}, ["name"]
                 )
             }
-            if responses is None or not self._mcp_valid_response(responses, "user_name"):
+            if responses is None or not self._mcp_valid_response(
+                responses, "user_name"
+            ):
                 return self._mcp_input_required(requests)
             return {"content": [{"type": "text", "text": "Hello, Alice!"}]}
 
         if name == "test_input_required_result_sampling":
-            requests = {"capital_question": self._mcp_sampling_request("What is the capital of France?")}
-            if responses is None or not self._mcp_valid_response(responses, "capital_question"):
+            requests = {
+                "capital_question": self._mcp_sampling_request(
+                    "What is the capital of France?"
+                )
+            }
+            if responses is None or not self._mcp_valid_response(
+                responses, "capital_question"
+            ):
                 return self._mcp_input_required(requests)
-            return {"content": [{"type": "text", "text": "The capital of France is Paris."}]}
+            return {
+                "content": [{"type": "text", "text": "The capital of France is Paris."}]
+            }
 
         if name == "test_input_required_result_list_roots":
             requests = {"client_roots": self._mcp_input_request("roots/list", {})}
-            if responses is None or not self._mcp_valid_response(responses, "client_roots"):
+            if responses is None or not self._mcp_valid_response(
+                responses, "client_roots"
+            ):
                 return self._mcp_input_required(requests)
             return {"content": [{"type": "text", "text": "Client roots received."}]}
 
@@ -532,7 +584,9 @@ class GatewayState:
             self._validate_mcp_state(params.get("requestState"), name, 1)
             if not self._mcp_valid_response(responses, "confirm"):
                 return self._mcp_input_required(requests, state)
-            return {"content": [{"type": "text", "text": "state-ok: requestState verified"}]}
+            return {
+                "content": [{"type": "text", "text": "state-ok: requestState verified"}]
+            }
 
         if name == "test_input_required_result_multiple_inputs":
             requests = {
@@ -548,7 +602,9 @@ class GatewayState:
             self._validate_mcp_state(params.get("requestState"), name, 1)
             if not all(self._mcp_valid_response(responses, key) for key in requests):
                 return self._mcp_input_required(requests, state)
-            return {"content": [{"type": "text", "text": "All client inputs received."}]}
+            return {
+                "content": [{"type": "text", "text": "All client inputs received."}]
+            }
 
         if name == "test_input_required_result_multi_round":
             step1 = {
@@ -581,7 +637,9 @@ class GatewayState:
                     )
                 }
                 return self._mcp_input_required(step2, self._mcp_state_token(name, 2))
-            return {"content": [{"type": "text", "text": "Multi-round workflow complete."}]}
+            return {
+                "content": [{"type": "text", "text": "Multi-round workflow complete."}]
+            }
 
         if name == "test_input_required_result_tampered_state":
             requests = {
@@ -599,16 +657,29 @@ class GatewayState:
 
         if name == "test_input_required_result_capabilities":
             meta = params.get("_meta")
-            caps = meta.get("io.modelcontextprotocol/clientCapabilities", {}) if isinstance(meta, dict) else {}
+            caps = (
+                meta.get("io.modelcontextprotocol/clientCapabilities", {})
+                if isinstance(meta, dict)
+                else {}
+            )
             requests: dict[str, dict[str, Any]] = {}
             if isinstance(caps, dict) and isinstance(caps.get("sampling"), dict):
-                requests["sampling_only"] = self._mcp_sampling_request("Provide a short response", 50)
+                requests["sampling_only"] = self._mcp_sampling_request(
+                    "Provide a short response", 50
+                )
             if isinstance(caps, dict) and isinstance(caps.get("elicitation"), dict):
                 requests["elicitation_only"] = self._mcp_elicit_request(
                     "Provide confirmation", {"ok": {"type": "boolean"}}, ["ok"]
                 )
             if not requests:
-                return {"content": [{"type": "text", "text": "No supported client input capability declared."}]}
+                return {
+                    "content": [
+                        {
+                            "type": "text",
+                            "text": "No supported client input capability declared.",
+                        }
+                    ]
+                }
             return self._mcp_input_required(requests)
 
         raise AUECError("E_MCP_TOOL_NOT_FOUND", "unknown InputRequiredResult fixture")
@@ -649,21 +720,36 @@ class GatewayState:
         if name == "aiew.execute_manifest":
             return handle_mcp_tool_call(self.runtime, name, arguments)
         if name == "test_simple_text":
-            return {"content": [{"type": "text", "text": "This is a simple text response for testing."}]}
+            return {
+                "content": [
+                    {
+                        "type": "text",
+                        "text": "This is a simple text response for testing.",
+                    }
+                ]
+            }
         if name == "test_image_content":
-            return {"content": [{"type": "image", "data": PNG_1X1, "mimeType": "image/png"}]}
+            return {
+                "content": [{"type": "image", "data": PNG_1X1, "mimeType": "image/png"}]
+            }
         if name == "test_audio_content":
-            return {"content": [{"type": "audio", "data": WAV_MINIMAL, "mimeType": "audio/wav"}]}
+            return {
+                "content": [
+                    {"type": "audio", "data": WAV_MINIMAL, "mimeType": "audio/wav"}
+                ]
+            }
         if name == "test_embedded_resource":
             return {
-                "content": [{
-                    "type": "resource",
-                    "resource": {
-                        "uri": "test://embedded-resource",
-                        "mimeType": "text/plain",
-                        "text": "This is embedded resource content.",
-                    },
-                }]
+                "content": [
+                    {
+                        "type": "resource",
+                        "resource": {
+                            "uri": "test://embedded-resource",
+                            "mimeType": "text/plain",
+                            "text": "This is embedded resource content.",
+                        },
+                    }
+                ]
             }
         if name == "test_multiple_content_types":
             return {
@@ -682,7 +768,12 @@ class GatewayState:
             }
         if name == "test_tool_with_logging":
             return {
-                "content": [{"type": "text", "text": "Tool execution completed with three logical log events."}],
+                "content": [
+                    {
+                        "type": "text",
+                        "text": "Tool execution completed with three logical log events.",
+                    }
+                ],
                 "_meta": {
                     "aiew/logEvents": [
                         "Tool execution started",
@@ -694,7 +785,12 @@ class GatewayState:
         if name == "test_error_handling":
             return {
                 "isError": True,
-                "content": [{"type": "text", "text": "This tool intentionally returns an error for testing"}],
+                "content": [
+                    {
+                        "type": "text",
+                        "text": "This tool intentionally returns an error for testing",
+                    }
+                ],
             }
         if name in {"test_progress_notifications", "test_tool_with_progress"}:
             return {
@@ -704,31 +800,72 @@ class GatewayState:
         if name in {"test_sampling", "test_elicitation"}:
             return {
                 "isError": True,
-                "content": [{"type": "text", "text": f"{name} requires bidirectional client capability not enabled by this bounded HTTP profile."}],
+                "content": [
+                    {
+                        "type": "text",
+                        "text": f"{name} requires bidirectional client capability not enabled by this bounded HTTP profile.",
+                    }
+                ],
             }
         if name == "test_custom_header":
-            return {"content": [{"type": "text", "text": f"custom-header:{arguments.get('value', '')}"}]}
+            return {
+                "content": [
+                    {
+                        "type": "text",
+                        "text": f"custom-header:{arguments.get('value', '')}",
+                    }
+                ]
+            }
         if name == "test_trigger_tool_change":
             delivered = self.publish_mcp_list_change("tools")
-            return {"content": [{"type": "text", "text": f"tools list change delivered to {delivered} subscription(s)"}]}
+            return {
+                "content": [
+                    {
+                        "type": "text",
+                        "text": f"tools list change delivered to {delivered} subscription(s)",
+                    }
+                ]
+            }
         if name == "test_trigger_prompt_change":
             delivered = self.publish_mcp_list_change("prompts")
-            return {"content": [{"type": "text", "text": f"prompts list change delivered to {delivered} subscription(s)"}]}
+            return {
+                "content": [
+                    {
+                        "type": "text",
+                        "text": f"prompts list change delivered to {delivered} subscription(s)",
+                    }
+                ]
+            }
         if name.startswith("test_input_required_result_"):
             return self._mcp_input_required_tool(name, params)
         if name == "test_missing_capability":
             meta = params.get("_meta", {})
-            caps = meta.get("io.modelcontextprotocol/clientCapabilities", {}) if isinstance(meta, dict) else {}
+            caps = (
+                meta.get("io.modelcontextprotocol/clientCapabilities", {})
+                if isinstance(meta, dict)
+                else {}
+            )
             if not isinstance(caps, dict) or not isinstance(caps.get("sampling"), dict):
                 raise AUECError("E_MCP_MISSING_CAPABILITY", "sampling")
             return {
-                "content": [{"type": "text", "text": "Sampling capability was explicitly declared."}],
+                "content": [
+                    {
+                        "type": "text",
+                        "text": "Sampling capability was explicitly declared.",
+                    }
+                ],
                 "isError": False,
             }
         if name == "test_streaming_elicitation":
             meta = params.get("_meta", {})
-            caps = meta.get("io.modelcontextprotocol/clientCapabilities", {}) if isinstance(meta, dict) else {}
-            if not isinstance(caps, dict) or not isinstance(caps.get("elicitation"), dict):
+            caps = (
+                meta.get("io.modelcontextprotocol/clientCapabilities", {})
+                if isinstance(meta, dict)
+                else {}
+            )
+            if not isinstance(caps, dict) or not isinstance(
+                caps.get("elicitation"), dict
+            ):
                 raise AUECError("E_MCP_MISSING_CAPABILITY", "elicitation")
             return {
                 "resultType": "input_required",
@@ -738,7 +875,11 @@ class GatewayState:
                         "params": {
                             "mode": "form",
                             "message": "Confirm bounded AIEW fixture execution",
-                            "requestedSchema": {"type": "object", "properties": {"confirm": {"type": "boolean"}}, "required": ["confirm"]},
+                            "requestedSchema": {
+                                "type": "object",
+                                "properties": {"confirm": {"type": "boolean"}},
+                                "required": ["confirm"],
+                            },
                         },
                     }
                 },
@@ -746,7 +887,12 @@ class GatewayState:
             }
         if name == "test_logging_tool":
             return {
-                "content": [{"type": "text", "text": "Completed without emitting a log notification."}],
+                "content": [
+                    {
+                        "type": "text",
+                        "text": "Completed without emitting a log notification.",
+                    }
+                ],
                 "isError": False,
             }
         raise AUECError("E_MCP_TOOL_NOT_FOUND", "unknown tool")
@@ -771,27 +917,46 @@ class GatewayState:
 
     def mcp_resource_templates_list(self) -> dict[str, Any]:
         return {
-            "resourceTemplates": [{
-                "uriTemplate": "test://template/{id}/data",
-                "name": "Template resource",
-                "description": "MCP conformance parameterized resource",
-                "mimeType": "application/json",
-            }]
+            "resourceTemplates": [
+                {
+                    "uriTemplate": "test://template/{id}/data",
+                    "name": "Template resource",
+                    "description": "MCP conformance parameterized resource",
+                    "mimeType": "application/json",
+                }
+            ]
         }
 
     def mcp_resource_read(self, params: dict[str, Any]) -> dict[str, Any]:
         uri = params.get("uri") if isinstance(params, dict) else None
         if uri == "test://static-text":
-            return {"contents": [{"uri": uri, "mimeType": "text/plain", "text": "This is the content of the static text resource."}]}
+            return {
+                "contents": [
+                    {
+                        "uri": uri,
+                        "mimeType": "text/plain",
+                        "text": "This is the content of the static text resource.",
+                    }
+                ]
+            }
         if uri == "test://static-binary":
-            return {"contents": [{"uri": uri, "mimeType": "image/png", "blob": PNG_1X1}]}
+            return {
+                "contents": [{"uri": uri, "mimeType": "image/png", "blob": PNG_1X1}]
+            }
         match = re.fullmatch(r"test://template/([^/]+)/data", uri or "")
         if match:
             value = match.group(1)
-            text = json.dumps({"id": value, "templateTest": True, "data": f"Data for ID: {value}"}, separators=(",", ":"))
-            return {"contents": [{"uri": uri, "mimeType": "application/json", "text": text}]}
+            text = json.dumps(
+                {"id": value, "templateTest": True, "data": f"Data for ID: {value}"},
+                separators=(",", ":"),
+            )
+            return {
+                "contents": [{"uri": uri, "mimeType": "application/json", "text": text}]
+            }
         if uri == "test://watched-resource":
-            return {"contents": [{"uri": uri, "mimeType": "text/plain", "text": "watched"}]}
+            return {
+                "contents": [{"uri": uri, "mimeType": "text/plain", "text": "watched"}]
+            }
         raise AUECError("E_MCP_RESOURCE_NOT_FOUND", "resource not found")
 
     def mcp_subscribe(self, params: dict[str, Any]) -> dict[str, Any]:
@@ -812,37 +977,49 @@ class GatewayState:
 
     def mcp_prompts_list(self) -> dict[str, Any]:
         prompts = [
-                {
-                    "name": "test_simple_prompt",
-                    "description": "Simple MCP conformance prompt",
-                    "arguments": [],
-                },
-                {
-                    "name": "test_prompt_with_arguments",
-                    "description": "Prompt with required arguments",
-                    "arguments": [
-                        {"name": "arg1", "description": "First test argument", "required": True},
-                        {"name": "arg2", "description": "Second test argument", "required": True},
-                    ],
-                },
-                {
-                    "name": "test_prompt_with_embedded_resource",
-                    "description": "Prompt containing a resource",
-                    "arguments": [
-                        {"name": "resourceUri", "description": "Resource URI", "required": True},
-                    ],
-                },
-                {
-                    "name": "test_prompt_with_image",
-                    "description": "Prompt containing an image",
-                    "arguments": [],
-                },
-                {
-                    "name": "test_input_required_result_prompt",
-                    "description": "SEP-2322 prompt requiring client context.",
-                    "arguments": [],
-                },
-            ]
+            {
+                "name": "test_simple_prompt",
+                "description": "Simple MCP conformance prompt",
+                "arguments": [],
+            },
+            {
+                "name": "test_prompt_with_arguments",
+                "description": "Prompt with required arguments",
+                "arguments": [
+                    {
+                        "name": "arg1",
+                        "description": "First test argument",
+                        "required": True,
+                    },
+                    {
+                        "name": "arg2",
+                        "description": "Second test argument",
+                        "required": True,
+                    },
+                ],
+            },
+            {
+                "name": "test_prompt_with_embedded_resource",
+                "description": "Prompt containing a resource",
+                "arguments": [
+                    {
+                        "name": "resourceUri",
+                        "description": "Resource URI",
+                        "required": True,
+                    },
+                ],
+            },
+            {
+                "name": "test_prompt_with_image",
+                "description": "Prompt containing an image",
+                "arguments": [],
+            },
+            {
+                "name": "test_input_required_result_prompt",
+                "description": "SEP-2322 prompt requiring client context.",
+                "arguments": [],
+            },
+        ]
         aliases = {
             "test_simple_prompt": "simple_prompt",
             "test_prompt_with_arguments": "prompt_with_arguments",
@@ -865,7 +1042,15 @@ class GatewayState:
         if name in {"simple_prompt", "test_simple_prompt"}:
             return {
                 "description": "Simple MCP conformance prompt",
-                "messages": [{"role": "user", "content": {"type": "text", "text": "This is a simple prompt for testing."}}],
+                "messages": [
+                    {
+                        "role": "user",
+                        "content": {
+                            "type": "text",
+                            "text": "This is a simple prompt for testing.",
+                        },
+                    }
+                ],
             }
         if name in {"prompt_with_arguments", "test_prompt_with_arguments"}:
             if name == "test_prompt_with_arguments":
@@ -882,12 +1067,18 @@ class GatewayState:
                 text = f"Write about {topic} in a {style} style."
             return {
                 "description": "Prompt with arguments",
-                "messages": [{"role": "user", "content": {"type": "text", "text": text}}],
+                "messages": [
+                    {"role": "user", "content": {"type": "text", "text": text}}
+                ],
             }
-        if name in {"prompt_with_embedded_resource", "test_prompt_with_embedded_resource"}:
+        if name in {
+            "prompt_with_embedded_resource",
+            "test_prompt_with_embedded_resource",
+        }:
             resource_uri = (
                 args.get("resourceUri")
-                if name == "test_prompt_with_embedded_resource" and isinstance(args, dict)
+                if name == "test_prompt_with_embedded_resource"
+                and isinstance(args, dict)
                 else "test://prompt-resource"
             )
             if not isinstance(resource_uri, str) or not resource_uri:
@@ -919,22 +1110,44 @@ class GatewayState:
             return {
                 "description": "Prompt with image",
                 "messages": [
-                    {"role": "user", "content": {"type": "image", "data": PNG_1X1, "mimeType": "image/png"}},
-                    {"role": "user", "content": {"type": "text", "text": "Please analyze the image above."}},
+                    {
+                        "role": "user",
+                        "content": {
+                            "type": "image",
+                            "data": PNG_1X1,
+                            "mimeType": "image/png",
+                        },
+                    },
+                    {
+                        "role": "user",
+                        "content": {
+                            "type": "text",
+                            "text": "Please analyze the image above.",
+                        },
+                    },
                 ],
             }
         if name == "test_input_required_result_prompt":
             responses = self._mcp_responses(params)
             requests = {
                 "prompt_context": self._mcp_elicit_request(
-                    "Provide prompt context", {"context": {"type": "string"}}, ["context"]
+                    "Provide prompt context",
+                    {"context": {"type": "string"}},
+                    ["context"],
                 )
             }
-            if responses is None or not self._mcp_valid_response(responses, "prompt_context"):
+            if responses is None or not self._mcp_valid_response(
+                responses, "prompt_context"
+            ):
                 return self._mcp_input_required(requests)
             return {
                 "description": "SEP-2322 completed prompt",
-                "messages": [{"role": "user", "content": {"type": "text", "text": "Prompt context accepted."}}],
+                "messages": [
+                    {
+                        "role": "user",
+                        "content": {"type": "text", "text": "Prompt context accepted."},
+                    }
+                ],
             }
         raise AUECError("E_MCP_PROMPT_NOT_FOUND", "prompt not found")
 
@@ -944,7 +1157,6 @@ class GatewayState:
             raise AUECError("E_MCP", "logging level required")
         self._log_level = level
         return {}
-
 
     # -------------------- MCP bidirectional channel -----------------
     def register_mcp_session(self, session_id: str) -> None:
@@ -996,7 +1208,9 @@ class GatewayState:
             "params": deepcopy(params),
         }, event
 
-    def resolve_mcp_client_response(self, session_id: str | None, payload: dict[str, Any]) -> bool:
+    def resolve_mcp_client_response(
+        self, session_id: str | None, payload: dict[str, Any]
+    ) -> bool:
         if not isinstance(session_id, str) or not isinstance(payload, dict):
             return False
         request_id = payload.get("id")
@@ -1023,14 +1237,22 @@ class GatewayState:
         if not event.wait(timeout):
             with self._lock:
                 self._mcp_pending.pop((session_id, request_id), None)
-            raise AUECError("E_MCP_CLIENT_TIMEOUT", "client capability response timed out")
+            raise AUECError(
+                "E_MCP_CLIENT_TIMEOUT", "client capability response timed out"
+            )
         with self._lock:
             pending = self._mcp_pending.pop((session_id, request_id), None)
-        if not isinstance(pending, dict) or not isinstance(pending.get("response"), dict):
-            raise AUECError("E_MCP_CLIENT_RESPONSE", "missing client capability response")
+        if not isinstance(pending, dict) or not isinstance(
+            pending.get("response"), dict
+        ):
+            raise AUECError(
+                "E_MCP_CLIENT_RESPONSE", "missing client capability response"
+            )
         response = deepcopy(pending["response"])
         if "error" in response:
-            raise AUECError("E_MCP_CLIENT_RESPONSE", "client rejected capability request")
+            raise AUECError(
+                "E_MCP_CLIENT_RESPONSE", "client rejected capability request"
+            )
         return response
 
     # --------------------------- A2A ---------------------------------
@@ -1059,27 +1281,37 @@ class GatewayState:
                 "streaming": False,
                 "pushNotifications": False,
                 "extendedAgentCard": True,
-                "extensions": [{
-                    "uri": A2A_EXTENSION_URI,
-                    "description": (
-                        "AIEW/AUEC U0 manifest execution with canonical results, "
-                        "epistemic typing and receipt-chain metadata."
-                    ),
-                    # AIEW is optional for generic A2A operations. It becomes
-                    # required only when an AUEC manifest part is submitted.
-                    "required": False,
-                }],
+                "extensions": [
+                    {
+                        "uri": A2A_EXTENSION_URI,
+                        "description": (
+                            "AIEW/AUEC U0 manifest execution with canonical results, "
+                            "epistemic typing and receipt-chain metadata."
+                        ),
+                        # AIEW is optional for generic A2A operations. It becomes
+                        # required only when an AUEC manifest part is submitted.
+                        "required": False,
+                    }
+                ],
             },
             "defaultInputModes": ["text/plain", "application/json", MEDIA_TYPE],
             "defaultOutputModes": ["text/plain", "application/json", MEDIA_TYPE],
-            "skills": [{
-                "id": AIEW_SKILL_ID,
-                "name": "Execute AIEW manifest",
-                "description": "Validate and execute an AUEC U0 manifest under bounded host policy.",
-                "tags": ["AIEW", "AUEC", "local-execution", "receipts", "deterministic"],
-                "inputModes": [MEDIA_TYPE, "application/json"],
-                "outputModes": [MEDIA_TYPE, "application/json"],
-            }],
+            "skills": [
+                {
+                    "id": AIEW_SKILL_ID,
+                    "name": "Execute AIEW manifest",
+                    "description": "Validate and execute an AUEC U0 manifest under bounded host policy.",
+                    "tags": [
+                        "AIEW",
+                        "AUEC",
+                        "local-execution",
+                        "receipts",
+                        "deterministic",
+                    ],
+                    "inputModes": [MEDIA_TYPE, "application/json"],
+                    "outputModes": [MEDIA_TYPE, "application/json"],
+                }
+            ],
         }
 
     @staticmethod
@@ -1118,23 +1350,36 @@ class GatewayState:
             raise AUECError("E_A2A_INVALID_PARAMS", "message role must be ROLE_USER")
         parts = message.get("parts")
         if not isinstance(parts, list) or not parts:
-            raise AUECError("E_A2A_INVALID_PARAMS", "message requires at least one part")
+            raise AUECError(
+                "E_A2A_INVALID_PARAMS", "message requires at least one part"
+            )
         for part in parts:
             if not isinstance(part, dict):
                 raise AUECError("E_A2A_INVALID_PARAMS", "part must be an object")
-            content_fields = [key for key in ("text", "raw", "url", "data") if key in part]
+            content_fields = [
+                key for key in ("text", "raw", "url", "data") if key in part
+            ]
             if len(content_fields) != 1:
-                raise AUECError("E_A2A_INVALID_PARAMS", "part must contain exactly one content variant")
+                raise AUECError(
+                    "E_A2A_INVALID_PARAMS",
+                    "part must contain exactly one content variant",
+                )
             field = content_fields[0]
             if field in {"text", "url"} and not isinstance(part[field], str):
-                raise AUECError("E_A2A_INVALID_PARAMS", f"{field} part must be a string")
+                raise AUECError(
+                    "E_A2A_INVALID_PARAMS", f"{field} part must be a string"
+                )
             if field == "raw":
                 if not isinstance(part[field], str):
-                    raise AUECError("E_A2A_INVALID_PARAMS", "raw part must be base64 text")
+                    raise AUECError(
+                        "E_A2A_INVALID_PARAMS", "raw part must be base64 text"
+                    )
                 try:
                     base64.b64decode(part[field], validate=True)
                 except Exception as exc:
-                    raise AUECError("E_A2A_INVALID_PARAMS", "raw part is not valid base64") from exc
+                    raise AUECError(
+                        "E_A2A_INVALID_PARAMS", "raw part is not valid base64"
+                    ) from exc
             media_type = part.get("mediaType", part.get("media_type"))
             if media_type == "application/x-unsupported-tck-type":
                 raise AUECError("E_A2A_CONTENT_TYPE", "content type is not supported")
@@ -1157,11 +1402,15 @@ class GatewayState:
         if raw is None:
             return None
         if not isinstance(raw, int) or isinstance(raw, bool) or raw < 0:
-            raise AUECError("E_A2A_INVALID_PARAMS", "historyLength must be a non-negative integer")
+            raise AUECError(
+                "E_A2A_INVALID_PARAMS", "historyLength must be a non-negative integer"
+            )
         return raw
 
     @staticmethod
-    def _copy_task_for_response(task: dict[str, Any], history_length: int | None = None) -> dict[str, Any]:
+    def _copy_task_for_response(
+        task: dict[str, Any], history_length: int | None = None
+    ) -> dict[str, Any]:
         result = deepcopy(task)
         if history_length is not None:
             if history_length == 0:
@@ -1202,7 +1451,9 @@ class GatewayState:
         if part is None:
             return None
         return {
-            "artifactId": stable_id("artifact", {"task": task_id, "fixture": message_id}),
+            "artifactId": stable_id(
+                "artifact", {"task": task_id, "fixture": message_id}
+            ),
             "name": "TCK generated artifact",
             "parts": [part],
         }
@@ -1212,7 +1463,11 @@ class GatewayState:
         # breaks same-millisecond ties for ListTasks ordering.
         with self._lock:
             self._task_sequence += 1
-        return datetime.now(timezone.utc).isoformat(timespec="microseconds").replace("+00:00", "Z")
+        return (
+            datetime.now(timezone.utc)
+            .isoformat(timespec="microseconds")
+            .replace("+00:00", "Z")
+        )
 
     def _build_generic_task(
         self,
@@ -1225,7 +1480,9 @@ class GatewayState:
     ) -> dict[str, Any]:
         message_id = self._message_id(message)
         configuration = self._configuration(params)
-        return_immediately = configuration.get("returnImmediately", configuration.get("return_immediately", False))
+        return_immediately = configuration.get(
+            "returnImmediately", configuration.get("return_immediately", False)
+        )
         if not isinstance(return_immediately, bool):
             raise AUECError("E_A2A_INVALID_PARAMS", "returnImmediately must be boolean")
 
@@ -1240,16 +1497,24 @@ class GatewayState:
         metadata: dict[str, Any] = {"requestDigest": protocol_digest(message)}
         if manifest is not None:
             result = self.execute_manifest(manifest)
-            task_state = "TASK_STATE_COMPLETED" if result.get("status") == "succeeded" else "TASK_STATE_REJECTED"
+            task_state = (
+                "TASK_STATE_COMPLETED"
+                if result.get("status") == "succeeded"
+                else "TASK_STATE_REJECTED"
+            )
             artifact = a2a_task_artifact(result)
-            artifact["artifactId"] = stable_id("artifact", {"task": task_id, "terminal": result.get("terminalDigest")})
+            artifact["artifactId"] = stable_id(
+                "artifact", {"task": task_id, "terminal": result.get("terminalDigest")}
+            )
             artifact["parts"] = [{"data": deepcopy(result), "mediaType": MEDIA_TYPE}]
             artifacts.append(artifact)
-            metadata.update({
-                "aiewExtension": A2A_EXTENSION_URI,
-                "terminalDigest": result.get("terminalDigest"),
-                "manifestDigest": result.get("manifestDigest"),
-            })
+            metadata.update(
+                {
+                    "aiewExtension": A2A_EXTENSION_URI,
+                    "terminalDigest": result.get("terminalDigest"),
+                    "manifestDigest": result.get("manifestDigest"),
+                }
+            )
         fixture_artifact = self._artifact_for_fixture(message_id, task_id)
         if fixture_artifact is not None:
             artifacts.append(fixture_artifact)
@@ -1277,15 +1542,22 @@ class GatewayState:
 
     def send_message(self, params: dict[str, Any]) -> dict[str, Any]:
         if not isinstance(params, dict):
-            raise AUECError("E_A2A_INVALID_PARAMS", "SendMessage params must be an object")
+            raise AUECError(
+                "E_A2A_INVALID_PARAMS", "SendMessage params must be an object"
+            )
         message = self._validate_a2a_message(params.get("message"))
         message_id = self._message_id(message)
         manifest = self._extract_manifest_optional(message)
         configuration = self._configuration(params)
         history_length = self._history_length(configuration)
 
-        if "message-response" in message_id and message.get("taskId", message.get("task_id")) is None:
-            context_id = message.get("contextId", message.get("context_id")) or stable_id("ctx", {"message": message_id})
+        if (
+            "message-response" in message_id
+            and message.get("taskId", message.get("task_id")) is None
+        ):
+            context_id = message.get(
+                "contextId", message.get("context_id")
+            ) or stable_id("ctx", {"message": message_id})
             return {
                 "messageId": stable_id("msg", {"replyTo": message_id}),
                 "contextId": context_id,
@@ -1307,33 +1579,55 @@ class GatewayState:
                 raise AUECError("E_A2A_TASK_NOT_FOUND", "task not found")
             context_id = existing.get("contextId")
             if supplied_context_id is not None and supplied_context_id != context_id:
-                raise AUECError("E_A2A_INVALID_PARAMS", "contextId does not match taskId")
+                raise AUECError(
+                    "E_A2A_INVALID_PARAMS", "contextId does not match taskId"
+                )
             history = existing.get("history", [])
             if isinstance(history, list) and any(
-                isinstance(item, dict) and protocol_json_bytes(item) == protocol_json_bytes(message)
+                isinstance(item, dict)
+                and protocol_json_bytes(item) == protocol_json_bytes(message)
                 for item in history
             ):
                 return self._copy_task_for_response(existing, history_length)
             current = existing.get("status", {}).get("state")
             if current in {
-                "TASK_STATE_COMPLETED", "TASK_STATE_FAILED", "TASK_STATE_CANCELED", "TASK_STATE_REJECTED"
+                "TASK_STATE_COMPLETED",
+                "TASK_STATE_FAILED",
+                "TASK_STATE_CANCELED",
+                "TASK_STATE_REJECTED",
             }:
-                raise AUECError("E_A2A_UNSUPPORTED_OPERATION", "terminal tasks cannot accept messages")
+                raise AUECError(
+                    "E_A2A_UNSUPPORTED_OPERATION",
+                    "terminal tasks cannot accept messages",
+                )
             existing.setdefault("history", []).append(deepcopy(message))
-            next_state = "TASK_STATE_COMPLETED" if "complete-task" in message_id else current
-            if next_state not in {"TASK_STATE_INPUT_REQUIRED", "TASK_STATE_WORKING", "TASK_STATE_COMPLETED"}:
+            next_state = (
+                "TASK_STATE_COMPLETED" if "complete-task" in message_id else current
+            )
+            if next_state not in {
+                "TASK_STATE_INPUT_REQUIRED",
+                "TASK_STATE_WORKING",
+                "TASK_STATE_COMPLETED",
+            }:
                 next_state = "TASK_STATE_INPUT_REQUIRED"
             existing["status"] = {
                 "state": next_state,
                 "timestamp": self._next_task_timestamp(),
-                "message": self._agent_message(supplied_task_id, "Task completed" if next_state == "TASK_STATE_COMPLETED" else "Additional input required"),
+                "message": self._agent_message(
+                    supplied_task_id,
+                    "Task completed"
+                    if next_state == "TASK_STATE_COMPLETED"
+                    else "Additional input required",
+                ),
             }
             with self._lock:
                 self._tasks[supplied_task_id] = deepcopy(existing)
             return self._copy_task_for_response(existing, history_length)
 
         context_id = supplied_context_id or stable_id("ctx", {"message": message_id})
-        request_metadata = params.get("metadata") if isinstance(params.get("metadata"), dict) else {}
+        request_metadata = (
+            params.get("metadata") if isinstance(params.get("metadata"), dict) else {}
+        )
         request_material = {
             "message": message,
             "configuration": configuration,
@@ -1345,20 +1639,33 @@ class GatewayState:
         # mandatory global idempotency key. Generic A2A traffic therefore gets a
         # fresh task by default. AIEW manifest calls and callers that explicitly
         # provide metadata.idempotencyKey opt into strict replay semantics.
-        explicit_key = request_metadata.get("idempotencyKey", request_metadata.get("aiewIdempotencyKey"))
-        if explicit_key is not None and (not isinstance(explicit_key, str) or not explicit_key):
-            raise AUECError("E_A2A_INVALID_PARAMS", "idempotencyKey must be a non-empty string")
-        idempotency_key = explicit_key if isinstance(explicit_key, str) else (f"aiew-manifest:{message_id}" if manifest is not None else None)
+        explicit_key = request_metadata.get(
+            "idempotencyKey", request_metadata.get("aiewIdempotencyKey")
+        )
+        if explicit_key is not None and (
+            not isinstance(explicit_key, str) or not explicit_key
+        ):
+            raise AUECError(
+                "E_A2A_INVALID_PARAMS", "idempotencyKey must be a non-empty string"
+            )
+        idempotency_key = (
+            explicit_key
+            if isinstance(explicit_key, str)
+            else (f"aiew-manifest:{message_id}" if manifest is not None else None)
+        )
 
         if idempotency_key is None:
             with self._lock:
                 self._task_id_sequence += 1
                 sequence = self._task_id_sequence
-            task_id = stable_id("task", {
-                "message": message_id,
-                "requestDigest": request_digest,
-                "sequence": sequence,
-            })
+            task_id = stable_id(
+                "task",
+                {
+                    "message": message_id,
+                    "requestDigest": request_digest,
+                    "sequence": sequence,
+                },
+            )
             task = self._build_generic_task(
                 message,
                 params,
@@ -1366,10 +1673,12 @@ class GatewayState:
                 context_id=context_id,
                 manifest=manifest,
             )
-            task.setdefault("metadata", {}).update({
-                "requestDigest": request_digest,
-                "idempotencyMode": "none",
-            })
+            task.setdefault("metadata", {}).update(
+                {
+                    "requestDigest": request_digest,
+                    "idempotencyMode": "none",
+                }
+            )
             with self._lock:
                 self._tasks[task_id] = deepcopy(task)
             return self._copy_task_for_response(task, history_length)
@@ -1383,7 +1692,10 @@ class GatewayState:
                 expected_context = existing.get("contextId")
                 expected_digest = existing.get("metadata", {}).get("requestDigest")
                 if expected_context != context_id or expected_digest != request_digest:
-                    raise AUECError("E_A2A_IDEMPOTENCY", "idempotency key collision with different input")
+                    raise AUECError(
+                        "E_A2A_IDEMPOTENCY",
+                        "idempotency key collision with different input",
+                    )
                 return self._copy_task_for_response(existing, history_length)
             barrier = self._task_inflight.get(task_id)
             creator = barrier is None
@@ -1394,15 +1706,23 @@ class GatewayState:
         assert barrier is not None
         if not creator:
             if not barrier.wait(timeout=30.0):
-                raise AUECError("E_A2A_INTERNAL", "timed out waiting for idempotent task creation")
+                raise AUECError(
+                    "E_A2A_INTERNAL", "timed out waiting for idempotent task creation"
+                )
             with self._lock:
                 existing = deepcopy(self._tasks.get(task_id))
             if existing is None:
-                raise AUECError("E_A2A_INTERNAL", "concurrent task creation did not publish a result")
+                raise AUECError(
+                    "E_A2A_INTERNAL",
+                    "concurrent task creation did not publish a result",
+                )
             expected_context = existing.get("contextId")
             expected_digest = existing.get("metadata", {}).get("requestDigest")
             if expected_context != context_id or expected_digest != request_digest:
-                raise AUECError("E_A2A_IDEMPOTENCY", "idempotency key collision with different input")
+                raise AUECError(
+                    "E_A2A_IDEMPOTENCY",
+                    "idempotency key collision with different input",
+                )
             return self._copy_task_for_response(existing, history_length)
 
         try:
@@ -1413,18 +1733,26 @@ class GatewayState:
                 context_id=context_id,
                 manifest=manifest,
             )
-            task.setdefault("metadata", {}).update({
-                "requestDigest": request_digest,
-                "idempotencyMode": "explicit",
-                "idempotencyKey": idempotency_key,
-            })
+            task.setdefault("metadata", {}).update(
+                {
+                    "requestDigest": request_digest,
+                    "idempotencyMode": "explicit",
+                    "idempotencyKey": idempotency_key,
+                }
+            )
             with self._lock:
                 existing = self._tasks.get(task_id)
                 if existing is not None:
                     expected_context = existing.get("contextId")
                     expected_digest = existing.get("metadata", {}).get("requestDigest")
-                    if expected_context != context_id or expected_digest != request_digest:
-                        raise AUECError("E_A2A_IDEMPOTENCY", "idempotency key collision with different input")
+                    if (
+                        expected_context != context_id
+                        or expected_digest != request_digest
+                    ):
+                        raise AUECError(
+                            "E_A2A_IDEMPOTENCY",
+                            "idempotency key collision with different input",
+                        )
                     task = deepcopy(existing)
                 else:
                     self._tasks[task_id] = deepcopy(task)
@@ -1449,9 +1777,16 @@ class GatewayState:
     def list_tasks(self, params: dict[str, Any] | None = None) -> dict[str, Any]:
         params = params or {}
         if not isinstance(params, dict):
-            raise AUECError("E_A2A_INVALID_PARAMS", "ListTasks params must be an object")
+            raise AUECError(
+                "E_A2A_INVALID_PARAMS", "ListTasks params must be an object"
+            )
         page_size = params.get("pageSize", params.get("page_size", 50))
-        if not isinstance(page_size, int) or isinstance(page_size, bool) or page_size < 1 or page_size > 100:
+        if (
+            not isinstance(page_size, int)
+            or isinstance(page_size, bool)
+            or page_size < 1
+            or page_size > 100
+        ):
             raise AUECError("E_A2A_INVALID_PARAMS", "page size must be 1..100")
         page_token = params.get("pageToken", params.get("page_token", ""))
         if page_token in {None, ""}:
@@ -1462,23 +1797,38 @@ class GatewayState:
             raise AUECError("E_A2A_INVALID_PARAMS", "invalid page token")
         context = params.get("contextId", params.get("context_id"))
         status_filter = params.get("status")
-        include_artifacts = params.get("includeArtifacts", params.get("include_artifacts", False))
+        include_artifacts = params.get(
+            "includeArtifacts", params.get("include_artifacts", False)
+        )
         if not isinstance(include_artifacts, bool):
             raise AUECError("E_A2A_INVALID_PARAMS", "includeArtifacts must be boolean")
         history_length = self._history_length(params)
-        timestamp_after = params.get("statusTimestampAfter", params.get("status_timestamp_after"))
+        timestamp_after = params.get(
+            "statusTimestampAfter", params.get("status_timestamp_after")
+        )
 
         with self._lock:
             tasks = [deepcopy(value) for value in self._tasks.values()]
         if isinstance(context, str):
             tasks = [task for task in tasks if task.get("contextId") == context]
         if isinstance(status_filter, str):
-            tasks = [task for task in tasks if task.get("status", {}).get("state") == status_filter]
+            tasks = [
+                task
+                for task in tasks
+                if task.get("status", {}).get("state") == status_filter
+            ]
         if isinstance(timestamp_after, str):
-            tasks = [task for task in tasks if str(task.get("status", {}).get("timestamp", "")) > timestamp_after]
-        tasks.sort(key=lambda task: str(task.get("status", {}).get("timestamp", "")), reverse=True)
+            tasks = [
+                task
+                for task in tasks
+                if str(task.get("status", {}).get("timestamp", "")) > timestamp_after
+            ]
+        tasks.sort(
+            key=lambda task: str(task.get("status", {}).get("timestamp", "")),
+            reverse=True,
+        )
 
-        page = tasks[offset: offset + page_size]
+        page = tasks[offset : offset + page_size]
         output: list[dict[str, Any]] = []
         for task in page:
             projected = self._copy_task_for_response(task, history_length)
@@ -1500,7 +1850,12 @@ class GatewayState:
         if task is None:
             raise AUECError("E_A2A_TASK_NOT_FOUND", "task not found")
         current = task.get("status", {}).get("state")
-        if current in {"TASK_STATE_COMPLETED", "TASK_STATE_FAILED", "TASK_STATE_REJECTED", "TASK_STATE_CANCELED"}:
+        if current in {
+            "TASK_STATE_COMPLETED",
+            "TASK_STATE_FAILED",
+            "TASK_STATE_REJECTED",
+            "TASK_STATE_CANCELED",
+        }:
             raise AUECError("E_A2A_TASK_NOT_CANCELABLE", "task is not cancelable")
         task["status"] = {
             "state": "TASK_STATE_CANCELED",

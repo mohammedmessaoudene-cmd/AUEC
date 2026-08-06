@@ -57,8 +57,7 @@ def main() -> int:
         "errors": len(result.errors),
         "skipped": len(result.skipped),
         "executedLines": {
-            path: sorted(lines)
-            for path, lines in sorted(executed.items())
+            path: sorted(lines) for path, lines in sorted(executed.items())
         },
         "unittestOutput": unittest_output,
     }
@@ -69,7 +68,12 @@ def main() -> int:
         newline="\n",
     )
     print(unittest_output, end="")
-    print(json.dumps({key: payload[key] for key in ("test", "success", "testsRun")}, sort_keys=True))
+    print(
+        json.dumps(
+            {key: payload[key] for key in ("test", "success", "testsRun")},
+            sort_keys=True,
+        )
+    )
     return 0 if result.wasSuccessful() else 1
 
 

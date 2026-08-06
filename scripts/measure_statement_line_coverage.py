@@ -80,7 +80,9 @@ def main() -> int:
                 "path": path.relative_to(ROOT).as_posix(),
                 "statementLines": len(statements),
                 "coveredStatementLines": len(covered),
-                "percent": round(100 * len(covered) / len(statements), 2) if statements else 100.0,
+                "percent": round(100 * len(covered) / len(statements), 2)
+                if statements
+                else 100.0,
                 "uncoveredLines": sorted(statements - covered),
             }
         )

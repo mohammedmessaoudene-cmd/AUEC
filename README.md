@@ -59,5 +59,20 @@ python scripts/run_core_semantic_mutations.py
 python scripts/run_bounded_models.py
 ```
 
+## Two-minute authority-boundary demo
+
+Run the safe, deterministic demonstration with:
+
+```bash
+make demo-authority-boundary
+```
+
+It exercises three local controls: host-operation policy intersection, U0
+epistemic admission, and the pure authorization predicate. Each guard is
+disabled only inside a disposable copy, where the safety oracle must turn red;
+restoration must return it to green. The command performs no consequential
+action, accepts no untrusted shell input, and requires no network or
+credentials. See `docs/DEMO_AUTHORITY_BOUNDARY.md`.
+
 The technical report and reproducible sources are in
 `docs/technical-report/`.

@@ -39,7 +39,12 @@ class ValidatedManifest:
 
 
 def _exact_int(value: Any, name: str, minimum: int, maximum: int) -> int:
-    if not isinstance(value, int) or isinstance(value, bool) or value < minimum or value > maximum:
+    if (
+        not isinstance(value, int)
+        or isinstance(value, bool)
+        or value < minimum
+        or value > maximum
+    ):
         raise AUECError("E_SCHEMA", f"{name} must be an integer in range")
     return value
 
@@ -62,7 +67,9 @@ def _array(value: Any, name: str) -> list[Any]:
     return value
 
 
-def _keys(obj: Mapping[str, Any], *, required: set[str], allowed: set[str], name: str) -> None:
+def _keys(
+    obj: Mapping[str, Any], *, required: set[str], allowed: set[str], name: str
+) -> None:
     missing = required - set(obj)
     extra = set(obj) - allowed
     if missing:
@@ -105,8 +112,26 @@ def validate_policy(policy: dict[str, Any]) -> dict[str, Any]:
     policy = _object(policy, "policy")
     _keys(
         policy,
-        required={"policyVersion", "allowedProfiles", "allowedOps", "allowedEffects", "allowedPlacements", "maxExportClassification", "allowClaimExport", "budgets"},
-        allowed={"policyVersion", "allowedProfiles", "allowedOps", "allowedEffects", "allowedPlacements", "maxExportClassification", "allowClaimExport", "budgets"},
+        required={
+            "policyVersion",
+            "allowedProfiles",
+            "allowedOps",
+            "allowedEffects",
+            "allowedPlacements",
+            "maxExportClassification",
+            "allowClaimExport",
+            "budgets",
+        },
+        allowed={
+            "policyVersion",
+            "allowedProfiles",
+            "allowedOps",
+            "allowedEffects",
+            "allowedPlacements",
+            "maxExportClassification",
+            "allowClaimExport",
+            "budgets",
+        },
         name="policy",
     )
     if policy["policyVersion"] != VERSION:
@@ -115,18 +140,27 @@ def validate_policy(policy: dict[str, Any]) -> dict[str, Any]:
     if not profiles or any(item != PROFILE_U0 for item in profiles):
         raise AUECError("E_POLICY", "unsupported profile in policy")
     ops = _array(policy["allowedOps"], "allowedOps")
-    if any(not isinstance(item, str) or item not in PURE_OPS for item in ops) or len(ops) != len(set(ops)):
+    if any(not isinstance(item, str) or item not in PURE_OPS for item in ops) or len(
+        ops
+    ) != len(set(ops)):
         raise AUECError("E_POLICY", "invalid allowedOps")
     effects = _array(policy["allowedEffects"], "allowedEffects")
     if any(item != "pure" for item in effects) or len(effects) != len(set(effects)):
         raise AUECError("E_POLICY", "U0 permits only pure effects")
     placements = _array(policy["allowedPlacements"], "allowedPlacements")
-    if any(item not in PLACEMENTS for item in placements) or len(placements) != len(set(placements)):
+    if any(item not in PLACEMENTS for item in placements) or len(placements) != len(
+        set(placements)
+    ):
         raise AUECError("E_POLICY", "invalid placements")
     _classification(policy["maxExportClassification"], "maxExportClassification")
     _exact_bool(policy["allowClaimExport"], "allowClaimExport")
     budgets = _object(policy["budgets"], "policy budgets")
-    _keys(budgets, required={"maxNodes", "maxOutputBytes", "maxWallMs", "maxManifestBytes"}, allowed={"maxNodes", "maxOutputBytes", "maxWallMs", "maxManifestBytes"}, name="policy budgets")
+    _keys(
+        budgets,
+        required={"maxNodes", "maxOutputBytes", "maxWallMs", "maxManifestBytes"},
+        allowed={"maxNodes", "maxOutputBytes", "maxWallMs", "maxManifestBytes"},
+        name="policy budgets",
+    )
     _exact_int(budgets["maxNodes"], "maxNodes", 1, 10_000)
     _exact_int(budgets["maxOutputBytes"], "maxOutputBytes", 1, 2**30)
     _exact_int(budgets["maxWallMs"], "maxWallMs", 1, 86_400_000)
@@ -155,7 +189,9 @@ def _extract_node_refs(expr: Any, refs: set[str]) -> None:
     raise AUECError("E_SCHEMA", "input expression must be an object")
 
 
-def _topological(node_by_id: dict[str, dict[str, Any]], refs_by_node: dict[str, set[str]]) -> tuple[str, ...]:
+def _topological(
+    node_by_id: dict[str, dict[str, Any]], refs_by_node: dict[str, set[str]]
+) -> tuple[str, ...]:
     indegree = {node_id: 0 for node_id in node_by_id}
     outgoing: dict[str, list[str]] = {node_id: [] for node_id in node_by_id}
     for node_id, refs in refs_by_node.items():
@@ -179,25 +215,52 @@ def _topological(node_by_id: dict[str, dict[str, Any]], refs_by_node: dict[str, 
     return tuple(order)
 
 
-def validate_manifest(manifest: dict[str, Any], host_policy: dict[str, Any] | None = None) -> ValidatedManifest:
+def validate_manifest(
+    manifest: dict[str, Any], host_policy: dict[str, Any] | None = None
+) -> ValidatedManifest:
     ensure_value(manifest, max_depth=64, max_items=1_000_000)
-    policy = validate_policy(default_host_policy() if host_policy is None else host_policy)
+    policy = validate_policy(
+        default_host_policy() if host_policy is None else host_policy
+    )
     _keys(
         manifest,
-        required={"auecVersion", "manifestId", "profile", "resources", "budgets", "nodes"},
-        allowed={"auecVersion", "manifestId", "profile", "resources", "budgets", "nodes", "metadata"},
+        required={
+            "auecVersion",
+            "manifestId",
+            "profile",
+            "resources",
+            "budgets",
+            "nodes",
+        },
+        allowed={
+            "auecVersion",
+            "manifestId",
+            "profile",
+            "resources",
+            "budgets",
+            "nodes",
+            "metadata",
+        },
         name="manifest",
     )
     if manifest["auecVersion"] != VERSION:
         raise AUECError("E_VERSION", "unsupported AUEC version")
     _id(manifest["manifestId"], "manifestId")
-    if manifest["profile"] != PROFILE_U0 or manifest["profile"] not in policy["allowedProfiles"]:
+    if (
+        manifest["profile"] != PROFILE_U0
+        or manifest["profile"] not in policy["allowedProfiles"]
+    ):
         raise AUECError("E_PROFILE", "profile is not allowed")
     if len(canonical_json_bytes(manifest)) > policy["budgets"]["maxManifestBytes"]:
         raise AUECError("E_MANIFEST_SIZE", "manifest exceeds host byte bound")
 
     budgets = _object(manifest["budgets"], "budgets")
-    _keys(budgets, required={"maxNodes", "maxOutputBytes", "maxWallMs"}, allowed={"maxNodes", "maxOutputBytes", "maxWallMs"}, name="budgets")
+    _keys(
+        budgets,
+        required={"maxNodes", "maxOutputBytes", "maxWallMs"},
+        allowed={"maxNodes", "maxOutputBytes", "maxWallMs"},
+        name="budgets",
+    )
     requested_nodes = _exact_int(budgets["maxNodes"], "maxNodes", 1, 10_000)
     requested_output = _exact_int(budgets["maxOutputBytes"], "maxOutputBytes", 1, 2**30)
     requested_wall = _exact_int(budgets["maxWallMs"], "maxWallMs", 1, 86_400_000)
@@ -205,7 +268,9 @@ def validate_manifest(manifest: dict[str, Any], host_policy: dict[str, Any] | No
         **policy,
         "budgets": {
             "maxNodes": min(requested_nodes, policy["budgets"]["maxNodes"]),
-            "maxOutputBytes": min(requested_output, policy["budgets"]["maxOutputBytes"]),
+            "maxOutputBytes": min(
+                requested_output, policy["budgets"]["maxOutputBytes"]
+            ),
             "maxWallMs": min(requested_wall, policy["budgets"]["maxWallMs"]),
             "maxManifestBytes": policy["budgets"]["maxManifestBytes"],
         },
@@ -217,9 +282,17 @@ def validate_manifest(manifest: dict[str, Any], host_policy: dict[str, Any] | No
     for name, resource in resources.items():
         _id(name, "resource id")
         resource = _object(resource, "resource")
-        _keys(resource, required={"classification", "value"}, allowed={"classification", "value", "mediaType"}, name="resource")
+        _keys(
+            resource,
+            required={"classification", "value"},
+            allowed={"classification", "value", "mediaType"},
+            name="resource",
+        )
         _classification(resource["classification"], "resource classification")
-        if "mediaType" in resource and (not isinstance(resource["mediaType"], str) or len(resource["mediaType"]) > 128):
+        if "mediaType" in resource and (
+            not isinstance(resource["mediaType"], str)
+            or len(resource["mediaType"]) > 128
+        ):
             raise AUECError("E_SCHEMA", "invalid resource mediaType")
         ensure_value(resource["value"], max_depth=32, max_items=100_000)
 
@@ -240,14 +313,27 @@ def validate_manifest(manifest: dict[str, Any], host_policy: dict[str, Any] | No
         if node_id in node_by_id:
             raise AUECError("E_DUPLICATE_ID", "duplicate node id")
         op = node["op"]
-        if not isinstance(op, str) or op not in PURE_OPS or op not in policy["allowedOps"]:
+        if (
+            not isinstance(op, str)
+            or op not in PURE_OPS
+            or op not in policy["allowedOps"]
+        ):
             raise AUECError("E_OPERATION", "operation is unsupported or forbidden")
         if node["effect"] != "pure" or node["effect"] not in policy["allowedEffects"]:
             raise AUECError("E_EFFECT", "U0 operation must be pure")
         placement = _object(node["placement"], "placement")
-        _keys(placement, required={"allowed", "preferred"}, allowed={"allowed", "preferred"}, name="placement")
+        _keys(
+            placement,
+            required={"allowed", "preferred"},
+            allowed={"allowed", "preferred"},
+            name="placement",
+        )
         allowed = _array(placement["allowed"], "placement.allowed")
-        if not allowed or any(item not in PLACEMENTS for item in allowed) or len(allowed) != len(set(allowed)):
+        if (
+            not allowed
+            or any(item not in PLACEMENTS for item in allowed)
+            or len(allowed) != len(set(allowed))
+        ):
             raise AUECError("E_PLACEMENT", "invalid placement list")
         if placement["preferred"] not in allowed:
             raise AUECError("E_PLACEMENT", "preferred placement is not allowed")
@@ -261,17 +347,26 @@ def validate_manifest(manifest: dict[str, Any], host_policy: dict[str, Any] | No
         params = _object(node["params"], "params")
         ensure_value(params, max_depth=24, max_items=100_000)
         output = _object(node["output"], "output")
-        _keys(output, required={"epistemic", "classification", "export"}, allowed={"epistemic", "classification", "export"}, name="output")
+        _keys(
+            output,
+            required={"epistemic", "classification", "export"},
+            allowed={"epistemic", "classification", "export"},
+            name="output",
+        )
         if output["epistemic"] not in EPISTEMIC:
             raise AUECError("E_SCHEMA", "invalid epistemic kind")
         if output["epistemic"] not in {"fact", "artifact"}:
-            raise AUECError("E_EPISTEMIC", "deterministic U0 operations emit only fact or artifact")
+            raise AUECError(
+                "E_EPISTEMIC", "deterministic U0 operations emit only fact or artifact"
+            )
         _classification(output["classification"], "output classification")
         _exact_bool(output["export"], "output.export")
         node_by_id[node_id] = node
         refs_by_node[node_id] = refs
     order = _topological(node_by_id, refs_by_node)
-    return ValidatedManifest(raw=manifest, node_by_id=node_by_id, order=order, effective_policy=effective)
+    return ValidatedManifest(
+        raw=manifest, node_by_id=node_by_id, order=order, effective_policy=effective
+    )
 
 
 def classification_max(values: Sequence[str]) -> str:

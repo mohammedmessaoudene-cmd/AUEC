@@ -8,7 +8,9 @@ from pathlib import Path
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("root", nargs="?", type=Path, default=Path(__file__).resolve().parents[1])
+    parser.add_argument(
+        "root", nargs="?", type=Path, default=Path(__file__).resolve().parents[1]
+    )
     parser.add_argument("--output", type=Path)
     args = parser.parse_args()
     root = args.root.resolve()

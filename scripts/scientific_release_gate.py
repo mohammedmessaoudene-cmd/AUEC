@@ -17,8 +17,7 @@ def main() -> int:
     design = (REPORT / "sections" / "04_design.tex").read_text(encoding="utf-8")
     metadata = (REPORT / "metadata_public.tex").read_text(encoding="utf-8")
     all_tex = "\n".join(
-        path.read_text(encoding="utf-8")
-        for path in sorted(REPORT.rglob("*.tex"))
+        path.read_text(encoding="utf-8") for path in sorted(REPORT.rglob("*.tex"))
     )
 
     for citation in (
@@ -28,8 +27,12 @@ def main() -> int:
         "Zhou2026",
         "Figuera2026",
     ):
-        if not re.search(r"\\cite\{[^}]*\b" + re.escape(citation) + r"\b[^}]*\}", background):
-            errors.append(f"required contemporary citation absent from related work: {citation}")
+        if not re.search(
+            r"\\cite\{[^}]*\b" + re.escape(citation) + r"\b[^}]*\}", background
+        ):
+            errors.append(
+                f"required contemporary citation absent from related work: {citation}"
+            )
 
     required_design_fragments = (
         r"\kappa(x)",

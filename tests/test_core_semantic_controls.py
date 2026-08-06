@@ -9,13 +9,15 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "reference-runtime"))
 
-from aiew_uc.canonical import digest_json
-from aiew_uc.model import default_host_policy
-from aiew_uc.runtime import UniversalRuntime
+from aiew_uc.canonical import digest_json  # noqa: E402
+from aiew_uc.model import default_host_policy  # noqa: E402
+from aiew_uc.runtime import UniversalRuntime  # noqa: E402
 
 
 def manifest_copy() -> dict:
-    return json.loads((ROOT / "examples" / "hello_manifest.json").read_text(encoding="utf-8"))
+    return json.loads(
+        (ROOT / "examples" / "hello_manifest.json").read_text(encoding="utf-8")
+    )
 
 
 def consequential_request(status: str = "fact") -> dict:
