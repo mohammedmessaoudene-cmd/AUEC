@@ -1,57 +1,57 @@
-# Wire-change assessment
+# Caller-governance field assessment
 
 ## Verdict
 
 ```text
-INTERCEPTOR_PROFILE_CANDIDATE
+CALLER_GOVERNANCE_OPTIONAL_FIELDS_CANDIDATE
+UNREGISTERED_PRIVATE_CANDIDATE
+NO_NEW_RECORD_CORE
+NO_NEW_CANONICALIZATION
 ```
 
-The experiment found no need for a new generic MCP transport, signed
-declaration format or audit-record chain.
+No MCP transport, signature format, receipt primitive, chain construction or
+new extension type is proposed.
 
-The open SEP-2624 `ValidationResult` already provides:
+## Concrete loss vector
 
-- a boolean validation decision;
-- severity and structured messages;
-- an `info` object for profile-specific evidence.
+`CG-DELTA-LOSS-01` evaluates the same requested action under two host policy
+limits. Both decisions allow the action, but one preserves a ten-node budget
+and the other narrows it to five nodes. Their AUEC evidence envelopes therefore
+have different policy digests and requested-to-effective deltas.
 
-The AUEC result fits that shape as a host-owned validator profile. The
-experimental `info` data binds the decision to the action digest and effective
-host-policy digest and records bounded reason codes. These profile semantics may
-benefit from community agreement, but this experiment does not establish that a
-new wire field is required.
+Mapped with the currently registered `caller-governance` fields, the two
+records are byte-identical and have the same `event_hash`. The current
+registration has no field that commits to the decision basis.
 
-SEP-3140-style authenticated declarations can supply integrity-protected risk
-inputs. They do not grant authority, and the tests prove that a valid signature
-cannot expand the host allow-list.
+Adding one experimental field makes the records distinct:
 
-SEP-3004 can record the terminal allow/deny outcome after evaluation. Its
-current `caller-governance` extension is sufficient for the bounded mapping
-tested here. The record never participates in the authority predicate.
+| Candidate field | Type | Meaning |
+| --- | --- | --- |
+| `decision_evidence_hash` | string | Algorithm-qualified digest of a separately canonicalized authority-decision evidence envelope |
 
-## Causal evidence
+The unchanged current-registry verifier correctly rejects that field before
+registration. The candidate is therefore not described as conformant.
 
-Six isolated source mutations each turned the security oracle red:
+## Why one field is sufficient
 
-1. removed host-policy intersection;
-2. accepted `claim` as authority;
-3. ignored the consent digest;
-4. treated an authenticated declaration as authority;
-5. accepted an unknown critical field;
-6. treated an audit record as permission.
+The separate evidence envelope commits to:
 
-Restoration returned every oracle to green. Property tests also covered
-canonical key ordering, float rejection, action-digest binding, monotonic policy
-narrowing, record tampering, 1,000 repeated decisions and concurrent execution.
+- requested, host-allowed and effective authority;
+- the exact delta;
+- policy id, version and digest;
+- principal and action digest;
+- declaration, epistemic, consent and ignored-audit input digests;
+- decision authority, expected boundary emitter, verdict and reason codes.
 
-## Limits
+Repeating those fields in `caller-governance` would create two representations
+and two drift surfaces. One opaque commitment preserves the existing record
+construction and lets an exported envelope be verified out of band.
 
-- All upstream inputs are open proposals, not final standards.
-- Signature verification is represented by synthetic verification outcomes; no
-  JWS/JWKS implementation is claimed.
-- The canonical form is a deterministic local contract, not an RFC 8785
-  implementation claim.
-- No MCP wire transport or external server was exercised.
-- This is not official MCP conformance, endorsement or production validation.
+## Evidence boundary
 
-No SEP is submitted by this assessment.
+The hash chain establishes post-emission integrity and linkage. It does not
+establish that a self-emitted decision was true or independently observed.
+The verifier therefore reports `self_attested`, `authenticated`, or
+`externally_anchored`; this experiment establishes only `self_attested`.
+
+No SEP comment or upstream PR is made by this campaign.

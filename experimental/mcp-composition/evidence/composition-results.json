@@ -1,6 +1,108 @@
 {
+  "adversarial": {
+    "boundaryCases": {
+      "decision_digest_mismatch": "RED_EXPECTED",
+      "wrong_action": "RED_EXPECTED",
+      "wrong_emitter": "RED_EXPECTED",
+      "wrong_outcome": "RED_EXPECTED",
+      "wrong_principal": "RED_EXPECTED"
+    },
+    "consequentialEffects": false,
+    "hostileDecisionEnvelopes": 10000,
+    "independentProducerTruthEstablished": false,
+    "networkRequired": false,
+    "producerTrust": "self_attested",
+    "rejected": 10000,
+    "status": "PASS",
+    "unexpectedAccepted": 0,
+    "unexpectedIndices": []
+  },
+  "authorityDecision": {
+    "actionDigest": "sha256:7644e0d05185d441ffb48ba1b03bb8dc35d45326188ff491486ae6e38e0e6626",
+    "decidedAt": "2026-08-08T00:00:00.000Z",
+    "decisionAuthorityId": "auec-host-authority:test",
+    "decisionId": "decision-fixture-0001",
+    "delta": {
+      "reducedBudgets": {},
+      "removed": {
+        "capabilities": [],
+        "effects": [],
+        "egress": [],
+        "placements": []
+      }
+    },
+    "effective": {
+      "budgets": {},
+      "capabilities": [
+        "write"
+      ],
+      "effects": [
+        "write"
+      ],
+      "egress": [
+        "internal"
+      ],
+      "placements": [
+        "local"
+      ]
+    },
+    "hostAllowed": {
+      "budgets": {},
+      "capabilities": [
+        "read",
+        "write"
+      ],
+      "effects": [
+        "read",
+        "write"
+      ],
+      "egress": [
+        "internal",
+        "none"
+      ],
+      "placements": [
+        "local"
+      ]
+    },
+    "inputs": {
+      "consentDigest": "sha256:494ef629493ce152faf82b8a60cf3c8ad4937d7258b1f7c042481ac78844cbc0",
+      "declarationDigest": "sha256:e76ab909422100b01b681f13848fa8be3bf0f7b52a77bb86011d64e26509acfc",
+      "epistemicDigest": "sha256:12c2570dcabdb40f645ce2b4fab8bd3d291c07d716479fba2fd188ed37996544",
+      "ignoredAuditDigest": null,
+      "requestDigest": "sha256:8b9d11d06f55598481441996b9ea83b00535b845faa23bbdb3bda357eff4939a"
+    },
+    "policy": {
+      "digest": "sha256:73e93e5864a1ecb5ec541c560bb3ba08a3752956e9f4518f5e21c7666593c8ce",
+      "id": "auec/fixture-host-policy",
+      "version": "2026-08-08-rev1"
+    },
+    "principalId": "principal:test",
+    "producerTrust": "self_attested",
+    "reasonCodes": [
+      "ALLOW_HOST_POLICY"
+    ],
+    "recordEmitterId": "auec-action-boundary:test",
+    "requested": {
+      "budgets": {},
+      "capabilities": [
+        "write"
+      ],
+      "effects": [
+        "write"
+      ],
+      "egress": [
+        "internal"
+      ],
+      "placements": [
+        "local"
+      ]
+    },
+    "schema": "auec.authority-decision-evidence.v0",
+    "verdict": "allowed"
+  },
   "cases": [
     {
+      "decisionEvidenceDigest": "sha256:63de0bd8ab00ab3c5b9e8f4b2fc511e166c1b2012c45e7bf12a66b9d03ce6319",
       "expectedValid": false,
       "name": "denied_audit_not_authority",
       "observedValid": false,
@@ -8,6 +110,7 @@
       "reasonCode": "E_HOST_CAPABILITY"
     },
     {
+      "decisionEvidenceDigest": "sha256:c439e2038c5402a8e00501a205163cac9a45264c33aaa844bb506b2c513612d8",
       "expectedValid": false,
       "name": "denied_claim",
       "observedValid": false,
@@ -15,6 +118,7 @@
       "reasonCode": "E_EPISTEMIC_NOT_AUTHORITY"
     },
     {
+      "decisionEvidenceDigest": "sha256:c3adf343a663a39874a2642c738e87315fe2216fef7cd707adff6db3f20908bd",
       "expectedValid": false,
       "name": "denied_consent_digest",
       "observedValid": false,
@@ -22,6 +126,7 @@
       "reasonCode": "E_CONSENT_DIGEST"
     },
     {
+      "decisionEvidenceDigest": "sha256:7db0373e2d220a323101abc83ea380d2fd815df4946e89929c25757e0e1d671a",
       "expectedValid": false,
       "name": "denied_fact_without_validation",
       "observedValid": false,
@@ -29,6 +134,7 @@
       "reasonCode": "E_INDEPENDENT_VALIDATION"
     },
     {
+      "decisionEvidenceDigest": "sha256:f0293814f341ee32a399c4f28b1b2423fe2d7fafaa0552350cb3eeef02e3fc04",
       "expectedValid": false,
       "name": "denied_host_capability",
       "observedValid": false,
@@ -36,6 +142,7 @@
       "reasonCode": "E_HOST_CAPABILITY"
     },
     {
+      "decisionEvidenceDigest": "sha256:55db5e84af629bdcb62f274eea6e17ba6ae630af5939ae4aa1c7cde109d810d9",
       "expectedValid": false,
       "name": "denied_invalid_signature",
       "observedValid": false,
@@ -43,6 +150,7 @@
       "reasonCode": "E_DECLARATION_SIGNATURE"
     },
     {
+      "decisionEvidenceDigest": "sha256:4600e3df31b0a9b7e51b5a6b80cf6fd3a5eaf6f718c5427cad1e139b2542fc17",
       "expectedValid": false,
       "name": "denied_signed_not_authority",
       "observedValid": false,
@@ -50,6 +158,7 @@
       "reasonCode": "E_HOST_CAPABILITY"
     },
     {
+      "decisionEvidenceDigest": "sha256:5d81b7d2d794011095bbf5dccb435a08ae74158486349503de3a6366f491bf83",
       "expectedValid": false,
       "name": "denied_stale_declaration",
       "observedValid": false,
@@ -57,6 +166,7 @@
       "reasonCode": "E_DECLARATION_STALE"
     },
     {
+      "decisionEvidenceDigest": "sha256:9c4d6364272750209cf268e6371857e37418c7fb26066ebde75b2953d02b6dcc",
       "expectedValid": false,
       "name": "denied_trust_narrows_policy",
       "observedValid": false,
@@ -64,6 +174,7 @@
       "reasonCode": "E_HOST_EFFECT"
     },
     {
+      "decisionEvidenceDigest": "sha256:bcc07b89d62a7aa852c1fe995d4f3374e7ae51a6c82e303567b459e582f67fef",
       "expectedValid": false,
       "name": "denied_unknown_field",
       "observedValid": false,
@@ -71,6 +182,7 @@
       "reasonCode": "E_UNKNOWN_CRITICAL_FIELD"
     },
     {
+      "decisionEvidenceDigest": "sha256:cc4d809622fa5230a1d505aa52b64ff6f815c6227e7885e6887c413c9953215a",
       "expectedValid": false,
       "name": "denied_version_change",
       "observedValid": false,
@@ -78,6 +190,7 @@
       "reasonCode": "E_DECLARATION_VERSION"
     },
     {
+      "decisionEvidenceDigest": "sha256:f630c194997362433ff0b2a9269544dce18058c4acd0416e8f3ef752de99047e",
       "expectedValid": true,
       "name": "positive_authenticated_narrowing",
       "observedValid": true,
@@ -85,6 +198,7 @@
       "reasonCode": "ALLOW_HOST_POLICY"
     },
     {
+      "decisionEvidenceDigest": "sha256:94f0d6b9d3e34e5e5b607cfa23dc90c96e774015b7513c24628ee804c0db6534",
       "expectedValid": true,
       "name": "positive_consequential",
       "observedValid": true,
@@ -92,6 +206,7 @@
       "reasonCode": "ALLOW_HOST_POLICY"
     },
     {
+      "decisionEvidenceDigest": "sha256:63637ea69435d8eb78b376fea412f0578ea343da166d8d631d86f62b72ec5d3d",
       "expectedValid": true,
       "name": "positive_pure",
       "observedValid": true,
@@ -100,56 +215,383 @@
     }
   ],
   "consequentialEffects": false,
+  "decisionEmissionSeparation": {
+    "actionDigestVerifiedAtBoundary": true,
+    "actualOutcomeRecorded": true,
+    "decisionAuthorityId": "auec-host-authority:test",
+    "principalVerifiedAtBoundary": true,
+    "recordEmitterId": "auec-action-boundary:test",
+    "separateComponents": true
+  },
+  "fieldAssessment": {
+    "candidateRecordHashesDiffer": true,
+    "candidateRejectedByCurrentRegistry": true,
+    "concreteVector": "CG-DELTA-LOSS-01",
+    "currentRecordHashesEqual": true,
+    "currentRecordsConformant": true,
+    "decision": "CALLER_GOVERNANCE_OPTIONAL_FIELDS_CANDIDATE",
+    "decisionEvidenceDigestsDiffer": true,
+    "fullDelta": {
+      "reducedBudgets": {},
+      "removed": {
+        "capabilities": [],
+        "effects": [],
+        "egress": [],
+        "placements": []
+      }
+    },
+    "minimalCandidateFields": [
+      {
+        "name": "decision_evidence_hash",
+        "semantics": "opaque algorithm-qualified commitment to a separately canonicalized authority-decision evidence envelope",
+        "type": "string"
+      }
+    ],
+    "narrowDelta": {
+      "reducedBudgets": {
+        "nodes": {
+          "effective": 5,
+          "requested": 10
+        }
+      },
+      "removed": {
+        "capabilities": [],
+        "effects": [],
+        "egress": [],
+        "placements": []
+      }
+    },
+    "newCanonicalization": false,
+    "newRecordCore": false,
+    "registrationStatus": "UNREGISTERED_PRIVATE_CANDIDATE",
+    "status": "PASS"
+  },
   "mutations": [
     {
       "baseline": "GREEN",
-      "fixture": "denied_host_capability",
       "mutant": "RED_EXPECTED",
       "mutation": "remove-host-intersection",
-      "restoration": "GREEN"
+      "oracle": "fixture:denied_host_capability",
+      "restoration": "GREEN",
+      "target": "authority_validator.py"
     },
     {
       "baseline": "GREEN",
-      "fixture": "denied_claim",
       "mutant": "RED_EXPECTED",
       "mutation": "accept-claim-as-authority",
-      "restoration": "GREEN"
+      "oracle": "fixture:denied_claim",
+      "restoration": "GREEN",
+      "target": "authority_validator.py"
     },
     {
       "baseline": "GREEN",
-      "fixture": "denied_consent_digest",
       "mutant": "RED_EXPECTED",
       "mutation": "ignore-consent-digest",
-      "restoration": "GREEN"
+      "oracle": "fixture:denied_consent_digest",
+      "restoration": "GREEN",
+      "target": "authority_validator.py"
     },
     {
       "baseline": "GREEN",
-      "fixture": "denied_signed_not_authority",
       "mutant": "RED_EXPECTED",
       "mutation": "signed-declaration-grants-authority",
-      "restoration": "GREEN"
+      "oracle": "fixture:denied_signed_not_authority",
+      "restoration": "GREEN",
+      "target": "authority_validator.py"
     },
     {
       "baseline": "GREEN",
-      "fixture": "denied_unknown_field",
       "mutant": "RED_EXPECTED",
       "mutation": "accept-unknown-critical-field",
-      "restoration": "GREEN"
+      "oracle": "fixture:denied_unknown_field",
+      "restoration": "GREEN",
+      "target": "authority_validator.py"
     },
     {
       "baseline": "GREEN",
-      "fixture": "denied_audit_not_authority",
       "mutant": "RED_EXPECTED",
       "mutation": "audit-record-grants-authority",
-      "restoration": "GREEN"
+      "oracle": "fixture:denied_audit_not_authority",
+      "restoration": "GREEN",
+      "target": "authority_validator.py"
+    },
+    {
+      "baseline": "GREEN",
+      "mutant": "RED_EXPECTED",
+      "mutation": "accept-inconsistent-delta",
+      "oracle": "delta-inconsistent",
+      "restoration": "GREEN",
+      "target": "authority_validator.py"
+    },
+    {
+      "baseline": "GREEN",
+      "mutant": "RED_EXPECTED",
+      "mutation": "skip-decision-digest-link",
+      "oracle": "decision-digest",
+      "restoration": "GREEN",
+      "target": "authority_validator.py"
+    },
+    {
+      "baseline": "GREEN",
+      "mutant": "RED_EXPECTED",
+      "mutation": "skip-emitter-identity-link",
+      "oracle": "wrong-emitter",
+      "restoration": "GREEN",
+      "target": "authority_validator.py"
+    },
+    {
+      "baseline": "GREEN",
+      "mutant": "RED_EXPECTED",
+      "mutation": "skip-action-digest-link",
+      "oracle": "wrong-action",
+      "restoration": "GREEN",
+      "target": "authority_validator.py"
+    },
+    {
+      "baseline": "GREEN",
+      "mutant": "RED_EXPECTED",
+      "mutation": "skip-principal-link",
+      "oracle": "wrong-principal",
+      "restoration": "GREEN",
+      "target": "authority_validator.py"
+    },
+    {
+      "baseline": "GREEN",
+      "mutant": "RED_EXPECTED",
+      "mutation": "skip-actual-outcome-link",
+      "oracle": "wrong-outcome",
+      "restoration": "GREEN",
+      "target": "authority_validator.py"
+    },
+    {
+      "baseline": "GREEN",
+      "mutant": "RED_EXPECTED",
+      "mutation": "upgrade-self-attestation-without-proof",
+      "oracle": "self-attested",
+      "restoration": "GREEN",
+      "target": "sep3004_cleanroom.py"
     }
   ],
   "networkRequired": false,
   "profile": "experimental-draft-aligned-non-conformant",
+  "sep3004Baseline": {
+    "failed": 0,
+    "kat": {
+      "expected": "f733fed9cc757165f810b778e4baba1f51a45504988e937707aaab4361b2f064",
+      "observed": "f733fed9cc757165f810b778e4baba1f51a45504988e937707aaab4361b2f064"
+    },
+    "passed": 23,
+    "results": [
+      {
+        "expected": "conformant",
+        "id": "V-REC1-good",
+        "observed": "conformant",
+        "pass": true,
+        "requirement": "C-REC-1",
+        "title": "complete core and extensions"
+      },
+      {
+        "expected": "nonconformant",
+        "id": "V-REC1-missing-core",
+        "observed": "nonconformant",
+        "pass": true,
+        "requirement": "C-REC-1",
+        "title": "missing previous_hash"
+      },
+      {
+        "expected": "nonconformant",
+        "id": "V-REC1-missing-extensions",
+        "observed": "nonconformant",
+        "pass": true,
+        "requirement": "C-REC-1",
+        "title": "missing extensions"
+      },
+      {
+        "expected": "nonconformant",
+        "id": "V-REC1-extension-required-field",
+        "observed": "nonconformant",
+        "pass": true,
+        "requirement": "C-REC-1",
+        "title": "missing purpose_declared"
+      },
+      {
+        "expected": "nonconformant",
+        "id": "V-REC1-unregistered-extension",
+        "observed": "nonconformant",
+        "pass": true,
+        "requirement": "C-REC-1",
+        "title": "unregistered extension"
+      },
+      {
+        "expected": "conformant",
+        "id": "V-REC2-determinism",
+        "observed": "conformant",
+        "pass": true,
+        "requirement": "C-REC-2",
+        "title": "key-order independence"
+      },
+      {
+        "expected": "conformant",
+        "id": "V-REC2-injective-core",
+        "observed": "conformant",
+        "pass": true,
+        "requirement": "C-REC-2",
+        "title": "core-field injectivity"
+      },
+      {
+        "expected": "conformant",
+        "id": "V-REC2-injective-extension",
+        "observed": "conformant",
+        "pass": true,
+        "requirement": "C-REC-2",
+        "title": "extension-field injectivity"
+      },
+      {
+        "expected": "conformant",
+        "id": "V-REC2-null-vs-empty",
+        "observed": "conformant",
+        "pass": true,
+        "requirement": "C-REC-2",
+        "title": "null differs from empty"
+      },
+      {
+        "expected": "conformant",
+        "id": "V-REC2-normalization",
+        "observed": "conformant",
+        "pass": true,
+        "requirement": "C-REC-2",
+        "title": "NFC and U+0020 trim"
+      },
+      {
+        "expected": "nonconformant",
+        "id": "V-REC2-control-char",
+        "observed": "nonconformant",
+        "pass": true,
+        "requirement": "C-REC-2",
+        "title": "control character rejection"
+      },
+      {
+        "expected": "conformant",
+        "id": "V-REC3-kat",
+        "observed": "conformant",
+        "pass": true,
+        "requirement": "C-REC-3",
+        "title": "single and two-extension KAT"
+      },
+      {
+        "expected": "conformant",
+        "id": "V-REC4-good-chain",
+        "observed": "conformant",
+        "pass": true,
+        "requirement": "C-REC-4",
+        "title": "valid chain"
+      },
+      {
+        "expected": "nonconformant",
+        "id": "V-REC4-tamper-core",
+        "observed": "nonconformant",
+        "pass": true,
+        "requirement": "C-REC-4",
+        "title": "core tamper"
+      },
+      {
+        "expected": "nonconformant",
+        "id": "V-REC4-tamper-purpose",
+        "observed": "nonconformant",
+        "pass": true,
+        "requirement": "C-REC-4",
+        "title": "purpose tamper"
+      },
+      {
+        "expected": "nonconformant",
+        "id": "V-REC4-delete-record",
+        "observed": "nonconformant",
+        "pass": true,
+        "requirement": "C-REC-4",
+        "title": "head deletion"
+      },
+      {
+        "expected": "conformant",
+        "id": "V-REC5-emission",
+        "observed": "conformant",
+        "pass": true,
+        "requirement": "C-REC-5",
+        "title": "required events emitted"
+      },
+      {
+        "expected": "conformant",
+        "id": "V-REC6-mixed-extension-chain",
+        "observed": "conformant",
+        "pass": true,
+        "requirement": "C-REC-6",
+        "title": "mixed extension chain"
+      },
+      {
+        "expected": "nonconformant",
+        "id": "V-REC6-extension-fields-chained",
+        "observed": "nonconformant",
+        "pass": true,
+        "requirement": "C-REC-6",
+        "title": "runtime field tamper"
+      },
+      {
+        "expected": "conformant",
+        "id": "V-REC6-two-extension-record",
+        "observed": "conformant",
+        "pass": true,
+        "requirement": "C-REC-6",
+        "title": "two-extension record"
+      },
+      {
+        "expected": "nonconformant",
+        "id": "V-REC6-two-extension-tamper",
+        "observed": "nonconformant",
+        "pass": true,
+        "requirement": "C-REC-6",
+        "title": "two-extension tamper"
+      },
+      {
+        "expected": "conformant",
+        "id": "V-REC7-manifest-good",
+        "observed": "conformant",
+        "pass": true,
+        "requirement": "C-REC-7",
+        "title": "structured manifest"
+      },
+      {
+        "expected": "nonconformant",
+        "id": "V-REC7-manifest-bare",
+        "observed": "nonconformant",
+        "pass": true,
+        "requirement": "C-REC-7",
+        "title": "bare manifest"
+      }
+    ],
+    "status": "PASS",
+    "total": 23
+  },
   "sep3004Mapping": {
     "authorityGrantedByRecord": false,
-    "record": {
-      "event_hash": "sha256:942019e6f199153f4b211ee30bfb3af774745366ef738e27274ca45ea69ae8f6",
+    "candidateCommitmentRecord": {
+      "event_hash": "545c52d606ce937161cddb08d13bcc0314b32f1bd0d8f4ebfd1a841c3c74fac6",
+      "event_id": "composition-fixture-0001",
+      "event_type": "tool_call",
+      "extensions": {
+        "caller-governance": {
+          "decision_evidence_hash": "sha256:94f0d6b9d3e34e5e5b607cfa23dc90c96e774015b7513c24628ee804c0db6534",
+          "purpose_declared": "exercise bounded composition fixture"
+        }
+      },
+      "occurred_at": "2026-08-08T00:00:00.000Z",
+      "outcome": "allowed",
+      "previous_hash": null,
+      "principal_id": "principal:test",
+      "tool_name": "write-resource"
+    },
+    "candidateConformantBeforeRegistration": false,
+    "currentRegistryConformant": true,
+    "currentRegistryRecord": {
+      "event_hash": "ef00d93b5fd099e8065587b07cdf231022a36d9ef079ad8758d1ccc276f7945c",
       "event_id": "composition-fixture-0001",
       "event_type": "tool_call",
       "extensions": {
@@ -157,15 +599,14 @@
           "purpose_declared": "exercise bounded composition fixture"
         }
       },
-      "occurred_at": "2026-08-06T00:00:00.000Z",
+      "occurred_at": "2026-08-08T00:00:00.000Z",
       "outcome": "allowed",
       "previous_hash": null,
-      "principal_id": "composition-test-principal",
+      "principal_id": "principal:test",
       "tool_name": "write-resource"
-    },
-    "verified": true
+    }
   },
   "status": "PASS",
   "unexpectedResults": 0,
-  "verdict": "INTERCEPTOR_PROFILE_CANDIDATE"
+  "verdict": "CALLER_GOVERNANCE_OPTIONAL_FIELDS_CANDIDATE"
 }

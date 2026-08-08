@@ -1,5 +1,5 @@
 {
-  "capturedAt": "2026-08-06",
+  "capturedAt": "2026-08-08",
   "status": "experimental-draft-aligned-non-conformant",
   "proposals": {
     "SEP-2624": {
@@ -16,6 +16,20 @@
       "headSha": "8fd469a51f6bb58511591474a15f25a56d027bfa",
       "state": "OPEN",
       "url": "https://github.com/modelcontextprotocol/modelcontextprotocol/pull/3140"
+    }
+  },
+  "vectorSets": {
+    "SEP-3004-published": {
+      "repository": "https://github.com/notboatanchor/gif",
+      "commitSha": "e1f02a95506e81e7766c3ba3a684ecad7cfff12f",
+      "path": "mcp-server/conformance/audit-record-contract",
+      "license": "Apache-2.0"
+    },
+    "SEP-3004-current-comparison": {
+      "repository": "https://github.com/notboatanchor/gif",
+      "commitSha": "6855a24614f16b6e3379b5cec2a9b580f5970bfa",
+      "path": "mcp-server/conformance/audit-record-contract",
+      "license": "Apache-2.0"
     }
   }
 }

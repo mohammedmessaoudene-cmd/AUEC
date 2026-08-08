@@ -7,6 +7,7 @@ test:
 	$(PYTHON) -B -m unittest discover -s experimental/mcp-composition/tests -v
 
 audit:
+	$(PYTHON) -B scripts/check_repository_hashes.py
 	$(PYTHON) -B scripts/check_license_map.py
 	$(PYTHON) -B scripts/check_claims.py
 	$(PYTHON) -B scripts/public_release_gate.py

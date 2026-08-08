@@ -1,6 +1,6 @@
 # Draft-overlap matrix
 
-Pinned on 2026-08-06. All three proposals are open and unstable.
+Rechecked on 2026-08-08. All three proposals are open and unstable.
 
 | Draft | Reused conceptually | AUEC boundary | What this spike does not duplicate |
 | --- | --- | --- | --- |
@@ -14,8 +14,12 @@ Related boundaries:
   vocabulary, not authority.
 - SEP-2809 covers server admission, not the final per-action host decision.
 - closed SEP-1766 treated digests as integrity inputs, not authorization.
-- Discussion #2462 already contains signed decision-receipt work, so this spike
-  does not claim novelty for receipts.
+- Discussion #2462 concerns MCP server discovery via `mcp://`; an earlier
+  pointer to receipt work there was erroneous and has been removed.
+- SEP-3004's registered `caller-governance` extension is the only candidate
+  record home evaluated here. No parallel receipt or chain is proposed.
 
-No upstream text or code is copied. The implementation is independent and
-Apache-2.0 under the repository's per-path license map.
+The Python verifier is independently implemented from SEP-3004's normative
+text. The 23 Apache-2.0 conformance fixture definitions are adapted with
+attribution so that the independent implementation can be scored against the
+published C-REC-1…7 matrix.
