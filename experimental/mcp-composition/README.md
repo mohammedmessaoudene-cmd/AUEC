@@ -59,6 +59,21 @@ to different policy limits and deltas when their core fields are otherwise the
 same. One optional `decision_evidence_hash` field is evaluated privately.
 It remains unregistered and is rejected by the unchanged current verifier.
 
+## External fixture cross-run
+
+The exact Git blobs for Tersign vectors `p18`, `n25` and `n26` at commit
+`46ad663b90805a2e526ef3cd28c3f70762883125` were run through a documented AUEC
+adapter without changing inputs or expected outcomes: 3/3 pass. The fixtures are
+third-party-authored; the adapter and execution are AUEC/Codex-controlled. This
+is an external-suite cross-run, not independent validation.
+
+The two-sided authority-decision binding contribution is open as draft
+[Tersign PR #5](https://github.com/tersignhq/evidence-record-conformance/pull/5).
+Its local and fresh-clone gates are green; the external GitHub Actions run is
+awaiting maintainer approval and is not reported as an external CI pass. Exact
+receipts and evidence tiers are recorded in
+[`EXTERNAL_FIXTURE_CROSSRUN.md`](EXTERNAL_FIXTURE_CROSSRUN.md).
+
 ## Trust limit
 
 A valid hash chain proves integrity after emission, not the truth or

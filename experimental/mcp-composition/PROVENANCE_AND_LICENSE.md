@@ -1,8 +1,9 @@
 # Provenance and license
 
-The files under `experimental/mcp-composition/` are independently authored for
-the AUEC repository and licensed under Apache-2.0 according to
-`LICENSE_MAP.csv`.
+The files under `experimental/mcp-composition/` were authored within AUEC as a
+clean-room implementation relative to the TypeScript reference and are licensed
+under Apache-2.0 according to `LICENSE_MAP.csv`. This is source-provenance
+separation, not organizationally independent validation.
 
 The clean-room Python verifier was implemented from the public normative prose
 of the open SEP-3004 proposal pinned in `UPSTREAM_PINS.json`, before comparison

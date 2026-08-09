@@ -1,9 +1,11 @@
 # SPDX-License-Identifier: Apache-2.0
-"""Independent Python implementation of the draft SEP-3004 v1 record rules.
+"""Clean-room Python implementation of the draft SEP-3004 v1 record rules.
 
 The implementation is derived from the normative text at the pinned SEP head,
 not from the TypeScript reference implementation.  It deliberately keeps the
 current registry separate from AUEC's experimental decision-evidence fields.
+Clean-room here describes source provenance, not organizationally independent
+validation.
 """
 
 from __future__ import annotations

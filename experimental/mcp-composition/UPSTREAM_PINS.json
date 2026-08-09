@@ -30,6 +30,14 @@
       "commitSha": "6855a24614f16b6e3379b5cec2a9b580f5970bfa",
       "path": "mcp-server/conformance/audit-record-contract",
       "license": "Apache-2.0"
+    },
+    "Tersign-evidence-record-conformance": {
+      "repository": "https://github.com/tersignhq/evidence-record-conformance",
+      "commitSha": "46ad663b90805a2e526ef3cd28c3f70762883125",
+      "version": "0.3.0",
+      "license": "Apache-2.0",
+      "externalVectorPullRequest": "https://github.com/tersignhq/evidence-record-conformance/pull/5",
+      "externalVectorCommitSha": "c23a985c51b99cf8ec71aebf5af9f53aa34747cc"
     }
   }
 }

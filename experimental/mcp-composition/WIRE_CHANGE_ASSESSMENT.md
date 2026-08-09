@@ -54,4 +54,9 @@ establish that a self-emitted decision was true or independently observed.
 The verifier therefore reports `self_attested`, `authenticated`, or
 `externally_anchored`; this experiment establishes only `self_attested`.
 
-No SEP comment or upstream PR is made by this campaign.
+Public traceability now includes the AUEC result comment on SEP-3004
+([issuecomment-5228991875](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/3004#issuecomment-5228991875))
+and the targeted external vector PR
+([tersignhq/evidence-record-conformance#5](https://github.com/tersignhq/evidence-record-conformance/pull/5)).
+Neither is MCP acceptance, field registration, sponsorship, independent
+validation or a production-readiness claim.
