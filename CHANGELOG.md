@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+- refreshed the public defensive-publication, copyright-status, and provenance
+  statements after the v0.35 and v0.36 GitHub/Zenodo releases;
+- added bounded human-readable and machine-readable ledgers for public
+  upstream contributions without claiming adoption, endorsement, merge, or
+  independent validation.
+
 ## 0.36.0-prestandard - 2026-08-06
 
 - added isolated causal mutations for host-operation intersection and U0

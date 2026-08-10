@@ -1,0 +1,123 @@
+{
+  "schema": "auec.upstream-contributions-ledger.v1",
+  "statusCheckedAtUtc": "2026-08-10T19:48:50.6327327Z",
+  "author": {
+    "name": "Mohammed Messaoudene",
+    "github": "mohammedmessaoudene-cmd",
+    "orcid": "0009-0007-4665-2548"
+  },
+  "auecPublicRecord": {
+    "repositoryUrl": "https://github.com/mohammedmessaoudene-cmd/AUEC",
+    "repositorySnapshot": "4e18668b5ff24212d8410ad25528db634da47d0a",
+    "conceptDoi": "10.5281/zenodo.21796635",
+    "versions": [
+      {
+        "version": "0.35.0-prestandard",
+        "githubReleaseUrl": "https://github.com/mohammedmessaoudene-cmd/AUEC/releases/tag/v0.35.0-prestandard",
+        "zenodoRecordUrl": "https://zenodo.org/records/21796636"
+      },
+      {
+        "version": "0.36.0-prestandard",
+        "githubReleaseUrl": "https://github.com/mohammedmessaoudene-cmd/AUEC/releases/tag/v0.36.0-prestandard",
+        "zenodoRecordUrl": "https://zenodo.org/records/21815335",
+        "versionDoi": "10.5281/zenodo.21815335"
+      }
+    ]
+  },
+  "entries": [
+    {
+      "id": "mcp-discussion-3202",
+      "project": "Model Context Protocol",
+      "artifactType": "discussion",
+      "artifactUrl": "https://github.com/modelcontextprotocol/modelcontextprotocol/discussions/3202",
+      "author": "mohammedmessaoudene-cmd",
+      "createdAtUtc": "2026-08-06T01:00:10Z",
+      "lastObservedUpdateAtUtc": "2026-08-08T20:42:16Z",
+      "contributionUrls": [
+        "https://github.com/modelcontextprotocol/modelcontextprotocol/discussions/3202#discussioncomment-17946421"
+      ],
+      "scope": "routing and narrowing of a host-owned requested-to-effective authority delta",
+      "status": "open_routing_discussion_no_acceptance_claim",
+      "limits": [
+        "No MCP adoption, sponsorship, endorsement, or normative change is claimed."
+      ]
+    },
+    {
+      "id": "mcp-sep-3004-evidence",
+      "project": "Model Context Protocol",
+      "artifactType": "pull_request_comments",
+      "artifactUrl": "https://github.com/modelcontextprotocol/modelcontextprotocol/pull/3004",
+      "upstreamSnapshot": "377f8d260ded5b6854871b2ce3c73621ffcaef1d",
+      "contributions": [
+        {
+          "id": 5228991875,
+          "url": "https://github.com/modelcontextprotocol/modelcontextprotocol/pull/3004#issuecomment-5228991875",
+          "createdAtUtc": "2026-08-09T00:31:15Z",
+          "bodySha256": "9ec30486e24f9ea61e0063a8214723508a24afeeb557e78d3a4f28b8d62d9a1b"
+        },
+        {
+          "id": 5232012364,
+          "url": "https://github.com/modelcontextprotocol/modelcontextprotocol/pull/3004#issuecomment-5232012364",
+          "createdAtUtc": "2026-08-09T14:25:44Z",
+          "bodySha256": "666e722d46ce1a34dd172bcbc33587e61a0ab518c09b6bd0ce80762f13dc2baa"
+        },
+        {
+          "id": 5234927696,
+          "url": "https://github.com/modelcontextprotocol/modelcontextprotocol/pull/3004#issuecomment-5234927696",
+          "createdAtUtc": "2026-08-10T01:26:31Z",
+          "bodySha256": "a832e5286e97f1b472a1db50478d66703beeb407dcc40d2f1be2ed36999afaf4"
+        }
+      ],
+      "scope": "requested-to-effective authority-delta evidence and bounded vector reports",
+      "status": "open_blocked_review_required_unmerged_public_evidence",
+      "limits": [
+        "No MCP acceptance, sponsor assignment, merge, or normative-field adoption is claimed."
+      ]
+    },
+    {
+      "id": "tersign-pr-5",
+      "project": "Tersign evidence-record-conformance",
+      "artifactType": "pull_request",
+      "artifactUrl": "https://github.com/tersignhq/evidence-record-conformance/pull/5",
+      "author": "mohammedmessaoudene-cmd",
+      "createdAtUtc": "2026-08-09T14:18:40Z",
+      "baseSnapshot": "46ad663b90805a2e526ef3cd28c3f70762883125",
+      "contributionSnapshot": "2f6bef0dc531ce9e1a8ae1dc3cef6704ec2b5df5",
+      "scope": "structural decision-evidence binding vectors p19, n27, and n28",
+      "ci": {
+        "runId": 31337102263,
+        "status": "completed",
+        "conclusion": "action_required",
+        "jobs": 0
+      },
+      "humanReviews": 0,
+      "status": "open_draft_unmerged_external_ci_not_passed",
+      "limits": [
+        "The vectors and contributor credit are present on the contribution branch, not upstream main.",
+        "No external CI pass, human review, merge, or acceptance is claimed."
+      ]
+    },
+    {
+      "id": "aos-issue-1-comment-5242963828",
+      "project": "AOS catalog",
+      "artifactType": "issue_comment",
+      "artifactUrl": "https://github.com/aos-standard/catalog/issues/1#issuecomment-5242963828",
+      "author": "mohammedmessaoudene-cmd",
+      "createdAtUtc": "2026-08-10T16:21:42Z",
+      "bodySha256": "f1cabfc8f013aa677f00287cdd9cec2379f080315ba8ac8056de56412c366402",
+      "upstreamTag": "anchors-verify-v0.4",
+      "upstreamSnapshot": "44c40ba4fd6a12aa19c419e440a2f69512e99acc",
+      "scope": "bounded raw-prefix normalization report with a VERIFY PARTIAL disposition",
+      "status": "issue_open_reported_no_maintainer_disposition",
+      "limits": [
+        "No VERIFY OK result or complete verification bypass is claimed.",
+        "No maintainer response, fix, or acceptance had been observed at the snapshot time."
+      ]
+    }
+  ],
+  "boundaries": [
+    "This ledger records public chronology and observed disposition, not adoption, endorsement, partnership, merge, or independent validation.",
+    "This ledger does not assert rights over ideas, methods, or independently created implementations.",
+    "Statuses are snapshots and may change at the linked upstream artifacts."
+  ]
+}
