@@ -1,0 +1,64 @@
+{
+  "schema": "auec.external-evidence-receipt.v1",
+  "event": "third_party_boundary_binding_reproduction_reported",
+  "source": {
+    "repository": "modelcontextprotocol/modelcontextprotocol",
+    "pullRequest": 3004,
+    "commentId": 5234222504,
+    "url": "https://github.com/modelcontextprotocol/modelcontextprotocol/pull/3004#issuecomment-5234222504",
+    "author": "Tetsurohhori",
+    "createdAtUtc": "2026-08-09T22:41:57Z",
+    "authorAssociation": "NONE"
+  },
+  "vectors": {
+    "repository": "tersignhq/evidence-record-conformance",
+    "commit": "46ad663b90805a2e526ef3cd28c3f70762883125",
+    "results": [
+      {
+        "id": "p18-boundary-binds-prefix-and-position",
+        "expected": "valid",
+        "observed": "accepted"
+      },
+      {
+        "id": "n25-boundary-prefix-only-no-position",
+        "expected": "reject",
+        "observed": "unattested"
+      },
+      {
+        "id": "n26-coverage-claimed-over-empty-attestation",
+        "expected": "reject",
+        "observed": "unattested"
+      }
+    ],
+    "reportedBundleSha256": "ae31a62a86dffef0c917d58b004fcc579d4044af5df65aa60f91b00045906222",
+    "bundleSha256Status": "reported_not_reconstructed_method_unspecified"
+  },
+  "implementation": {
+    "verifier": "anchors_verify",
+    "verifierDiffLines": 0,
+    "adapterOwnership": "third_party",
+    "adapterSourceLinked": false,
+    "rawLogsLinked": false,
+    "didNotRun": [
+      "tools/differential.py",
+      "keccak.py",
+      "TypeScript runners",
+      "p19",
+      "n27",
+      "n28",
+      "AUEC harness"
+    ]
+  },
+  "scope": {
+    "boundaryBinding": "third_party_reproduction_reported",
+    "decisionEvidenceBinding": "not_reproduced",
+    "AUEC": "not_reproduced",
+    "independentValidationOfAUEC": false
+  },
+  "limits": [
+    "no signature-suite verification",
+    "unattested stream tip remains open",
+    "force-push breaks history-dependent checks",
+    "digest domain differs from Tersign Keccak/JCS core"
+  ]
+}

@@ -74,6 +74,20 @@ awaiting maintainer approval and is not reported as an external CI pass. Exact
 receipts and evidence tiers are recorded in
 [`EXTERNAL_FIXTURE_CROSSRUN.md`](EXTERNAL_FIXTURE_CROSSRUN.md).
 
+### Tier 2B — third-party boundary-binding reproduction report
+
+An external participant reported running only the three applicable
+boundary-binding fixtures at the same Tersign base pin through an independently
+written adapter and an unchanged AOS verifier: p18 accepted, n25 unattested and
+n26 unattested, matching 3/3 expected dispositions. The reported ordered-file
+bundle SHA-256 is recorded but was not reconstructed because the composition
+method, adapter source and raw logs were not linked.
+
+This evidence tier is limited to p18/n25/n26. It does not reproduce
+p19/n27/n28, any AUEC result or the Tersign harness, and it does not establish
+independent validation of AUEC. The machine-readable bounded receipt is
+[`evidence/third-party-boundary-binding-reproduction-20260809.json`](evidence/third-party-boundary-binding-reproduction-20260809.json).
+
 ## Trust limit
 
 A valid hash chain proves integrity after emission, not the truth or

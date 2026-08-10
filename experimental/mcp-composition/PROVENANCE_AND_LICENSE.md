@@ -26,5 +26,12 @@ are licensed Apache-2.0, documentation excluding specifications is CC BY 4.0,
 and older contributions may retain MIT during the project's licensing
 transition. This spike does not redistribute those upstream files.
 
+`evidence/third-party-boundary-binding-reproduction-20260809.json` is an
+AUEC-authored factual receipt of the public MCP SEP-3004 comment
+`5234222504`. It attributes the external reporter and records only the reported
+scope, results and limits. It does not vendor or reproduce the reporter's
+adapter, verifier, logs or bundle, and it is routed as Apache-2.0 experimental
+evidence by `LICENSE_MAP.csv`.
+
 AI assistance was used and is disclosed in `README.md`. Internal review roles
 are not external reviewers or endorsements.
