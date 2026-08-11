@@ -1,0 +1,138 @@
+{
+  "schema": "auec.aos-v0.5-t2-project-reconstruction.v1",
+  "status": "PASS_WITH_MANDATORY_PARTIAL_BOUNDARY",
+  "publishable": true,
+  "tag": "anchors-verify-v0.5",
+  "commit": "3602e695d32167876871578b975031bc7b0331c7",
+  "observedAtUtc": "2026-08-11T03:14:56Z",
+  "scope": "project_controlled_reconstruction_of_publicly_described_cases",
+  "independentThirdPartyValidation": false,
+  "exactMaintainerArtifactDiff": "NOT_TESTED_UNAVAILABLE_UNLINKED",
+  "runtimeMatrix": [
+    "windows-python-3.11",
+    "windows-python-3.12",
+    "windows-python-3.14",
+    "linux-wsl1-ubuntu22-python-3.10"
+  ],
+  "separatorFix": {
+    "baselineRuns": 4,
+    "baselineClassification": "verify_partial",
+    "baselineExitCode": 3,
+    "baselineLines": 24,
+    "baselineAttestedPrefixLines": 18,
+    "attackRuns": 36,
+    "attackCasesPerRuntime": 9,
+    "attackClassification": "digest_mismatch",
+    "attackExitCode": 1,
+    "separators": [
+      "CR",
+      "VT",
+      "FF",
+      "FS",
+      "GS",
+      "RS",
+      "NEL",
+      "U+2028",
+      "U+2029"
+    ]
+  },
+  "cases": [
+    {
+      "id": "baseline",
+      "streamSha256": "d0a5857384624babbbac8d2d2b08fc6f35d61a0fd0d46b0471f163e0475e7c97",
+      "sidecarSha256": "4b19ce1f95f4a5e019af9c31da1e6dab3b4f60d4fb742307455dfd4ceff94ee1",
+      "lineCount": 24,
+      "exitCode": 3,
+      "classification": "verify_partial",
+      "message": "VERIFY PARTIAL",
+      "attestedPrefixLines": 18
+    },
+    {
+      "id": "duplicate-genuine-record-inside-prefix",
+      "streamSha256": "52d5b0774a3a0e7488141fe7fdc5aad8075f6606d77fe15e174a46a43c2c586f",
+      "sidecarSha256": "0358489f2859cd62f058e780076043c0a9746ca8bb33be9a0d8832783abd6466",
+      "lineCount": 25,
+      "exitCode": 1,
+      "classification": "fork_or_insertion",
+      "message": "fork or insertion detected"
+    },
+    {
+      "id": "insert-altered-record-inside-prefix",
+      "streamSha256": "2c0a8e5fec6d1a4d7c0d98ce74efe30f3479139c606e7a76c431cb74fa73e11c",
+      "sidecarSha256": "2dd5cc63baa777b4cb38c42e59ca599be7641189fce4eb620bea5e0d596c2dd1",
+      "lineCount": 25,
+      "exitCode": 1,
+      "classification": "fork_or_insertion",
+      "message": "fork or insertion detected"
+    },
+    {
+      "id": "delete-record-inside-prefix",
+      "streamSha256": "14e7a6c0e11996cdf310b59bfc010be4021a841a88d99c60e89adde55b39502f",
+      "sidecarSha256": "5f3a823e70a7b0f106847cd9bfb3351f6b4bc965615f0b30e6a2e31979540493",
+      "lineCount": 23,
+      "exitCode": 1,
+      "classification": "fork_or_insertion",
+      "message": "fork or insertion detected"
+    },
+    {
+      "id": "flip-one-byte-inside-prefix",
+      "streamSha256": "ab9a3f47bbd0dbbc651ee4251cbef1cf32ee272334f34b7f3e70d90c4f2216d0",
+      "sidecarSha256": "1c41d296c875e6ac7e58c9b475887d1c9e4d67860de9104fa0c2b5f7a2066a9f",
+      "lineCount": 24,
+      "exitCode": 1,
+      "classification": "fork_or_insertion",
+      "message": "fork or insertion detected"
+    },
+    {
+      "id": "strip-position-binding-event",
+      "streamSha256": "7611ce4c0a50988a19fb31efa37058d5397a299a3fd275080ee11501356b2dfa",
+      "sidecarSha256": "010cdda5a2486a2f1069da7439b7f28cb63e912138c178a2036291878b935bd1",
+      "lineCount": 23,
+      "exitCode": 1,
+      "classification": "truncation",
+      "message": "truncation"
+    },
+    {
+      "id": "replace-binding-row-with-record",
+      "streamSha256": "95d40ee95c39df43c5ae8c7a1ad98de1d4f4990c48f2b0d05da84ff53429548d",
+      "sidecarSha256": "2cd2b16495ef4a252dc084925aadb383dd077206b9f48c7c7fb06171de041f9c",
+      "lineCount": 24,
+      "exitCode": 1,
+      "classification": "boundary_violation",
+      "message": "boundary violation"
+    },
+    {
+      "id": "second-binding-line-count-24",
+      "streamSha256": "ca17e8caaae9f67ee7980f682bb43b89aafd706a7d558cfd79545e0a84ebf3f9",
+      "sidecarSha256": "510b362e143bcf3ab56c4149842936db7a6de6308e22e86fa999214ab58c2780",
+      "lineCount": 25,
+      "exitCode": 1,
+      "classification": "witness_prefix_too_short",
+      "message": "witness commit has fewer than 24 lines"
+    },
+    {
+      "id": "mutate-unattested-tip",
+      "streamSha256": "37423aa952d83e5b749c1c201dbefb06e55963c849717890f0b4c44cf3c5d925",
+      "sidecarSha256": "810e2288affee7d2116333596e817f41411621022124ac5049b3436bb3743a13",
+      "lineCount": 24,
+      "exitCode": 3,
+      "classification": "verify_partial",
+      "message": "VERIFY PARTIAL",
+      "attestedPrefixLines": 18
+    }
+  ],
+  "counts": {
+    "runtimes": 4,
+    "totalExactCliRuns": 76,
+    "separatorAttackRejections": 36,
+    "t2MutationRejections": 28,
+    "baselineOrTipPartialRuns": 12
+  },
+  "claimBoundary": [
+    "This is an AUEC/Codex project-controlled reconstruction, not independent third-party validation.",
+    "The eight described mutations plus baseline are not claimed byte-identical to the maintainer's unlinked construction set.",
+    "VERIFY PARTIAL is not VERIFY OK.",
+    "The unattested-tip result remains PARTIAL at 18 of 24 lines.",
+    "The reported matrix held, but T2 remains open and is not claimed unbreakable."
+  ]
+}

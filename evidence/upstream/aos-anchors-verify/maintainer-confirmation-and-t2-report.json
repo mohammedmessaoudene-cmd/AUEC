@@ -1,0 +1,40 @@
+{
+  "schema": "auec.aos-maintainer-response.v2",
+  "repository": "aos-standard/catalog",
+  "issue": 1,
+  "comments": [
+    {
+      "id": 5247993630,
+      "createdAtUtc": "2026-08-11T01:28:08Z",
+      "author": "Tetsurohhori",
+      "authorAssociation": "MEMBER",
+      "bodySha256": "8137afad85af6d7c7485cf61b2aea5e817d48e269a36392210607609e3c12e7b",
+      "url": "https://github.com/aos-standard/catalog/issues/1#issuecomment-5247993630",
+      "scope": "separator defect reproduction, fix, attribution, receipt request"
+    },
+    {
+      "id": 5248157822,
+      "createdAtUtc": "2026-08-11T01:58:45Z",
+      "author": "Tetsurohhori",
+      "authorAssociation": "MEMBER",
+      "bodySha256": "972092f0a895e6385e8487216b3d951c74ed042de4ef226a0fe0fe5d42f23101",
+      "url": "https://github.com/aos-standard/catalog/issues/1#issuecomment-5248157822",
+      "scope": "maintainer-controlled v0.5 T2 attack matrix report"
+    }
+  ],
+  "separatorDefect": {
+    "v04CRReproduced": true,
+    "v05Fixed": true,
+    "attributed": true,
+    "v04NineCaseReceiptsRequested": true
+  },
+  "T2": {
+    "reportedConstructionCount": 9,
+    "explicitMutationDescriptions": 8,
+    "reportedResult": "held_for_reported_matrix",
+    "tipMutation": "VERIFY_PARTIAL_18_OF_24",
+    "provenUnbreakable": false,
+    "challengeOpen": true,
+    "exactArtifactsLinked": false
+  }
+}

@@ -1,0 +1,224 @@
+{
+  "baseline": {
+    "attestedPrefixLines": 18,
+    "exitCode": 3,
+    "lines": 24,
+    "normalizedSha256": "d0a5857384624babbbac8d2d2b08fc6f35d61a0fd0d46b0471f163e0475e7c97",
+    "outcome": "VERIFY PARTIAL",
+    "rawSha256": "d0a5857384624babbbac8d2d2b08fc6f35d61a0fd0d46b0471f163e0475e7c97",
+    "rawSize": 4690
+  },
+  "cases": [
+    {
+      "attestedPrefixLines": 18,
+      "exitCode": 3,
+      "forkRejected": false,
+      "id": "CR",
+      "inputFile": "ANCHORS_CR_INSIDE_ATTESTED_PREFIX.jsonl",
+      "lines": 24,
+      "normalizedEqualToBaseline": true,
+      "normalizedLineCount": 24,
+      "normalizedSha256": "d0a5857384624babbbac8d2d2b08fc6f35d61a0fd0d46b0471f163e0475e7c97",
+      "outcome": "VERIFY PARTIAL",
+      "rawDiffersFromBaseline": true,
+      "rawSha256": "f86c24ad57feecff62b90476af63b808c45b2782b60c207ccab780d346a46ee8",
+      "rawSize": 4691,
+      "separator": "CR U+000D"
+    },
+    {
+      "attestedPrefixLines": 18,
+      "exitCode": 3,
+      "forkRejected": false,
+      "id": "VT",
+      "inputFile": "ANCHORS_VT_INSIDE_ATTESTED_PREFIX.jsonl",
+      "lines": 24,
+      "normalizedEqualToBaseline": true,
+      "normalizedLineCount": 24,
+      "normalizedSha256": "d0a5857384624babbbac8d2d2b08fc6f35d61a0fd0d46b0471f163e0475e7c97",
+      "outcome": "VERIFY PARTIAL",
+      "rawDiffersFromBaseline": true,
+      "rawSha256": "cb61b10c1dc0ddf719a9c518f93647f0989830126efea8b79d18abf90c1e1bbd",
+      "rawSize": 4691,
+      "separator": "VT U+000B"
+    },
+    {
+      "attestedPrefixLines": 18,
+      "exitCode": 3,
+      "forkRejected": false,
+      "id": "FF",
+      "inputFile": "ANCHORS_FF_INSIDE_ATTESTED_PREFIX.jsonl",
+      "lines": 24,
+      "normalizedEqualToBaseline": true,
+      "normalizedLineCount": 24,
+      "normalizedSha256": "d0a5857384624babbbac8d2d2b08fc6f35d61a0fd0d46b0471f163e0475e7c97",
+      "outcome": "VERIFY PARTIAL",
+      "rawDiffersFromBaseline": true,
+      "rawSha256": "52ae76a7eb3338e8cd3f78c898c882235cb5f89e321fc4651ba8771afef07754",
+      "rawSize": 4691,
+      "separator": "FF U+000C"
+    },
+    {
+      "attestedPrefixLines": 18,
+      "exitCode": 3,
+      "forkRejected": false,
+      "id": "FS",
+      "inputFile": "ANCHORS_FS_INSIDE_ATTESTED_PREFIX.jsonl",
+      "lines": 24,
+      "normalizedEqualToBaseline": true,
+      "normalizedLineCount": 24,
+      "normalizedSha256": "d0a5857384624babbbac8d2d2b08fc6f35d61a0fd0d46b0471f163e0475e7c97",
+      "outcome": "VERIFY PARTIAL",
+      "rawDiffersFromBaseline": true,
+      "rawSha256": "44fab4814f747f71919dc7718252c70c2e6ea1a387cac834c489ad62113db4f0",
+      "rawSize": 4691,
+      "separator": "FS U+001C"
+    },
+    {
+      "attestedPrefixLines": 18,
+      "exitCode": 3,
+      "forkRejected": false,
+      "id": "GS",
+      "inputFile": "ANCHORS_GS_INSIDE_ATTESTED_PREFIX.jsonl",
+      "lines": 24,
+      "normalizedEqualToBaseline": true,
+      "normalizedLineCount": 24,
+      "normalizedSha256": "d0a5857384624babbbac8d2d2b08fc6f35d61a0fd0d46b0471f163e0475e7c97",
+      "outcome": "VERIFY PARTIAL",
+      "rawDiffersFromBaseline": true,
+      "rawSha256": "8796772d770676deb2b5709b9e483fdfeeb68ee41adb1fdb8c95e619cc1bb9d8",
+      "rawSize": 4691,
+      "separator": "GS U+001D"
+    },
+    {
+      "attestedPrefixLines": 18,
+      "exitCode": 3,
+      "forkRejected": false,
+      "id": "RS",
+      "inputFile": "ANCHORS_RS_INSIDE_ATTESTED_PREFIX.jsonl",
+      "lines": 24,
+      "normalizedEqualToBaseline": true,
+      "normalizedLineCount": 24,
+      "normalizedSha256": "d0a5857384624babbbac8d2d2b08fc6f35d61a0fd0d46b0471f163e0475e7c97",
+      "outcome": "VERIFY PARTIAL",
+      "rawDiffersFromBaseline": true,
+      "rawSha256": "42b097cc97aacab5387bcb8d3f2a21daf6d7bc53876ea17c9d7da9dd012ca322",
+      "rawSize": 4691,
+      "separator": "RS U+001E"
+    },
+    {
+      "attestedPrefixLines": 18,
+      "exitCode": 3,
+      "forkRejected": false,
+      "id": "NEL",
+      "inputFile": "ANCHORS_NEL_INSIDE_ATTESTED_PREFIX.jsonl",
+      "lines": 24,
+      "normalizedEqualToBaseline": true,
+      "normalizedLineCount": 24,
+      "normalizedSha256": "d0a5857384624babbbac8d2d2b08fc6f35d61a0fd0d46b0471f163e0475e7c97",
+      "outcome": "VERIFY PARTIAL",
+      "rawDiffersFromBaseline": true,
+      "rawSha256": "014e8cf73c7740377150d39808698de7a81a832f38f7089cba529d2c22b2feaf",
+      "rawSize": 4692,
+      "separator": "NEL U+0085"
+    },
+    {
+      "attestedPrefixLines": 18,
+      "exitCode": 3,
+      "forkRejected": false,
+      "id": "LS",
+      "inputFile": "ANCHORS_LS_INSIDE_ATTESTED_PREFIX.jsonl",
+      "lines": 24,
+      "normalizedEqualToBaseline": true,
+      "normalizedLineCount": 24,
+      "normalizedSha256": "d0a5857384624babbbac8d2d2b08fc6f35d61a0fd0d46b0471f163e0475e7c97",
+      "outcome": "VERIFY PARTIAL",
+      "rawDiffersFromBaseline": true,
+      "rawSha256": "0c4787439f168b19f194eec158e6467ee4de6eb14b5edc2564362fd8c4d9a54f",
+      "rawSize": 4693,
+      "separator": "LINE SEPARATOR U+2028"
+    },
+    {
+      "attestedPrefixLines": 18,
+      "exitCode": 3,
+      "forkRejected": false,
+      "id": "PS",
+      "inputFile": "ANCHORS_PS_INSIDE_ATTESTED_PREFIX.jsonl",
+      "lines": 24,
+      "normalizedEqualToBaseline": true,
+      "normalizedLineCount": 24,
+      "normalizedSha256": "d0a5857384624babbbac8d2d2b08fc6f35d61a0fd0d46b0471f163e0475e7c97",
+      "outcome": "VERIFY PARTIAL",
+      "rawDiffersFromBaseline": true,
+      "rawSha256": "5b3cdc4dbc1a654834a2476014837e50567fa537b715c6545dea9e92398c029a",
+      "rawSize": 4693,
+      "separator": "PARAGRAPH SEPARATOR U+2029"
+    }
+  ],
+  "claimBoundary": {
+    "allowed": [
+      "same PARTIAL disposition",
+      "attested_prefix_lines=18",
+      "raw bytes differ",
+      "no fork rejection"
+    ],
+    "forbidden": [
+      "VERIFY OK",
+      "full verification bypass",
+      "AUEC accepted",
+      "MCP vulnerable"
+    ]
+  },
+  "generatedFrom": {
+    "authoritativePath": "02_EXACT_REPRODUCTION/runs/windows_py314/exact_cli_matrix.json",
+    "r70Sha256": "20c24c4052340358750c0f62b1f0e4f1876368ffce95c0b33ca0bd69f2c4345e"
+  },
+  "mutation": {
+    "insertionOffsetZeroBased": 164,
+    "location": "after record 1, within the first 18 reported attested lines",
+    "sidecarModified": false
+  },
+  "runtimeMatrix": [
+    {
+      "allAssertionsPass": true,
+      "assertions": {
+        "allNineRawBytesDiffer": true,
+        "allTenExactCliPartialExit3Attested18": true,
+        "partialIsNotOk": true,
+        "pinOk": true,
+        "selfTestExitZero": true
+      },
+      "environment": "windows_python_3_14"
+    },
+    {
+      "allAssertionsPass": true,
+      "assertions": {
+        "allNineRawBytesDiffer": true,
+        "allTenExactCliPartialExit3Attested18": true,
+        "partialIsNotOk": true,
+        "pinOk": true,
+        "selfTestExitZero": true
+      },
+      "environment": "wsl_ubuntu_22_04_python_3_10"
+    },
+    {
+      "allAssertionsPass": true,
+      "assertions": {
+        "allNineRawBytesDiffer": true,
+        "allTenExactCliPartialExit3Attested18": true,
+        "partialIsNotOk": true,
+        "pinOk": true,
+        "selfTestExitZero": true
+      },
+      "environment": "wsl_ubuntu_24_04_python_3_12"
+    }
+  ],
+  "schema": "auec.aos-anchors-v0.4-nine-separator-receipts.v1",
+  "source": {
+    "anchorsGitBlobSha1": "055f48cf440217487ac013f525dba4e411d87bc3",
+    "commit": "44c40ba4fd6a12aa19c419e440a2f69512e99acc",
+    "repository": "aos-standard/catalog",
+    "sidecarGitBlobSha1": "83bc163edf2e92d4b265ff2301fb78541529c7fe",
+    "tag": "anchors-verify-v0.4",
+    "verifierGitBlobSha1": "1e874d35481deac1f96e8d686c47c8295e27016e"
+  }
+}
