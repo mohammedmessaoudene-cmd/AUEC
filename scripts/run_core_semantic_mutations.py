@@ -4,10 +4,12 @@
 from __future__ import annotations
 
 import argparse
+import ast
 import difflib
 import hashlib
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -25,6 +27,22 @@ class Mutation:
     needle: str
     replacement: str
     test: str
+    matcher: str = "literal"
+
+
+HOST_OPERATION_GUARD = re.compile(
+    r"""
+    (?P<indent>^[\t ]*)if[\t ]*
+    (?:\([\t ]*(?:\r?\n)?)?
+    [\t ]*not[\t ]+isinstance\([\t ]*op[\t ]*,[\t ]*str[\t ]*\)
+    [ \t\r\n]+or[\t ]+op[\t ]+not[\t ]+in[\t ]+PURE_OPS
+    [ \t\r\n]+or[\t ]+op[\t ]+not[\t ]+in[\t ]+policy\[
+        [\t ]*["']allowedOps["'][\t ]*
+    \]
+    [ \t\r\n]*(?:\))?[\t ]*:
+    """,
+    re.MULTILINE | re.VERBOSE,
+)
 
 
 MUTATIONS = (
@@ -37,6 +55,7 @@ MUTATIONS = (
             "test_core_semantic_controls.CoreSemanticCausalControls."
             "test_nc_sem_01_host_allowlist_blocks_requested_operation"
         ),
+        matcher="host-operation-guard",
     ),
     Mutation(
         case="nc-sem-02",
@@ -59,6 +78,112 @@ MUTATIONS = (
         ),
     ),
 )
+
+
+def _is_name(node: ast.AST, name: str) -> bool:
+    return isinstance(node, ast.Name) and node.id == name
+
+
+def _is_not_isinstance_op_str(node: ast.AST) -> bool:
+    return (
+        isinstance(node, ast.UnaryOp)
+        and isinstance(node.op, ast.Not)
+        and isinstance(node.operand, ast.Call)
+        and _is_name(node.operand.func, "isinstance")
+        and len(node.operand.args) == 2
+        and _is_name(node.operand.args[0], "op")
+        and _is_name(node.operand.args[1], "str")
+        and not node.operand.keywords
+    )
+
+
+def _is_op_not_in(node: ast.AST, comparator: ast.AST) -> bool:
+    return (
+        isinstance(node, ast.Compare)
+        and _is_name(node.left, "op")
+        and len(node.ops) == 1
+        and isinstance(node.ops[0], ast.NotIn)
+        and len(node.comparators) == 1
+        and ast.dump(node.comparators[0], include_attributes=False)
+        == ast.dump(comparator, include_attributes=False)
+    )
+
+
+def _host_operation_guard_count(source_text: str) -> int:
+    expected_policy = ast.Subscript(
+        value=ast.Name(id="policy", ctx=ast.Load()),
+        slice=ast.Constant(value="allowedOps"),
+        ctx=ast.Load(),
+    )
+    count = 0
+    for node in ast.walk(ast.parse(source_text)):
+        if not isinstance(node, ast.If) or not isinstance(node.test, ast.BoolOp):
+            continue
+        if not isinstance(node.test.op, ast.Or) or len(node.test.values) != 3:
+            continue
+        first, second, third = node.test.values
+        if (
+            _is_not_isinstance_op_str(first)
+            and _is_op_not_in(second, ast.Name(id="PURE_OPS", ctx=ast.Load()))
+            and _is_op_not_in(third, expected_policy)
+        ):
+            count += 1
+    return count
+
+
+def _remove_host_policy_clause(match: re.Match[str]) -> str:
+    indent = match.group("indent")
+    matched = match.group(0)
+    if "\n" not in matched and "\r" not in matched:
+        return f"{indent}if not isinstance(op, str) or op not in PURE_OPS:"
+    newline = "\r\n" if "\r\n" in matched else "\n"
+    continuation = indent + "    "
+    return newline.join(
+        (
+            f"{indent}if (",
+            f"{continuation}not isinstance(op, str)",
+            f"{continuation}or op not in PURE_OPS",
+            f"{indent}):",
+        )
+    )
+
+
+def mutate_source(mutation: Mutation, original_text: str) -> tuple[str, int, int]:
+    """Apply exactly one bounded mutation and return text, line and match count."""
+
+    if mutation.matcher == "host-operation-guard":
+        syntax_count = _host_operation_guard_count(original_text)
+        matches = list(HOST_OPERATION_GUARD.finditer(original_text))
+        if syntax_count != 1 or len(matches) != 1:
+            raise RuntimeError(
+                f"{mutation.case}: host-operation guard is not uniquely selectable "
+                f"(syntax={syntax_count}, regex={len(matches)})"
+            )
+        match = matches[0]
+        mutant_text, replacement_count = HOST_OPERATION_GUARD.subn(
+            _remove_host_policy_clause,
+            original_text,
+            count=1,
+        )
+        ast.parse(mutant_text)
+        if replacement_count != 1 or _host_operation_guard_count(mutant_text) != 0:
+            raise RuntimeError(
+                f"{mutation.case}: host-operation guard mutation was incomplete"
+            )
+        line_number = original_text.count("\n", 0, match.start()) + 1
+        return mutant_text, line_number, replacement_count
+
+    match_count = original_text.count(mutation.needle)
+    if match_count != 1:
+        raise RuntimeError(f"{mutation.case}: mutation needle count is not exactly one")
+    line_number = original_text.count("\n", 0, original_text.index(mutation.needle)) + 1
+    mutant_text = original_text.replace(
+        mutation.needle,
+        mutation.replacement,
+        1,
+    )
+    ast.parse(mutant_text)
+    return mutant_text, line_number, match_count
 
 
 def sha256(path: Path) -> str:
@@ -134,14 +259,11 @@ def main() -> int:
     for mutation in MUTATIONS:
         source = ROOT / mutation.path
         original_text = source.read_text(encoding="utf-8")
-        if original_text.count(mutation.needle) != 1:
-            raise RuntimeError(
-                f"{mutation.case}: mutation needle count is not exactly one"
-            )
-        original_hash = sha256(source)
-        line_number = (
-            original_text[: original_text.index(mutation.needle)].count("\n") + 1
+        mutant_text, line_number, match_count = mutate_source(
+            mutation,
+            original_text,
         )
+        original_hash = sha256(source)
 
         baseline_observation = probe(ROOT, mutation.case)
         if not expected_baseline(mutation.case, baseline_observation):
@@ -176,7 +298,6 @@ def main() -> int:
                 ),
             )
             mutant_source = mutant_root / mutation.path
-            mutant_text = original_text.replace(mutation.needle, mutation.replacement)
             mutant_source.write_text(mutant_text, encoding="utf-8", newline="\n")
             if sha256(mutant_source) == original_hash:
                 raise RuntimeError(
@@ -252,7 +373,7 @@ def main() -> int:
                 "source": mutation.path,
                 "targetLine": line_number,
                 "originalSha256": original_hash,
-                "mutationNeedleCount": 1,
+                "mutationNeedleCount": match_count,
                 "baseline": baseline_observation,
                 "mutant": mutant_observation,
                 "safetyTestUnderMutant": "RED",
