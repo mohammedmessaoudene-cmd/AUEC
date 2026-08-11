@@ -1,0 +1,88 @@
+{
+  "schema": "auec.tersign-ci-review-merge-receipt.v1",
+  "status": "external_ci_passed_maintainer_reported_rerun_and_review_merged",
+  "lastObservedAtUtc": "2026-08-11T22:20:31.4939016Z",
+  "repository": "tersignhq/evidence-record-conformance",
+  "pullRequest": {
+    "number": 5,
+    "url": "https://github.com/tersignhq/evidence-record-conformance/pull/5",
+    "contributionHead": "2f6bef0dc531ce9e1a8ae1dc3cef6704ec2b5df5",
+    "historicalBase": "46ad663b90805a2e526ef3cd28c3f70762883125"
+  },
+  "workflow": {
+    "runId": 31337102263,
+    "attempt1": {
+      "conclusion": "action_required",
+      "jobs": 0
+    },
+    "attempt2": {
+      "url": "https://github.com/tersignhq/evidence-record-conformance/actions/runs/31337102263/attempts/2",
+      "triggeringActor": "wowlegend",
+      "startedAtUtc": "2026-08-11T10:50:43Z",
+      "completedAtUtc": "2026-08-11T10:51:03Z",
+      "conclusion": "success",
+      "testedSyntheticMergeCommit": "c02389542d2307740278709216e026a70a75b43f",
+      "testedTree": "08890c3483b3e8dfee9e2fc9bb385414497c9112",
+      "jobs": [
+        {
+          "id": 93755117503,
+          "name": "conformance",
+          "conclusion": "success",
+          "url": "https://github.com/tersignhq/evidence-record-conformance/actions/runs/31337102263/job/93755117503",
+          "capturedLogSha256": "5256a7841a8c9e1896fa4f06d973e761cd4e533c9254c3ae54576fd55b3cecc4",
+          "observedResults": {
+            "vectors": 47,
+            "bothVerdicts": true,
+            "rejectReasons": 10,
+            "vectorKinds": 10,
+            "p19": "valid",
+            "n27": "reject/binding_reject",
+            "n28": "reject/binding_reject"
+          }
+        },
+        {
+          "id": 93755117481,
+          "name": "cross-implementation",
+          "conclusion": "success",
+          "url": "https://github.com/tersignhq/evidence-record-conformance/actions/runs/31337102263/job/93755117481",
+          "capturedLogSha256": "3cb3f0579ac4f13b6e4a1e4ddb59b459f8fe7fdd524cf3de9aac3e9b8850f000",
+          "observedResults": {
+            "vectorsAgreeingAcrossImplementations": 47,
+            "differentialCases": 299,
+            "offCorpusCases": 252,
+            "divergences": 0
+          }
+        }
+      ]
+    }
+  },
+  "maintainerReport": {
+    "commentId": 5252217382,
+    "url": "https://github.com/tersignhq/evidence-record-conformance/pull/5#issuecomment-5252217382",
+    "author": "wowlegend",
+    "authorAssociation": "CONTRIBUTOR",
+    "createdAtUtc": "2026-08-11T10:55:07Z",
+    "updatedAtUtc": "2026-08-11T10:55:07Z",
+    "bodyBytes": 1249,
+    "bodySha256": "0ff0e282665038ba59375964e56e5606483ae00bbe8cf1e8c0c208b5a280e508",
+    "reportedIndependentRerunAndReview": true
+  },
+  "merge": {
+    "commit": "79632084d94ba9841baa0f000ffd6c31ec22b3e2",
+    "tree": "08890c3483b3e8dfee9e2fc9bb385414497c9112",
+    "mergedAtUtc": "2026-08-11T10:53:27Z",
+    "signatureVerifiedByGitHub": true,
+    "syntheticAndFinalTreeEqual": true
+  },
+  "scope": "structural decision_evidence_binding vectors p19 n27 n28",
+  "evidenceTiers": {
+    "tier3ExternalCI": "obtained",
+    "tier4MaintainerReportedRerunAndReview": "obtained",
+    "tier5ExternalCorpusMerge": "obtained"
+  },
+  "limits": [
+    "The external workflow tested the synthetic PR merge ref, not the later final merge commit directly.",
+    "The maintainer rerun and review are recorded as a maintainer report distinct from observed CI logs.",
+    "This structural contribution does not independently validate AUEC, producer truth, decision semantics, MCP field placement, canonicalization, or MCP adoption."
+  ]
+}

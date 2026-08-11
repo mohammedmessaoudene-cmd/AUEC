@@ -5,8 +5,8 @@ Messaoudene. It records chronology and current disposition; it does not claim
 adoption, endorsement, partnership, ownership of ideas or methods, or
 independent validation of AUEC.
 
-Live statuses were checked at `2026-08-10T19:48:50Z`. The bounded AOS evidence
-receipts integrated below extend through `2026-08-11T01:58:45Z`. Both may
+Live statuses were checked at `2026-08-11T22:20:31Z`. The bounded AOS evidence
+receipts integrated below extend through `2026-08-11T18:50:09Z`. Both may
 change at the linked upstream artifacts.
 
 ## MCP routing discussion
@@ -31,25 +31,40 @@ change at the linked upstream artifacts.
 
 ## Tersign evidence-record-conformance
 
-- artifact: [draft PR #5](https://github.com/tersignhq/evidence-record-conformance/pull/5);
+- artifact: [merged PR #5](https://github.com/tersignhq/evidence-record-conformance/pull/5);
 - base snapshot: `46ad663b90805a2e526ef3cd28c3f70762883125`;
 - contribution head: `2f6bef0dc531ce9e1a8ae1dc3cef6704ec2b5df5`;
+- CI synthetic merge: `c02389542d2307740278709216e026a70a75b43f`;
+- signed final merge: `79632084d94ba9841baa0f000ffd6c31ec22b3e2`;
+- shared synthetic/final tree: `08890c3483b3e8dfee9e2fc9bb385414497c9112`;
 - contribution: structural decision-evidence binding vectors `p19`, `n27`, and
   `n28`, plus their generator and documentation;
-- status: open, draft, and unmerged. The external workflow is
-  `action_required` with zero jobs, so no external CI pass or human review is
-  claimed.
+- external CI: [workflow `31337102263`, attempt 2](https://github.com/tersignhq/evidence-record-conformance/actions/runs/31337102263/attempts/2)
+  completed conformance and cross-implementation successfully against the
+  synthetic PR merge ref before merge;
+- maintainer evidence: [comment `5252217382`](https://github.com/tersignhq/evidence-record-conformance/pull/5#issuecomment-5252217382)
+  reports an independent rerun and review, recorded separately from the CI
+  logs;
+- status: external CI passed, maintainer-reported rerun/review obtained, and
+  the structural contribution merged;
+- explicit limits: this establishes the narrow structural property only. It
+  does not independently validate AUEC, producer truth, semantic authority
+  reduction, an MCP field/canonicalization, or MCP adoption.
 
 ## AOS anchors verifier
 
 - artifact: [issue #1 comment `5242963828`](https://github.com/aos-standard/catalog/issues/1#issuecomment-5242963828);
 - maintainer fix report: [comment `5247993630`](https://github.com/aos-standard/catalog/issues/1#issuecomment-5247993630);
 - maintainer T2 report: [comment `5248157822`](https://github.com/aos-standard/catalog/issues/1#issuecomment-5248157822);
+- T1/T3 correction and exact construction: [comment `5257449945`](https://github.com/aos-standard/catalog/issues/1#issuecomment-5257449945)
+  and [pinned gist revision `4690a69c...`](https://gist.github.com/wowlegend/8045315e2651d7bcbf1acbb45ee5325d/4690a69c08605271844a58e8e1b9436585a50c28);
 - v0.4 snapshot: tag `anchors-verify-v0.4`, commit
   `44c40ba4fd6a12aa19c419e440a2f69512e99acc`;
 - v0.5 snapshot reported for bounded reconstruction: tag
   `anchors-verify-v0.5`, commit
   `3602e695d32167876871578b975031bc7b0331c7`;
+- v0.6 T1/T3 snapshot: tag `anchors-verify-v0.6`, commit
+  `e86a08673daa6e1ea2a4ab152c7690a0d268d8e6`;
 - project contribution: minimal reproducer and nine project-controlled v0.4
   separator receipts with the same `VERIFY PARTIAL` disposition;
 - maintainer disposition: the v0.4 CR defect was reproduced, corrected in
@@ -61,14 +76,22 @@ change at the linked upstream artifacts.
   expected semantic classes for the eight described T2 mutations plus the
   baseline; 36 separator attacks failed closed, while baseline and the
   unattested tip remained `PARTIAL` at 18/24 lines;
+- exact gist reproduction: Windows and Linux/WSL produced byte-identical
+  output and the five published digest prefixes. The T3 binding accepted 25 of
+  26 lines with two forged rows inside the attested prefix, while the whole
+  result remained `VERIFY PARTIAL`. The corrected T1 classes match the prior
+  archived project receipts: two `PARTIAL` outcomes and three `VerifyError`
+  outcomes;
 - evidence status: the bounded receipts are published in
   `evidence/upstream/aos-anchors-verify/`; this is project evidence, not
   independent validation or an exact diff against unlinked maintainer
-  artifacts.
+  artifacts. The gist author is marked association `NONE` in the AOS issue;
+  no AOS maintainer disposition on T1/T3 is claimed, and the T1 statement is
+  limited to the tested current retrospective append construction.
 
 ## Public AUEC record
 
-- repository snapshot checked: `62fd4aaa8d22da3f8c3f4511be9cc26a75d493ef`;
+- repository snapshot checked: `cefcae95b1401b5365a3bceec621b181b549980e`;
 - historical release: [`v0.35.0-prestandard`](https://github.com/mohammedmessaoudene-cmd/AUEC/releases/tag/v0.35.0-prestandard), Zenodo record [`21796636`](https://zenodo.org/records/21796636);
 - current release: [`v0.36.0-prestandard`](https://github.com/mohammedmessaoudene-cmd/AUEC/releases/tag/v0.36.0-prestandard), Zenodo record [`21815335`](https://zenodo.org/records/21815335);
 - concept DOI: [`10.5281/zenodo.21796635`](https://doi.org/10.5281/zenodo.21796635);

@@ -1,0 +1,95 @@
+{
+  "schema": "auec.aos-v0.6-t1-t3-corrected-gist-reproduction.v1",
+  "status": "AOS_GIST_EXACT_MATCH_T1_T3_RECONCILED",
+  "lastObservedAtUtc": "2026-08-11T22:20:31.4939016Z",
+  "scope": "project_controlled_exact_reproduction_of_public_t1_t3_gist",
+  "correctionComment": {
+    "id": 5257449945,
+    "url": "https://github.com/aos-standard/catalog/issues/1#issuecomment-5257449945",
+    "author": "wowlegend",
+    "authorAssociation": "NONE",
+    "createdAtUtc": "2026-08-11T18:50:09Z",
+    "updatedAtUtc": "2026-08-11T18:50:09Z",
+    "bodyBytes": 2223,
+    "bodySha256": "2ed703a0dde5da07196ce72b57d92e6a94678146155cd2329f243e29eff5e405"
+  },
+  "gist": {
+    "id": "8045315e2651d7bcbf1acbb45ee5325d",
+    "owner": "wowlegend",
+    "historyVersion": "4690a69c08605271844a58e8e1b9436585a50c28",
+    "historyUrl": "https://gist.github.com/wowlegend/8045315e2651d7bcbf1acbb45ee5325d/4690a69c08605271844a58e8e1b9436585a50c28",
+    "rawContentRevision": "009b2608e1d2517c51d4662fdbd54514956fbb9a",
+    "rawUrl": "https://gist.githubusercontent.com/wowlegend/8045315e2651d7bcbf1acbb45ee5325d/raw/009b2608e1d2517c51d4662fdbd54514956fbb9a/t1_t3_findings.py",
+    "filename": "t1_t3_findings.py",
+    "sizeBytes": 5929,
+    "sha256": "0bb09278e0cebe6791ae61b47fcfc031ddf088c83dff96fff5387933b5f43e39",
+    "licenseDeclaredInGistMetadata": false,
+    "descriptionVariance": {
+      "r81Pin": "T1/T3 constructions against aos-standard/catalog anchors-verify-v0.6",
+      "live": "T1/T3 constructions against aos-standard/catalog anchors-verify-v0.6 (see aos-standard/catalog#1)",
+      "loadBearing": false
+    },
+    "sourceVendoredInAUEC": false
+  },
+  "aosPin": {
+    "tag": "anchors-verify-v0.6",
+    "annotatedTagObject": "948ab38662b8d79770103b59583604c2a0eae4d8",
+    "commit": "e86a08673daa6e1ea2a4ab152c7690a0d268d8e6",
+    "commitUrl": "https://github.com/aos-standard/catalog/commit/e86a08673daa6e1ea2a4ab152c7690a0d268d8e6",
+    "anchorsVerifierSha256": "0bf4ac7981f10ebea264dd0a1b2aff2489373decaf55dd8fe0d4e001d8bb049a",
+    "anchorsJsonlSha256": "d0a5857384624babbbac8d2d2b08fc6f35d61a0fd0d46b0471f163e0475e7c97"
+  },
+  "exactRun": {
+    "environments": [
+      "windows-cpython-3.11.9",
+      "linux-wsl1-ubuntu22-cpython-3.10.12"
+    ],
+    "stdoutSha256": "7923821f68865eb5d1af550625584c75758022337b70e10c9fea36b512012004",
+    "stdoutByteIdenticalAcrossEnvironments": true,
+    "networkUsedDuringExecution": false,
+    "digestPrefixes": [
+      "cf8379ad3b313876",
+      "42261a071c0f71a9",
+      "92832f2b64bdcb4e",
+      "5142db09cfeb7880",
+      "259341c49c86c097"
+    ],
+    "t3": {
+      "expectedRepositoryFlagSatisfied": true,
+      "bindingAccepted": true,
+      "attestedPrefixLines": 25,
+      "presentedLines": 26,
+      "forgedRowsInsideAttestedPrefix": 2,
+      "wholeResult": "VERIFY PARTIAL",
+      "exitCode": 3
+    }
+  },
+  "r80ClassReconciliation": {
+    "honestBundledStream": "VERIFY PARTIAL",
+    "windows": [
+      "VERIFY PARTIAL",
+      "VERIFY PARTIAL",
+      "VerifyError",
+      "VerifyError",
+      "VerifyError"
+    ],
+    "linuxWsl": [
+      "VERIFY PARTIAL",
+      "VERIFY PARTIAL",
+      "VerifyError",
+      "VerifyError",
+      "VerifyError"
+    ],
+    "matchesPublicCorrection": true
+  },
+  "evidenceBoundary": {
+    "projectControlledReproduction": true,
+    "independentThirdPartyValidation": false,
+    "aosMaintainerDispositionForT1T3": "not_observed",
+    "t1Claim": "VERIFY OK was not reached under the tested current retrospective append construction.",
+    "absoluteCryptographicImpossibilityClaimed": false,
+    "t3GlobalVerifyOkClaimed": false,
+    "wholeT3ResultRemains": "VERIFY PARTIAL"
+  },
+  "credit": "@wowlegend published the T1/T3 findings and exact gist and signed the linked comment as Tersign; the AOS issue comment is marked author association NONE. This is attribution, not an AOS or Tersign adoption claim."
+}

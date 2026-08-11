@@ -5,8 +5,9 @@
 - refreshed the public defensive-publication, copyright-status, and provenance
   statements after the v0.35 and v0.36 GitHub/Zenodo releases;
 - added bounded human-readable and machine-readable ledgers for public
-  upstream contributions without claiming adoption, endorsement, merge, or
-  independent validation;
+  upstream contributions without unsubstantiated adoption, endorsement, or
+  independent-validation claims; merges are recorded only where an exact
+  merged commit and receipt are cited;
 - replaced residual prepublication-only authorship, licensing, and reference
   runtime notices with bounded public-release wording;
 - enabled GitHub private vulnerability reporting and documented the channel
@@ -15,6 +16,13 @@
   project-controlled v0.5 separator/T2 reconstruction; `PARTIAL` remains
   distinct from `OK`, exact maintainer artifacts remain unavailable, and T2
   remains open.
+- recorded bounded external Tersign CI, maintainer-reported rerun/review, and
+  merge evidence for the narrow structural `decision_evidence_binding`
+  contribution;
+- recorded a project-controlled exact AOS v0.6 T1/T3 gist reproduction and
+  reconciled its two `PARTIAL` plus three `VerifyError` outcomes without
+  claiming independent validation, AOS adoption, global `VERIFY OK`, or an
+  absolute cryptographic impossibility result.
 
 ## 0.36.0-prestandard - 2026-08-06
 
