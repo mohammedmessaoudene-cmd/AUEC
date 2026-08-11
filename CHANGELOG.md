@@ -6,7 +6,11 @@
   statements after the v0.35 and v0.36 GitHub/Zenodo releases;
 - added bounded human-readable and machine-readable ledgers for public
   upstream contributions without claiming adoption, endorsement, merge, or
-  independent validation.
+  independent validation;
+- replaced residual prepublication-only authorship, licensing, and reference
+  runtime notices with bounded public-release wording;
+- enabled GitHub private vulnerability reporting and documented the channel
+  without implying an SLA, bounty, certification, or production support.
 
 ## 0.36.0-prestandard - 2026-08-06
 

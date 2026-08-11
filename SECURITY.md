@@ -2,14 +2,17 @@
 
 ## Status
 
-This is an engineering-alpha research artifact. It is not approved for
+AUEC is an engineering-alpha research artifact. It is not approved for
 production processing of untrusted code or sensitive data.
 
-## Future private reporting
+## Private vulnerability reporting
 
-After a repository exists, suspected vulnerabilities should be reported through
-that repository's private security-advisory mechanism. No external contact
-channel was opened by this prepublication campaign.
+Report suspected vulnerabilities through GitHub private vulnerability reporting
+on this repository's **Security → Advisories → Report a vulnerability** page.
+Do not disclose an uncoordinated vulnerability in a public issue.
+
+Private reporting is a communication channel, not a promise of a response time,
+a CVE, a bounty, certification or production support.
 
 ## Enforced base-profile boundaries
 
