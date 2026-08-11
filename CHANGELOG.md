@@ -11,6 +11,10 @@
   runtime notices with bounded public-release wording;
 - enabled GitHub private vulnerability reporting and documented the channel
   without implying an SLA, bounty, certification, or production support.
+- published bounded AOS evidence receipts for the v0.4 separator cases and a
+  project-controlled v0.5 separator/T2 reconstruction; `PARTIAL` remains
+  distinct from `OK`, exact maintainer artifacts remain unavailable, and T2
+  remains open.
 
 ## 0.36.0-prestandard - 2026-08-06
 

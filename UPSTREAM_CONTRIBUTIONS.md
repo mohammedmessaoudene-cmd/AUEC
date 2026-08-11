@@ -5,8 +5,9 @@ Messaoudene. It records chronology and current disposition; it does not claim
 adoption, endorsement, partnership, ownership of ideas or methods, or
 independent validation of AUEC.
 
-Statuses were checked at `2026-08-10T19:48:50Z` and may change at the linked
-upstream artifacts.
+Live statuses were checked at `2026-08-10T19:48:50Z`. The bounded AOS evidence
+receipts integrated below extend through `2026-08-11T01:58:45Z`. Both may
+change at the linked upstream artifacts.
 
 ## MCP routing discussion
 
@@ -42,17 +43,32 @@ upstream artifacts.
 ## AOS anchors verifier
 
 - artifact: [issue #1 comment `5242963828`](https://github.com/aos-standard/catalog/issues/1#issuecomment-5242963828);
-- exact tag: `anchors-verify-v0.4`;
-- exact commit: `44c40ba4fd6a12aa19c419e440a2f69512e99acc`;
-- contribution: minimal reproducer and bounded report showing raw-prefix
-  normalization with the same `VERIFY PARTIAL` disposition;
-- explicit limit: no `VERIFY OK` and no complete verification bypass;
-- status: reported; issue open and maintainer disposition pending at the
-  snapshot date.
+- maintainer fix report: [comment `5247993630`](https://github.com/aos-standard/catalog/issues/1#issuecomment-5247993630);
+- maintainer T2 report: [comment `5248157822`](https://github.com/aos-standard/catalog/issues/1#issuecomment-5248157822);
+- v0.4 snapshot: tag `anchors-verify-v0.4`, commit
+  `44c40ba4fd6a12aa19c419e440a2f69512e99acc`;
+- v0.5 snapshot reported for bounded reconstruction: tag
+  `anchors-verify-v0.5`, commit
+  `3602e695d32167876871578b975031bc7b0331c7`;
+- project contribution: minimal reproducer and nine project-controlled v0.4
+  separator receipts with the same `VERIFY PARTIAL` disposition;
+- maintainer disposition: the v0.4 CR defect was reproduced, corrected in
+  v0.5 and credited; a separate described T2 matrix reportedly held;
+- explicit limits: the maintainer did not report reproducing all nine project
+  v0.4 separator cases, the exact T2 artifacts were not linked, `PARTIAL` is
+  not `OK`, and T2 remains open;
+- project reconstruction: four project-controlled runtimes reproduced the
+  expected semantic classes for the eight described T2 mutations plus the
+  baseline; 36 separator attacks failed closed, while baseline and the
+  unattested tip remained `PARTIAL` at 18/24 lines;
+- evidence status: the bounded receipts are published in
+  `evidence/upstream/aos-anchors-verify/`; this is project evidence, not
+  independent validation or an exact diff against unlinked maintainer
+  artifacts.
 
 ## Public AUEC record
 
-- repository snapshot checked: `4e18668b5ff24212d8410ad25528db634da47d0a`;
+- repository snapshot checked: `62fd4aaa8d22da3f8c3f4511be9cc26a75d493ef`;
 - historical release: [`v0.35.0-prestandard`](https://github.com/mohammedmessaoudene-cmd/AUEC/releases/tag/v0.35.0-prestandard), Zenodo record [`21796636`](https://zenodo.org/records/21796636);
 - current release: [`v0.36.0-prestandard`](https://github.com/mohammedmessaoudene-cmd/AUEC/releases/tag/v0.36.0-prestandard), Zenodo record [`21815335`](https://zenodo.org/records/21815335);
 - concept DOI: [`10.5281/zenodo.21796635`](https://doi.org/10.5281/zenodo.21796635);
