@@ -11,6 +11,9 @@ their evidentiary weight:
 2. Bounded factual summaries of AOS maintainer comments reporting reproduction
    of the v0.4 CR defect, its v0.5 correction and attribution, and a separate
    v0.5 T2 matrix.
+3. An exact project-controlled rerun of the corrected public T1/T3 gist against
+   the pinned v0.6 verifier and stream, reconciled with the earlier archived
+   project class receipts.
 
 The exact v0.5 tag was exercised on Windows Python 3.11, 3.12 and 3.14 and on
 Linux WSL1 Python 3.10. All 36 separator attacks failed closed with a digest
@@ -27,6 +30,8 @@ attested.
   and [`5248157822`](https://github.com/aos-standard/catalog/issues/1#issuecomment-5248157822);
 - `project-v0.5-t2-reconstruction.json`: bounded project-controlled v0.5
   separator and T2 reconstruction result;
+- `t1-t3-corrected-gist-reproduction.json`: exact pinned-gist hashes, outputs,
+  T3 result, and bounded T1 class reconciliation without vendoring the gist;
 - `SHA256SUMS.txt`: hashes of the files in this directory at this preparation
   snapshot.
 
@@ -45,6 +50,12 @@ attested.
   validation is claimed.
 - The maintainer did not report reproducing all nine project v0.4 separator
   cases.
+- The T1/T3 gist reproduction is project-controlled. Its author is marked
+  association `NONE` in the AOS issue, and no AOS maintainer disposition on
+  T1/T3 is claimed.
+- The observed T3 whole result is `VERIFY PARTIAL`, not `VERIFY OK`. The T1
+  statement is limited to the tested current retrospective append construction
+  and is not an absolute cryptographic impossibility claim.
 
 No raw AOS source, stream, sidecar, secret, token or private archive is included
 here.
