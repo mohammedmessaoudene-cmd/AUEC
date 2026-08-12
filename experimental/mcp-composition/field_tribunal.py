@@ -52,7 +52,7 @@ def assess_field_gap() -> dict[str, Any]:
             decision,
             observed_action=request["action"],
             observed_principal_id=DEFAULT_CONTEXT.principal_id,
-            actual_outcome="allowed",
+            authority_outcome="allowed",
             recorder_context=copy.deepcopy(context),
             include_candidate_commitment=candidate,
         )

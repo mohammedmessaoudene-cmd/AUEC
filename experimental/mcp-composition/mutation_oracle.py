@@ -48,7 +48,7 @@ def _emit_case(case: str) -> bool:
                 decision,
                 observed_action={**request["action"], "tool": "changed"},
                 observed_principal_id=DEFAULT_CONTEXT.principal_id,
-                actual_outcome="allowed",
+                authority_outcome="allowed",
                 recorder_context=context,
             )
         )
@@ -58,7 +58,7 @@ def _emit_case(case: str) -> bool:
                 decision,
                 observed_action=request["action"],
                 observed_principal_id="principal:changed",
-                actual_outcome="allowed",
+                authority_outcome="allowed",
                 recorder_context=context,
             )
         )
@@ -68,7 +68,7 @@ def _emit_case(case: str) -> bool:
                 decision,
                 observed_action=request["action"],
                 observed_principal_id=DEFAULT_CONTEXT.principal_id,
-                actual_outcome="allowed",
+                authority_outcome="allowed",
                 recorder_context=context,
             )
         )
@@ -78,7 +78,7 @@ def _emit_case(case: str) -> bool:
                 decision,
                 observed_action=request["action"],
                 observed_principal_id=DEFAULT_CONTEXT.principal_id,
-                actual_outcome="denied",
+                authority_outcome="denied",
                 recorder_context=context,
             )
         )
@@ -90,7 +90,7 @@ def _emit_case(case: str) -> bool:
                 changed,
                 observed_action=request["action"],
                 observed_principal_id=DEFAULT_CONTEXT.principal_id,
-                actual_outcome="allowed",
+                authority_outcome="allowed",
                 recorder_context=context,
             )
         )

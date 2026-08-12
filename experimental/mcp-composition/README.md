@@ -8,13 +8,18 @@ This draft-only experiment tests a narrow composition:
 2. A host-owned validator computes requested, host-allowed and effective
    authority plus the requested-to-effective delta.
 3. A separate action-boundary emitter verifies the action, principal, decision
-   digest and actual outcome.
-4. The boundary emits the current SEP-3004 record shape.
+   digest and explicit authority outcome.
+4. The boundary emits the current SEP-3004 record shape without claiming that
+   an allowed decision proves a provider-side effect.
+5. A private lifecycle model separates `AuthorityDecision`, `EffectAttempt`,
+   `EffectObservation` and append-only `ReconciliationRecord` objects.
 
 ```bash
 make demo-mcp-composition
 python -m unittest discover -s experimental/mcp-composition/tests -v
 python experimental/mcp-composition/sep3004_vectors.py
+python experimental/mcp-composition/effect_mutation_harness.py
+python experimental/mcp-composition/effect_stress.py --iterations 10000
 ```
 
 The implementation performs no network request and no consequential action.
@@ -47,6 +52,25 @@ chain link.
 - verdict and bounded reason codes.
 
 The envelope is an internal evidence object, not a new MCP wire primitive.
+
+## Decision/effect separation
+
+Authorization and provider-side effect state are independent axes. An allowed
+decision can validly remain `not_attempted` or become `outcome_unknown`; it is
+not evidence of `confirmed_occurred`. Terminal occurrence or absence requires
+a configured authoritative provider or system-of-record observer. Local
+timeouts, lost responses, emitter crashes and audit-append failures remain
+unknown until append-only reconciliation supplies authoritative evidence.
+
+The model binds every attempt and observation to a stable logical operation,
+a distinct attempt id, the decision evidence, action, payload and principal.
+Only an idempotency-key digest is retained. Reusing one key with a different
+operation, action or payload fails closed, and an unknown irreversible effect
+cannot be retried blindly.
+
+The `effect-disposition` projection is an unregistered private candidate. It
+is experimental and non-conformant; no MCP field or SEP-3004 change is claimed
+as adopted.
 
 ## SEP-3004 boundary
 

@@ -110,6 +110,7 @@ class CompositionTests(unittest.TestCase):
         record = to_sep3004_record(
             result,
             action=request["action"],
+            authority_outcome="allowed",
             recorder_context={
                 "eventId": "test-event-1",
                 "occurredAt": "2026-08-06T00:00:00.000Z",
@@ -204,28 +205,28 @@ class CompositionTests(unittest.TestCase):
                 result,
                 observed_action={**request["action"], "tool": "changed"},
                 observed_principal_id=DEFAULT_CONTEXT.principal_id,
-                actual_outcome="allowed",
+                authority_outcome="allowed",
                 recorder_context=context,
             ),
             lambda: emitter.emit(
                 result,
                 observed_action=request["action"],
                 observed_principal_id="principal:changed",
-                actual_outcome="allowed",
+                authority_outcome="allowed",
                 recorder_context=context,
             ),
             lambda: ActionBoundaryEmitter("emitter:changed").emit(
                 result,
                 observed_action=request["action"],
                 observed_principal_id=DEFAULT_CONTEXT.principal_id,
-                actual_outcome="allowed",
+                authority_outcome="allowed",
                 recorder_context=context,
             ),
             lambda: emitter.emit(
                 result,
                 observed_action=request["action"],
                 observed_principal_id=DEFAULT_CONTEXT.principal_id,
-                actual_outcome="denied",
+                authority_outcome="denied",
                 recorder_context=context,
             ),
         )

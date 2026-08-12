@@ -217,7 +217,7 @@
   "consequentialEffects": false,
   "decisionEmissionSeparation": {
     "actionDigestVerifiedAtBoundary": true,
-    "actualOutcomeRecorded": true,
+    "authorityOutcomeRecorded": true,
     "decisionAuthorityId": "auec-host-authority:test",
     "principalVerifiedAtBoundary": true,
     "recordEmitterId": "auec-action-boundary:test",
@@ -358,7 +358,7 @@
     {
       "baseline": "GREEN",
       "mutant": "RED_EXPECTED",
-      "mutation": "skip-actual-outcome-link",
+      "mutation": "skip-authority-outcome-link",
       "oracle": "wrong-outcome",
       "restoration": "GREEN",
       "target": "authority_validator.py"

@@ -106,10 +106,10 @@ MUTATIONS = (
         "if False:",
     ),
     Mutation(
-        "skip-actual-outcome-link",
+        "skip-authority-outcome-link",
         "wrong-outcome",
         "authority_validator.py",
-        "if actual_outcome != expected_outcome:",
+        'if authority_outcome != evidence["verdict"]:',
         "if False:",
     ),
     Mutation(

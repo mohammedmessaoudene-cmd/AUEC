@@ -55,14 +55,14 @@ def build_report() -> dict[str, Any]:
         decision,
         observed_action=request["action"],
         observed_principal_id=DEFAULT_CONTEXT.principal_id,
-        actual_outcome="allowed",
+        authority_outcome="allowed",
         recorder_context=recorder_context,
     )
     candidate = emitter.emit(
         decision,
         observed_action=request["action"],
         observed_principal_id=DEFAULT_CONTEXT.principal_id,
-        actual_outcome="allowed",
+        authority_outcome="allowed",
         recorder_context=recorder_context,
         include_candidate_commitment=True,
     )
@@ -99,7 +99,7 @@ def build_report() -> dict[str, Any]:
             ),
             "actionDigestVerifiedAtBoundary": True,
             "principalVerifiedAtBoundary": True,
-            "actualOutcomeRecorded": True,
+            "authorityOutcomeRecorded": True,
         },
         "sep3004Baseline": vectors,
         "sep3004Mapping": {

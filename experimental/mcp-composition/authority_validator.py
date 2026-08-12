@@ -532,10 +532,17 @@ class ActionBoundaryEmitter:
         *,
         observed_action: dict[str, Any],
         observed_principal_id: str,
-        actual_outcome: str,
+        authority_outcome: str,
         recorder_context: dict[str, Any],
         include_candidate_commitment: bool = False,
     ) -> dict[str, Any]:
+        """Emit a current-registry authority-boundary record.
+
+        ``authority_outcome`` is explicitly an authorization result.  It is
+        not provider-side effect evidence; effect attempts and observations
+        use the separate private lifecycle model.
+        """
+
         evidence = validation_result.get("decisionEvidence")
         verify_decision_evidence(evidence)
         expected_digest = validation_result["info"]["decisionEvidenceDigest"]
@@ -547,9 +554,8 @@ class ActionBoundaryEmitter:
             raise ContractError("observed action differs from the decision")
         if observed_principal_id != evidence["principalId"]:
             raise ContractError("observed principal differs from the decision")
-        expected_outcome = "allowed" if evidence["verdict"] == "allowed" else "denied"
-        if actual_outcome != expected_outcome:
-            raise ContractError("actual outcome contradicts the decision")
+        if authority_outcome != evidence["verdict"]:
+            raise ContractError("authority outcome contradicts the decision")
         required_context = {
             "eventId",
             "occurredAt",
@@ -569,7 +575,7 @@ class ActionBoundaryEmitter:
             "principal_id": observed_principal_id,
             "event_type": "tool_call",
             "tool_name": observed_action["tool"],
-            "outcome": actual_outcome,
+            "outcome": authority_outcome,
             "extensions": {"caller-governance": extension},
             "previous_hash": recorder_context["previousHash"],
         }
@@ -588,9 +594,10 @@ def to_sep3004_record(
     validation_result: dict[str, Any],
     *,
     action: dict[str, Any],
+    authority_outcome: str,
     recorder_context: dict[str, Any],
 ) -> dict[str, Any]:
-    """Compatibility wrapper producing a current-registry conformant record."""
+    """Produce an authority record without claiming an effect disposition."""
 
     evidence = validation_result["decisionEvidence"]
     legacy_context = {
@@ -603,7 +610,7 @@ def to_sep3004_record(
         validation_result,
         observed_action=action,
         observed_principal_id=evidence["principalId"],
-        actual_outcome="allowed" if validation_result["valid"] else "denied",
+        authority_outcome=authority_outcome,
         recorder_context=legacy_context,
     )
     return emitted["record"]
