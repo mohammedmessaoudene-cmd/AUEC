@@ -117,7 +117,7 @@ change at the linked upstream artifacts.
 
 ## Public AUEC record
 
-- repository snapshot checked: `cefcae95b1401b5365a3bceec621b181b549980e`;
+- repository snapshot checked: `3cabb79e2a9c84db2dd256b64c97134c385d187d`;
 - historical release: [`v0.35.0-prestandard`](https://github.com/mohammedmessaoudene-cmd/AUEC/releases/tag/v0.35.0-prestandard), Zenodo record [`21796636`](https://zenodo.org/records/21796636);
 - current release: [`v0.36.0-prestandard`](https://github.com/mohammedmessaoudene-cmd/AUEC/releases/tag/v0.36.0-prestandard), Zenodo record [`21815335`](https://zenodo.org/records/21815335);
 - concept DOI: [`10.5281/zenodo.21796635`](https://doi.org/10.5281/zenodo.21796635);
