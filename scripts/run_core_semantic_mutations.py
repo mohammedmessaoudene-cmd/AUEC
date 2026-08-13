@@ -18,6 +18,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+TARGET_COVERAGE_RULE = "guard-evaluation-span-overlap"
 
 
 @dataclass(frozen=True)
@@ -28,6 +29,33 @@ class Mutation:
     replacement: str
     test: str
     matcher: str = "literal"
+
+
+@dataclass(frozen=True)
+class MutationTarget:
+    """Immutable source span whose evaluation makes a control causally relevant."""
+
+    start_line: int
+    end_line: int
+    candidate_lines: tuple[int, ...]
+    selection_kind: str
+
+    def __post_init__(self) -> None:
+        expected = tuple(range(self.start_line, self.end_line + 1))
+        if self.start_line < 1 or self.end_line < self.start_line:
+            raise ValueError("mutation target span is invalid")
+        if self.candidate_lines != expected:
+            raise ValueError("mutation target candidate lines do not match its span")
+
+
+@dataclass(frozen=True)
+class PreparedMutation:
+    """Mutated text plus independently selected targets for each source phase."""
+
+    mutant_text: str
+    original_target: MutationTarget
+    mutant_target: MutationTarget
+    match_count: int
 
 
 HOST_OPERATION_GUARD = re.compile(
@@ -109,26 +137,68 @@ def _is_op_not_in(node: ast.AST, comparator: ast.AST) -> bool:
     )
 
 
-def _host_operation_guard_count(source_text: str) -> int:
+def _host_operation_guard_nodes(
+    source_text: str, *, includes_policy_clause: bool
+) -> list[ast.If]:
     expected_policy = ast.Subscript(
         value=ast.Name(id="policy", ctx=ast.Load()),
         slice=ast.Constant(value="allowedOps"),
         ctx=ast.Load(),
     )
-    count = 0
+    matches: list[ast.If] = []
     for node in ast.walk(ast.parse(source_text)):
         if not isinstance(node, ast.If) or not isinstance(node.test, ast.BoolOp):
             continue
-        if not isinstance(node.test.op, ast.Or) or len(node.test.values) != 3:
-            continue
-        first, second, third = node.test.values
+        expected_value_count = 3 if includes_policy_clause else 2
         if (
+            not isinstance(node.test.op, ast.Or)
+            or len(node.test.values) != expected_value_count
+        ):
+            continue
+        first, second = node.test.values[:2]
+        if not (
             _is_not_isinstance_op_str(first)
             and _is_op_not_in(second, ast.Name(id="PURE_OPS", ctx=ast.Load()))
-            and _is_op_not_in(third, expected_policy)
         ):
-            count += 1
-    return count
+            continue
+        if includes_policy_clause and not _is_op_not_in(
+            node.test.values[2], expected_policy
+        ):
+            continue
+        matches.append(node)
+    return matches
+
+
+def _host_operation_guard_count(source_text: str) -> int:
+    return len(
+        _host_operation_guard_nodes(source_text, includes_policy_clause=True)
+    )
+
+
+def _target_from_if(node: ast.If, selection_kind: str) -> MutationTarget:
+    test_end_line = node.test.end_lineno
+    if test_end_line is None:
+        raise RuntimeError("host-operation guard test has no end line")
+    return MutationTarget(
+        start_line=node.lineno,
+        end_line=test_end_line,
+        candidate_lines=tuple(range(node.lineno, test_end_line + 1)),
+        selection_kind=selection_kind,
+    )
+
+
+def _literal_target(
+    source_text: str, start_offset: int, selected_text: str, selection_kind: str
+) -> MutationTarget:
+    end_offset = start_offset + len(selected_text) - 1
+    start_line = source_text.count("\n", 0, start_offset) + 1
+    end_line = source_text.count("\n", 0, end_offset) + 1
+    return MutationTarget(
+        start_line=start_line,
+        end_line=end_line,
+        candidate_lines=tuple(range(start_line, end_line + 1)),
+        selection_kind=selection_kind,
+    )
 
 
 def _remove_host_policy_clause(match: re.Match[str]) -> str:
@@ -148,11 +218,24 @@ def _remove_host_policy_clause(match: re.Match[str]) -> str:
     )
 
 
-def mutate_source(mutation: Mutation, original_text: str) -> tuple[str, int, int]:
-    """Apply exactly one bounded mutation and return text, line and match count."""
+def target_observed_lines(
+    target: MutationTarget, executed_lines: list[int] | tuple[int, ...] | set[int]
+) -> tuple[int, ...]:
+    """Return traced lines that overlap the selected evaluation span."""
+
+    return tuple(sorted(set(target.candidate_lines).intersection(executed_lines)))
+
+
+def prepare_mutation_with_targets(
+    mutation: Mutation, original_text: str
+) -> PreparedMutation:
+    """Apply one mutation and select original/mutant targets independently."""
 
     if mutation.matcher == "host-operation-guard":
-        syntax_count = _host_operation_guard_count(original_text)
+        syntax_matches = _host_operation_guard_nodes(
+            original_text, includes_policy_clause=True
+        )
+        syntax_count = len(syntax_matches)
         matches = list(HOST_OPERATION_GUARD.finditer(original_text))
         if syntax_count != 1 or len(matches) != 1:
             raise RuntimeError(
@@ -170,20 +253,61 @@ def mutate_source(mutation: Mutation, original_text: str) -> tuple[str, int, int
             raise RuntimeError(
                 f"{mutation.case}: host-operation guard mutation was incomplete"
             )
-        line_number = original_text.count("\n", 0, match.start()) + 1
-        return mutant_text, line_number, replacement_count
+        mutant_syntax_matches = _host_operation_guard_nodes(
+            mutant_text, includes_policy_clause=False
+        )
+        if len(mutant_syntax_matches) != 1:
+            raise RuntimeError(
+                f"{mutation.case}: mutant host-operation guard is not uniquely "
+                f"selectable (syntax={len(mutant_syntax_matches)})"
+            )
+        return PreparedMutation(
+            mutant_text=mutant_text,
+            original_target=_target_from_if(
+                syntax_matches[0], "ast-if-test"
+            ),
+            mutant_target=_target_from_if(
+                mutant_syntax_matches[0], "ast-if-test-mutant-two-clause"
+            ),
+            match_count=replacement_count,
+        )
 
     match_count = original_text.count(mutation.needle)
     if match_count != 1:
         raise RuntimeError(f"{mutation.case}: mutation needle count is not exactly one")
-    line_number = original_text.count("\n", 0, original_text.index(mutation.needle)) + 1
+    match_start = original_text.index(mutation.needle)
     mutant_text = original_text.replace(
         mutation.needle,
         mutation.replacement,
         1,
     )
     ast.parse(mutant_text)
-    return mutant_text, line_number, match_count
+    return PreparedMutation(
+        mutant_text=mutant_text,
+        original_target=_literal_target(
+            original_text, match_start, mutation.needle, "literal"
+        ),
+        mutant_target=_literal_target(
+            mutant_text, match_start, mutation.replacement, "literal-mutant"
+        ),
+        match_count=match_count,
+    )
+
+
+def prepare_mutation(
+    mutation: Mutation, original_text: str
+) -> tuple[str, MutationTarget, int]:
+    """Compatibility wrapper returning the original-phase target descriptor."""
+
+    prepared = prepare_mutation_with_targets(mutation, original_text)
+    return prepared.mutant_text, prepared.original_target, prepared.match_count
+
+
+def mutate_source(mutation: Mutation, original_text: str) -> tuple[str, int, int]:
+    """Compatibility wrapper returning text, legacy targetLine and match count."""
+
+    mutant_text, target, match_count = prepare_mutation(mutation, original_text)
+    return mutant_text, target.start_line, match_count
 
 
 def sha256(path: Path) -> str:
@@ -259,10 +383,15 @@ def main() -> int:
     for mutation in MUTATIONS:
         source = ROOT / mutation.path
         original_text = source.read_text(encoding="utf-8")
-        mutant_text, line_number, match_count = mutate_source(
+        prepared = prepare_mutation_with_targets(
             mutation,
             original_text,
         )
+        mutant_text = prepared.mutant_text
+        target = prepared.original_target
+        mutant_target = prepared.mutant_target
+        match_count = prepared.match_count
+        line_number = target.start_line
         original_hash = sha256(source)
 
         baseline_observation = probe(ROOT, mutation.case)
@@ -281,11 +410,15 @@ def main() -> int:
                 f"{mutation.case}: baseline safety test failed\n{baseline_test.stdout}"
             )
         baseline_trace_payload = json.loads(baseline_trace.read_text(encoding="utf-8"))
-        if line_number not in baseline_trace_payload["executedLines"].get(
+        baseline_executed_lines = baseline_trace_payload["executedLines"].get(
             mutation.path, []
-        ):
+        )
+        baseline_observed_lines = target_observed_lines(
+            target, baseline_executed_lines
+        )
+        if not baseline_observed_lines:
             raise RuntimeError(
-                f"{mutation.case}: baseline did not execute the target line"
+                f"{mutation.case}: baseline did not evaluate the target span"
             )
 
         with tempfile.TemporaryDirectory(prefix=f"auec-{mutation.case}-") as temporary:
@@ -334,11 +467,15 @@ def main() -> int:
             mutant_trace_payload = json.loads(
                 mutant_trace_temp.read_text(encoding="utf-8")
             )
-            if line_number not in mutant_trace_payload["executedLines"].get(
+            mutant_executed_lines = mutant_trace_payload["executedLines"].get(
                 mutation.path, []
-            ):
+            )
+            mutant_observed_lines = target_observed_lines(
+                mutant_target, mutant_executed_lines
+            )
+            if not mutant_observed_lines:
                 raise RuntimeError(
-                    f"{mutation.case}: mutant test did not execute the target line"
+                    f"{mutation.case}: mutant test did not evaluate the target span"
                 )
             shutil.copyfile(
                 mutant_trace_temp, output / f"{mutation.case}-mutant-red-trace.json"
@@ -366,20 +503,48 @@ def main() -> int:
             mutation.case, restored_observation
         ):
             raise RuntimeError(f"{mutation.case}: restoration was not green")
+        restored_trace_payload = json.loads(
+            restored_trace.read_text(encoding="utf-8")
+        )
+        restored_executed_lines = restored_trace_payload["executedLines"].get(
+            mutation.path, []
+        )
+        restored_observed_lines = target_observed_lines(
+            target, restored_executed_lines
+        )
+        if not restored_observed_lines:
+            raise RuntimeError(
+                f"{mutation.case}: restoration did not evaluate the target span"
+            )
 
         summary["controls"].append(
             {
                 "id": mutation.case.upper(),
                 "source": mutation.path,
                 "targetLine": line_number,
+                "targetLineStart": target.start_line,
+                "targetLineEnd": target.end_line,
+                "targetCandidateLines": list(target.candidate_lines),
+                "targetObservedLines": list(baseline_observed_lines),
+                "targetCoverageRule": TARGET_COVERAGE_RULE,
+                "targetSelectionKind": target.selection_kind,
+                "mutantTargetLineStart": mutant_target.start_line,
+                "mutantTargetLineEnd": mutant_target.end_line,
+                "mutantTargetCandidateLines": list(
+                    mutant_target.candidate_lines
+                ),
+                "mutantTargetSelectionKind": mutant_target.selection_kind,
                 "originalSha256": original_hash,
                 "mutationNeedleCount": match_count,
                 "baseline": baseline_observation,
                 "mutant": mutant_observation,
                 "safetyTestUnderMutant": "RED",
-                "targetLineExecuted": True,
+                "targetLineExecuted": line_number in baseline_executed_lines,
+                "targetSpanExecuted": True,
+                "mutantTargetObservedLines": list(mutant_observed_lines),
                 "restored": restored_observation,
                 "restorationTest": "GREEN",
+                "restoredTargetObservedLines": list(restored_observed_lines),
             }
         )
 
