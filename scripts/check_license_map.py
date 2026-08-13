@@ -10,6 +10,7 @@ from pathlib import Path
 
 DEFAULT_ROOT = Path(__file__).resolve().parents[1]
 AGPL_HEADER = "# SPDX-License-Identifier: AGPL-3.0-only"
+APACHE_HEADER = "# SPDX-License-Identifier: Apache-2.0"
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -42,6 +43,12 @@ def main(argv: list[str] | None = None) -> int:
         first = path.read_text(encoding="utf-8").splitlines()[:2]
         if AGPL_HEADER not in first:
             errors.append(f"missing AGPL SPDX header: {path.relative_to(root)}")
+
+    experimental = list((root / "experimental").rglob("*.py"))
+    for path in sorted(experimental):
+        first = path.read_text(encoding="utf-8").splitlines()[:2]
+        if APACHE_HEADER not in first:
+            errors.append(f"missing Apache-2.0 SPDX header: {path.relative_to(root)}")
 
     pyproject = (root / "reference-runtime" / "pyproject.toml").read_text(
         encoding="utf-8"
@@ -104,11 +111,13 @@ def main(argv: list[str] | None = None) -> int:
         return 1
     if rows:
         print(
-            f"LICENSE AUDIT PASS: {len(coupled)} AGPL-coupled Python files, {len(rows)} rights rows"
+            f"LICENSE AUDIT PASS: {len(coupled)} AGPL-coupled Python files, "
+            f"{len(experimental)} Apache experimental Python files, {len(rows)} rights rows"
         )
     else:
         print(
             f"LICENSE AUDIT PASS (public mode): {len(coupled)} AGPL-coupled Python files; "
+            f"{len(experimental)} Apache experimental Python files; "
             "private rights-chain register intentionally absent"
         )
     return 0
