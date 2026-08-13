@@ -20,4 +20,5 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - run: PYTHONPATH=reference-runtime python -m unittest discover -s tests -v
       - run: python -m compileall -q reference-runtime tests examples
+      - run: python -B scripts/run_core_semantic_mutations.py --output "$RUNNER_TEMP/core-semantic-causal-controls"
       - run: python scripts/check_repository_hashes.py
