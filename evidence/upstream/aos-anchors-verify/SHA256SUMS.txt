@@ -3,3 +3,8 @@
 c910e0f363352cde37ff89e2cecb5e7eb33d26f9e5c2643eabe737cc70df6b32  README.md
 68e7559ccc0004941da20d64f6a115c82cae0eeaca57357f09447885f51202ba  t1-t3-corrected-gist-reproduction.json
 d515b974ebb6bfb4e826a18f1567c1a78672bb87df28e9766933e87c8243fc42  v0.4-nine-separator-receipts.json
+e028a05515ead49b1b6e7ba864f6e32234297679707595a494ed12763a1a1905  v0.8-challenge-matrix.json
+6b77b4751bb3efd28e5c271b7ddbfeb6f5e9bdecc7c296ebc2d90d2b143906b7  v0.8-differential-v0.7.json
+49c17801214dfee25941d920b988a61d9b6e5ebd54af5219bcf6ace5b9e41a4a  v0.8-maintainer-comment.json
+cd3de682ad7ae9979adb7009775708da96938cad2e686cbde0c458d43ccb2b1a  v0.8-project-controlled-rerun.json
+f7418bcef688ebfaa5f9699a68022a676bd454cb74b1e555d871dd57947a2b36  v0.8-tag-and-object-receipt.json
