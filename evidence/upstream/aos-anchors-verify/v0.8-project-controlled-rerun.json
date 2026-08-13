@@ -1,0 +1,68 @@
+{
+  "schema": "auec.aos-anchors-v08-project-controlled-rerun.v1",
+  "status": "BOUNDED_NONSECURITY_GAPS_REPRODUCED",
+  "repository": "aos-standard/catalog",
+  "tag": "anchors-verify-v0.8",
+  "commit": "15f2b50a77b78a0857d3c7e697726373406cd0ef",
+  "method": {
+    "implementationAuthorship": "AOS authored and published the v0.8 implementation",
+    "questionAndCausalControl": "Mohammed Messaoudene directed the question, bounded hypotheses, and causal controls",
+    "execution": "project-controlled clean acquisitions and non-mutating tests",
+    "assistance": "OpenAI ChatGPT and Codex assisted with campaign design, execution, analysis, and evidence organization",
+    "humanResponsibility": "Mohammed Messaoudene remains responsible for the public claims and release decision",
+    "cleanAcquisitions": 4,
+    "sourceVendoredInReceipt": false,
+    "rawPayloadsPublished": false,
+    "remoteMutations": 0
+  },
+  "environments": [
+    {
+      "platform": "Windows",
+      "python": "3.11",
+      "selfTests": "16/16 PASS",
+      "honestStream": "25 lines / 18 attested / VERIFY PARTIAL / exit 3"
+    },
+    {
+      "platform": "Windows",
+      "python": "3.12",
+      "selfTests": "16/16 PASS",
+      "honestStream": "25 lines / 18 attested / VERIFY PARTIAL / exit 3"
+    },
+    {
+      "platform": "Windows",
+      "python": "3.14",
+      "selfTests": "16/16 PASS",
+      "honestStream": "25 lines / 18 attested / VERIFY PARTIAL / exit 3"
+    },
+    {
+      "platform": "WSL Ubuntu 22",
+      "python": "3.10",
+      "selfTests": "16/16 PASS",
+      "honestStream": "25 lines / 18 attested / VERIFY PARTIAL / exit 3"
+    },
+    {
+      "platform": "WSL Ubuntu 24",
+      "python": "3.12",
+      "selfTests": "16/16 PASS",
+      "honestStream": "25 lines / 18 attested / VERIFY PARTIAL / exit 3"
+    }
+  ],
+  "macOS": "NOT_TESTED",
+  "historicalControls": {
+    "T2": "11/11 expected dispositions matched",
+    "separatorMutations": "9/9 failed closed",
+    "frozenV04ToV07Replay": "PASS on Windows and WSL",
+    "v07OkPredicate": "PASS"
+  },
+  "securityBoundary": {
+    "alteredAttestedBytesAccepted": false,
+    "unauthorizedGitHistoryAccepted": false,
+    "trustAnchorConfusionDemonstrated": false,
+    "scope": "These observations are limited to the bounded project-controlled matrix and are not a universal security assurance."
+  },
+  "claimBoundary": [
+    "This is project-controlled evidence, not independent validation of AOS or AUEC.",
+    "VERIFY PARTIAL is not VERIFY OK.",
+    "No AOS, MCP, or other adoption, endorsement, sponsorship, partnership, or normative change is claimed."
+  ]
+}

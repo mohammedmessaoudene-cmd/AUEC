@@ -5,8 +5,8 @@ Messaoudene. It records chronology and current disposition; it does not claim
 adoption, endorsement, partnership, ownership of ideas or methods, or
 independent validation of AUEC.
 
-Live statuses were checked at `2026-08-11T22:20:31Z`. The bounded AOS evidence
-receipts integrated below extend through `2026-08-11T18:50:09Z`. Both may
+Live statuses were checked at `2026-08-13T02:35:32Z`. The bounded AOS evidence
+receipts integrated below extend through `2026-08-12T23:59:12Z`. Both may
 change at the linked upstream artifacts.
 
 ## MCP routing discussion
@@ -58,6 +58,7 @@ change at the linked upstream artifacts.
 - maintainer T2 report: [comment `5248157822`](https://github.com/aos-standard/catalog/issues/1#issuecomment-5248157822);
 - T1/T3 correction and exact construction: [comment `5257449945`](https://github.com/aos-standard/catalog/issues/1#issuecomment-5257449945)
   and [pinned gist revision `4690a69c...`](https://gist.github.com/wowlegend/8045315e2651d7bcbf1acbb45ee5325d/4690a69c08605271844a58e8e1b9436585a50c28);
+- v0.8 maintainer release and attribution report: [comment `5274195840`](https://github.com/aos-standard/catalog/issues/1#issuecomment-5274195840);
 - v0.4 snapshot: tag `anchors-verify-v0.4`, commit
   `44c40ba4fd6a12aa19c419e440a2f69512e99acc`;
 - v0.5 snapshot reported for bounded reconstruction: tag
@@ -65,6 +66,9 @@ change at the linked upstream artifacts.
   `3602e695d32167876871578b975031bc7b0331c7`;
 - v0.6 T1/T3 snapshot: tag `anchors-verify-v0.6`, commit
   `e86a08673daa6e1ea2a4ab152c7690a0d268d8e6`;
+- v0.8 snapshot: lightweight tag `anchors-verify-v0.8`, commit
+  `15f2b50a77b78a0857d3c7e697726373406cd0ef`, tree
+  `89d7a250db6544b190e23a6663361c303429ced8`;
 - project contribution: minimal reproducer and nine project-controlled v0.4
   separator receipts with the same `VERIFY PARTIAL` disposition;
 - maintainer disposition: the v0.4 CR defect was reproduced, corrected in
@@ -88,6 +92,28 @@ change at the linked upstream artifacts.
   artifacts. The gist author is marked association `NONE` in the AOS issue;
   no AOS maintainer disposition on T1/T3 is claimed, and the T1 statement is
   limited to the tested current retrospective append construction.
+- v0.8 exact rerun: five project-controlled runtime matrices on Windows and
+  WSL reproduced the pinned tag self-tests at 16/16 per runtime and the honest
+  stream at 25 lines, 18 attested, `VERIFY PARTIAL`, exit 3. Historical T2
+  dispositions matched 11/11 and nine separator mutations failed closed;
+  macOS was not tested.
+- v0.8 bounded challenge result: documentation/raw-byte, schema-type,
+  cross-parser interoperability, and Git-identity reproducibility/TOCTOU gaps
+  were reproduced. No acceptance of altered attested bytes, unauthorized Git
+  history, trust-anchor confusion, or security bypass was demonstrated in the
+  bounded matrix.
+- exact limits: the v0.8 `asset_id` collision closure applies to string values,
+  while tested non-string values remained a schema-type gap. `line_count:true`
+  produced `VERIFY OK` with integer-equivalent semantics to `1` and covered the
+  same one record; it did not attest different bytes. Mutable Git references
+  expose a reproducibility and potential TOCTOU gap, but all live references
+  observed resolved to authorized history. Producer/verifier parity remains
+  maintainer-reported because the public tag does not include the exporter.
+- attribution: AOS authored and published the v0.8 implementation. Mohammed
+  Messaoudene directed the question and project-controlled causal tests.
+  OpenAI ChatGPT and Codex assisted with campaign design, execution, analysis,
+  and evidence organization; Mohammed remains responsible for these public
+  claims and the release decision.
 
 ## Public AUEC record
 
@@ -99,6 +125,10 @@ change at the linked upstream artifacts.
 
 These records identify published versions. They do not change the disposition
 of any upstream contribution listed above.
+
+The v0.36 DOI record predates the v0.8 receipts added here. It does not claim
+that these receipts are included in that release, and it is not a complete
+top-level title/artifact/hash binding for this later evidence.
 
 ## Public author identifiers
 
