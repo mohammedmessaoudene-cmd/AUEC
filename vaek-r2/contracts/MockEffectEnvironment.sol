@@ -62,20 +62,12 @@ contract MockPurchaseAdapter {
     ) external returns (uint256 actualCharge, bytes32 outcomeHash) {
         if (shouldRevert) revert("adapter failure");
         if (reentryKernel != address(0)) {
-            (reentrySucceeded,) = reentryKernel.call(
-                abi.encodeCall(IKernelReentry.execute, (reentryExecutionId))
-            );
+            (reentrySucceeded,) = reentryKernel.call(abi.encodeCall(IKernelReentry.execute, (reentryExecutionId)));
         }
         actualCharge = configuredCharge == 0 ? maximumCharge : configuredCharge;
         outcomeHash = keccak256(
             abi.encode(
-                "VAEK/MOCK-PURCHASE-OUTCOME/R2",
-                executionId,
-                provider,
-                serviceId,
-                asset,
-                actualCharge,
-                contextHash
+                "VAEK/MOCK-PURCHASE-OUTCOME/R2", executionId, provider, serviceId, asset, actualCharge, contextHash
             )
         );
     }

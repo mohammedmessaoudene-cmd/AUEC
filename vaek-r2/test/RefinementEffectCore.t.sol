@@ -38,7 +38,7 @@ contract RefinementEffectCoreTest is RefinementEffectTestBase {
 
         MockPurchaseAdapter adapter2 = new MockPurchaseAdapter();
         RefinementEffectKernel k2 = new RefinementEffectKernel(VERIFIER, address(adapter2));
-        token.mint(address(k2), 1_000);
+        token.mint(address(k2), 1000);
         bytes32 m2 = _createMandate(k2, address(token), false, false, 100, 250, 80);
         bytes32 id2 = keccak256("no-mandate-consent");
         _submitTransfer(k2, id2, m2, VENDOR, address(token), 120, true);
@@ -59,16 +59,36 @@ contract RefinementEffectCoreTest is RefinementEffectTestBase {
         bytes32 modelId = keccak256("bad-model");
         vm.prank(AI);
         kernel.submitTransfer(
-            modelId, mandateId, VENDOR, address(token), 20, uint64(block.timestamp + 1 hours), false,
-            CONTEXT, OBSERVATION, keccak256("wrong model"), POLICY, 3
+            modelId,
+            mandateId,
+            VENDOR,
+            address(token),
+            20,
+            uint64(block.timestamp + 1 hours),
+            false,
+            CONTEXT,
+            OBSERVATION,
+            keccak256("wrong model"),
+            POLICY,
+            3
         );
         _assertEq(kernel.evaluate(modelId).reason, bytes32("MODEL_COMMITMENT"), "model");
 
         bytes32 policyId = keccak256("bad-policy");
         vm.prank(AI);
         kernel.submitTransfer(
-            policyId, mandateId, VENDOR, address(token), 20, uint64(block.timestamp + 1 hours), false,
-            CONTEXT, OBSERVATION, MODEL, keccak256("wrong policy"), 4
+            policyId,
+            mandateId,
+            VENDOR,
+            address(token),
+            20,
+            uint64(block.timestamp + 1 hours),
+            false,
+            CONTEXT,
+            OBSERVATION,
+            MODEL,
+            keccak256("wrong policy"),
+            4
         );
         _assertEq(kernel.evaluate(policyId).reason, bytes32("POLICY_COMMITMENT"), "policy");
     }
@@ -77,8 +97,18 @@ contract RefinementEffectCoreTest is RefinementEffectTestBase {
         vm.prank(ATTACKER);
         vm.expectRevert(RefinementEffectKernel.Unauthorized.selector);
         kernel.submitTransfer(
-            keccak256("unauthorized"), mandateId, VENDOR, address(token), 1,
-            uint64(block.timestamp + 1 hours), false, CONTEXT, OBSERVATION, MODEL, POLICY, 1
+            keccak256("unauthorized"),
+            mandateId,
+            VENDOR,
+            address(token),
+            1,
+            uint64(block.timestamp + 1 hours),
+            false,
+            CONTEXT,
+            OBSERVATION,
+            MODEL,
+            POLICY,
+            1
         );
     }
 
@@ -87,14 +117,22 @@ contract RefinementEffectCoreTest is RefinementEffectTestBase {
         bytes32 hm = _submitTransfer(kernel, medium, mandateId, VENDOR, address(token), 60, false);
         _assertEq(kernel.evaluate(medium).reason, bytes32("VERIFICATION"), "medium verification");
         _verify(kernel, medium, hm);
-        _assertEq(uint256(kernel.evaluate(medium).decision), uint256(RefinementEffectKernel.Decision.ALLOW_EXACT), "medium allow");
+        _assertEq(
+            uint256(kernel.evaluate(medium).decision),
+            uint256(RefinementEffectKernel.Decision.ALLOW_EXACT),
+            "medium allow"
+        );
 
         bytes32 high = keccak256("high");
         bytes32 hh = _submitTransfer(kernel, high, mandateId, VENDOR, address(token), 95, false);
         _verify(kernel, high, hh);
-        _assertEq(uint256(kernel.evaluate(high).decision), uint256(RefinementEffectKernel.Decision.ESCALATE), "high escalate");
+        _assertEq(
+            uint256(kernel.evaluate(high).decision), uint256(RefinementEffectKernel.Decision.ESCALATE), "high escalate"
+        );
         _approve(kernel, high);
-        _assertEq(uint256(kernel.evaluate(high).decision), uint256(RefinementEffectKernel.Decision.ALLOW_EXACT), "high allow");
+        _assertEq(
+            uint256(kernel.evaluate(high).decision), uint256(RefinementEffectKernel.Decision.ALLOW_EXACT), "high allow"
+        );
     }
 
     function test_VerificationIsBoundToExactRequestHash() public {
@@ -103,8 +141,7 @@ contract RefinementEffectCoreTest is RefinementEffectTestBase {
         vm.prank(VERIFIER);
         vm.expectRevert(RefinementEffectKernel.InvalidRequest.selector);
         kernel.recordVerification(
-            id, keccak256("wrong"), RefinementEffectKernel.Verdict.PASS, EVIDENCE,
-            uint64(block.timestamp + 1 hours)
+            id, keccak256("wrong"), RefinementEffectKernel.Verdict.PASS, EVIDENCE, uint64(block.timestamp + 1 hours)
         );
     }
 

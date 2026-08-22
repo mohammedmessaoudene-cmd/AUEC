@@ -10,10 +10,7 @@ contract RefinementEffectAdversarialTest is RefinementEffectTestBase {
         _verify(kernel, id, h);
         adapter.configure(21, false, address(0), bytes32(0));
         vm.expectRevert(
-            abi.encodeWithSelector(
-                RefinementEffectKernel.PostconditionFailure.selector,
-                bytes32("PURCHASE_CHARGE")
-            )
+            abi.encodeWithSelector(RefinementEffectKernel.PostconditionFailure.selector, bytes32("PURCHASE_CHARGE"))
         );
         kernel.execute(id);
         _assertEq(token.balanceOf(API_PROVIDER), 0, "provider rollback");
@@ -48,15 +45,12 @@ contract RefinementEffectAdversarialTest is RefinementEffectTestBase {
         MockFeeERC20 feeToken = new MockFeeERC20();
         MockPurchaseAdapter adapter2 = new MockPurchaseAdapter();
         RefinementEffectKernel k2 = new RefinementEffectKernel(VERIFIER, address(adapter2));
-        feeToken.mint(address(k2), 1_000);
+        feeToken.mint(address(k2), 1000);
         bytes32 m2 = _createMandate(k2, address(feeToken), true, false, 100, 250, 80);
         bytes32 id = keccak256("fee-token");
         _submitTransfer(k2, id, m2, VENDOR, address(feeToken), 20, false);
         vm.expectRevert(
-            abi.encodeWithSelector(
-                RefinementEffectKernel.PostconditionFailure.selector,
-                bytes32("BALANCE_DELTA")
-            )
+            abi.encodeWithSelector(RefinementEffectKernel.PostconditionFailure.selector, bytes32("BALANCE_DELTA"))
         );
         k2.execute(id);
         _assertEq(feeToken.balanceOf(VENDOR), 0, "fee transfer rollback");
@@ -71,12 +65,7 @@ contract RefinementEffectAdversarialTest is RefinementEffectTestBase {
         vm.prank(PRINCIPAL);
         kernel.revokeMandate(mandateId);
         _assertEq(kernel.evaluate(id).reason, bytes32("REVOKED"), "revocation");
-        vm.expectRevert(
-            abi.encodeWithSelector(
-                RefinementEffectKernel.EffectNotAuthorized.selector,
-                bytes32("REVOKED")
-            )
-        );
+        vm.expectRevert(abi.encodeWithSelector(RefinementEffectKernel.EffectNotAuthorized.selector, bytes32("REVOKED")));
         kernel.execute(id);
     }
 
@@ -84,8 +73,18 @@ contract RefinementEffectAdversarialTest is RefinementEffectTestBase {
         bytes32 id = keccak256("stale");
         vm.prank(AI);
         kernel.submitTransfer(
-            id, mandateId, VENDOR, address(token), 20, uint64(block.timestamp + 10), false,
-            CONTEXT, OBSERVATION, MODEL, POLICY, 1
+            id,
+            mandateId,
+            VENDOR,
+            address(token),
+            20,
+            uint64(block.timestamp + 10),
+            false,
+            CONTEXT,
+            OBSERVATION,
+            MODEL,
+            POLICY,
+            1
         );
         vm.warp(block.timestamp + 11);
         _assertEq(kernel.evaluate(id).reason, bytes32("REQUEST_STALE"), "stale");
@@ -121,10 +120,14 @@ contract RefinementEffectAdversarialTest is RefinementEffectTestBase {
     function test_BudgetExhaustionBlocks() public {
         bytes32 a = keccak256("exhaust-a");
         bytes32 ha = _submitTransfer(kernel, a, mandateId, VENDOR, address(token), 100, false);
-        _verify(kernel, a, ha); _approve(kernel, a); kernel.execute(a);
+        _verify(kernel, a, ha);
+        _approve(kernel, a);
+        kernel.execute(a);
         bytes32 b = keccak256("exhaust-b");
         bytes32 hb = _submitTransfer(kernel, b, mandateId, VENDOR, address(token), 100, false);
-        _verify(kernel, b, hb); _approve(kernel, b); kernel.execute(b);
+        _verify(kernel, b, hb);
+        _approve(kernel, b);
+        kernel.execute(b);
         bytes32 c = keccak256("exhaust-c");
         _submitTransfer(kernel, c, mandateId, VENDOR, address(token), 50, false);
         kernel.execute(c);

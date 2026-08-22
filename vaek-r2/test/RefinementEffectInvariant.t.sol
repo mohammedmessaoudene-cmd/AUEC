@@ -27,7 +27,7 @@ contract RefinementEffectHandler {
         token = new MockERC20();
         adapter = new MockPurchaseAdapter();
         kernel = new RefinementEffectKernel(address(this), address(adapter));
-        token.mint(address(kernel), 1_000);
+        token.mint(address(kernel), 1000);
 
         address[] memory targets = new address[](2);
         targets[0] = VENDOR;
@@ -75,11 +75,7 @@ contract RefinementEffectHandler {
         );
         if (verifyIt) {
             kernel.recordVerification(
-                id,
-                requestHash,
-                RefinementEffectKernel.Verdict.PASS,
-                EVIDENCE,
-                uint64(block.timestamp + 1 days)
+                id, requestHash, RefinementEffectKernel.Verdict.PASS, EVIDENCE, uint64(block.timestamp + 1 days)
             );
         }
         if (approveIt) kernel.approveHighRisk(id);
@@ -118,11 +114,7 @@ contract RefinementEffectHandler {
         );
         if (verifyIt) {
             kernel.recordVerification(
-                id,
-                requestHash,
-                RefinementEffectKernel.Verdict.PASS,
-                EVIDENCE,
-                uint64(block.timestamp + 1 days)
+                id, requestHash, RefinementEffectKernel.Verdict.PASS, EVIDENCE, uint64(block.timestamp + 1 days)
             );
         }
         if (approveIt) kernel.approveHighRisk(id);
@@ -165,8 +157,8 @@ contract RefinementEffectInvariantTest {
     }
 
     function invariant_SpentEqualsObservedRecipientDeltas() public view {
-        uint256 recipients = handler.token().balanceOf(handler.VENDOR())
-            + handler.token().balanceOf(handler.API_PROVIDER());
+        uint256 recipients =
+            handler.token().balanceOf(handler.VENDOR()) + handler.token().balanceOf(handler.API_PROVIDER());
         require(handler.kernel().spentOf(handler.mandateId()) == recipients, "accounting mismatch");
     }
 
@@ -175,13 +167,10 @@ contract RefinementEffectInvariantTest {
         uint256 vendor = handler.token().balanceOf(handler.VENDOR());
         uint256 provider = handler.token().balanceOf(handler.API_PROVIDER());
         uint256 attacker = handler.token().balanceOf(handler.ATTACKER());
-        require(vault + vendor + provider + attacker == 1_000, "token conservation broken");
+        require(vault + vendor + provider + attacker == 1000, "token conservation broken");
     }
 
     function invariant_StateVersionNeverRegresses() public view {
-        require(
-            handler.kernel().stateVersion() >= handler.maximumObservedStateVersion(),
-            "state version regression"
-        );
+        require(handler.kernel().stateVersion() >= handler.maximumObservedStateVersion(), "state version regression");
     }
 }

@@ -100,10 +100,7 @@ abstract contract RefinementEffectTestBase {
         );
     }
 
-    function _submitPurchase(bytes32 id, uint128 amount, bool acceptRefinement)
-        internal
-        returns (bytes32 requestHash)
-    {
+    function _submitPurchase(bytes32 id, uint128 amount, bool acceptRefinement) internal returns (bytes32 requestHash) {
         vm.prank(AI);
         requestHash = kernel.submitServicePurchase(
             id,
@@ -125,11 +122,7 @@ abstract contract RefinementEffectTestBase {
     function _verify(RefinementEffectKernel k, bytes32 id, bytes32 requestHash) internal {
         vm.prank(VERIFIER);
         k.recordVerification(
-            id,
-            requestHash,
-            RefinementEffectKernel.Verdict.PASS,
-            EVIDENCE,
-            uint64(block.timestamp + 1 hours)
+            id, requestHash, RefinementEffectKernel.Verdict.PASS, EVIDENCE, uint64(block.timestamp + 1 hours)
         );
     }
 
