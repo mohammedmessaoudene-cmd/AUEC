@@ -24,11 +24,19 @@ contract MockERC20 {
 
 contract MockFalseERC20 {
     mapping(address => uint256) public balanceOf;
-    function mint(address to, uint256 amount) external { balanceOf[to] += amount; }
-    function transfer(address, uint256) external pure returns (bool) { return false; }
+
+    function mint(address to, uint256 amount) external {
+        balanceOf[to] += amount;
+    }
+
+    function transfer(address, uint256) external pure returns (bool) {
+        return false;
+    }
 }
 
-interface IAuthorityExecute { function execute(bytes32 executionId) external; }
+interface IAuthorityExecute {
+    function execute(bytes32 executionId) external;
+}
 
 contract MockReentrantERC20 {
     mapping(address => uint256) public balanceOf;
@@ -43,7 +51,9 @@ contract MockReentrantERC20 {
         attackEnabled = true;
     }
 
-    function mint(address to, uint256 amount) external { balanceOf[to] += amount; }
+    function mint(address to, uint256 amount) external {
+        balanceOf[to] += amount;
+    }
 
     function transfer(address to, uint256 amount) external returns (bool) {
         require(balanceOf[msg.sender] >= amount, "balance");

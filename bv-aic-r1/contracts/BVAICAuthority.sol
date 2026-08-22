@@ -9,8 +9,16 @@ interface IERC20Minimal {
 /// @notice A compromised AI may propose typed effects, but deterministic on-chain authority decides whether they execute.
 /// @dev Research prototype. NOT audited. DO NOT use with production funds.
 contract BVAICAuthority {
-    enum Verdict { UNSET, PASS, FAIL }
-    enum AuthorityResult { BLOCK, ALLOW, ESCALATE }
+    enum Verdict {
+        UNSET,
+        PASS,
+        FAIL
+    }
+    enum AuthorityResult {
+        BLOCK,
+        ALLOW,
+        ESCALATE
+    }
 
     struct Mandate {
         address principal;
@@ -60,8 +68,20 @@ contract BVAICAuthority {
 
     event MandateCreated(bytes32 indexed mandateId, address indexed principal, address indexed aiExecutor);
     event MandateRevoked(bytes32 indexed mandateId);
-    event DecisionSubmitted(bytes32 indexed executionId, bytes32 indexed mandateId, bytes32 indexed decisionHash, address target, uint256 amount);
-    event VerificationRecorded(bytes32 indexed executionId, Verdict verdict, bytes32 indexed decisionHash, bytes32 evidenceHash, uint64 validUntil);
+    event DecisionSubmitted(
+        bytes32 indexed executionId,
+        bytes32 indexed mandateId,
+        bytes32 indexed decisionHash,
+        address target,
+        uint256 amount
+    );
+    event VerificationRecorded(
+        bytes32 indexed executionId,
+        Verdict verdict,
+        bytes32 indexed decisionHash,
+        bytes32 evidenceHash,
+        uint64 validUntil
+    );
     event HumanApprovalRecorded(bytes32 indexed executionId, address indexed principal);
     event AuthorityEvaluated(bytes32 indexed executionId, AuthorityResult result, bytes32 reasonCode);
     event EffectExecuted(bytes32 indexed executionId, address indexed asset, address indexed target, uint256 amount);
@@ -187,15 +207,7 @@ contract BVAICAuthority {
         }
 
         decisionHash = computeDecisionHash(
-            executionId,
-            mandateId,
-            target,
-            asset,
-            amount,
-            deadline,
-            observationHash,
-            modelCommitment,
-            policyCommitment
+            executionId, mandateId, target, asset, amount, deadline, observationHash, modelCommitment, policyCommitment
         );
 
         decisions[executionId] = Decision({
@@ -250,7 +262,9 @@ contract BVAICAuthority {
         Mandate storage m = mandates[d.mandateId];
         if (m.principal == address(0)) return (AuthorityResult.BLOCK, "NO_MANDATE");
         if (m.revoked) return (AuthorityResult.BLOCK, "REVOKED");
-        if (block.timestamp < m.validFrom || block.timestamp > m.validUntil) return (AuthorityResult.BLOCK, "MANDATE_TIME");
+        if (block.timestamp < m.validFrom || block.timestamp > m.validUntil) {
+            return (AuthorityResult.BLOCK, "MANDATE_TIME");
+        }
         if (block.timestamp > d.deadline) return (AuthorityResult.BLOCK, "DECISION_STALE");
         if (!allowedTargets[d.mandateId][d.target]) return (AuthorityResult.BLOCK, "TARGET");
         if (d.asset != m.asset) return (AuthorityResult.BLOCK, "ASSET");
@@ -259,11 +273,9 @@ contract BVAICAuthority {
 
         if (m.requireVerification) {
             Verification storage v = verifications[executionId];
-            if (
-                v.verdict != Verdict.PASS ||
-                v.decisionHash != d.decisionHash ||
-                v.validUntil < block.timestamp
-            ) return (AuthorityResult.BLOCK, "VERIFICATION");
+            if (v.verdict != Verdict.PASS || v.decisionHash != d.decisionHash || v.validUntil < block.timestamp) {
+                return (AuthorityResult.BLOCK, "VERIFICATION");
+            }
         }
 
         if (m.humanGateAbove > 0 && d.amount > m.humanGateAbove && !humanApprovals[executionId]) {
@@ -273,9 +285,13 @@ contract BVAICAuthority {
         return (AuthorityResult.ALLOW, "OK");
     }
 
-    function isConsumed(bytes32 executionId) external view returns (bool) { return decisions[executionId].consumed; }
+    function isConsumed(bytes32 executionId) external view returns (bool) {
+        return decisions[executionId].consumed;
+    }
 
-    function spentOf(bytes32 mandateId) external view returns (uint128) { return mandates[mandateId].spent; }
+    function spentOf(bytes32 mandateId) external view returns (uint128) {
+        return mandates[mandateId].spent;
+    }
 
     function execute(bytes32 executionId) external {
         if (_executing) revert Reentrancy();

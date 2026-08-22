@@ -24,8 +24,15 @@ contract AuthorityHandler {
         address[] memory targets = new address[](1);
         targets[0] = VENDOR;
         mandateId = auth.createMandate(
-            address(this), address(token), 100, 250, 50,
-            uint64(block.timestamp), uint64(block.timestamp + 365 days), true, targets
+            address(this),
+            address(token),
+            100,
+            250,
+            50,
+            uint64(block.timestamp),
+            uint64(block.timestamp + 365 days),
+            true,
+            targets
         );
     }
 

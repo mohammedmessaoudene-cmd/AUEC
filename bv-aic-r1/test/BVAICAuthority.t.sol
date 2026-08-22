@@ -63,7 +63,8 @@ contract BVAICAuthorityTest {
     }
 
     function _submit(bytes32 execId, address target, address asset, uint128 amount, uint64 deadline)
-        internal returns (bytes32 decisionHash)
+        internal
+        returns (bytes32 decisionHash)
     {
         vm.prank(AI);
         decisionHash = auth.submitDecision(execId, mandateId, target, asset, amount, deadline, OBS, MODEL, POLICY);
@@ -78,7 +79,9 @@ contract BVAICAuthorityTest {
         require(a == b, what);
     }
 
-    function _assertTrue(bool v, string memory what) internal pure { require(v, what); }
+    function _assertTrue(bool v, string memory what) internal pure {
+        require(v, what);
+    }
 
     function test_NormalVerifiedTransfer() public {
         bytes32 id = keccak256("normal");
@@ -96,7 +99,9 @@ contract BVAICAuthorityTest {
     function test_UnauthorizedCannotSubmit() public {
         vm.prank(ATTACKER);
         vm.expectRevert(BVAICAuthority.Unauthorized.selector);
-        auth.submitDecision(keccak256("x"), mandateId, VENDOR, address(token), 1, uint64(block.timestamp + 1 hours), OBS, MODEL, POLICY);
+        auth.submitDecision(
+            keccak256("x"), mandateId, VENDOR, address(token), 1, uint64(block.timestamp + 1 hours), OBS, MODEL, POLICY
+        );
     }
 
     function test_UnlistedTargetBlocked() public {
