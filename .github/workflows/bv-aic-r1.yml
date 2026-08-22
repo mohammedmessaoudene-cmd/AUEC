@@ -46,7 +46,7 @@ jobs:
 
       - name: Local EVM deployment smoke
         working-directory: bv-aic-r1
-        run: ./scripts/anvil_deploy_smoke.sh
+        run: bash ./scripts/anvil_deploy_smoke.sh
 
       - name: Format check
         working-directory: bv-aic-r1
