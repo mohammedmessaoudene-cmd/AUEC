@@ -28,10 +28,6 @@ jobs:
       - name: Foundry version
         run: forge --version
 
-      - name: Format check
-        working-directory: bv-aic-r1
-        run: forge fmt --check
-
       - name: Compile
         working-directory: bv-aic-r1
         run: forge build --sizes
@@ -47,3 +43,21 @@ jobs:
       - name: Full suite
         working-directory: bv-aic-r1
         run: forge test -vvv
+
+      - name: Local EVM deployment smoke
+        working-directory: bv-aic-r1
+        run: ./scripts/anvil_deploy_smoke.sh
+
+      - name: Format check
+        working-directory: bv-aic-r1
+        run: forge fmt --check
+
+      - name: Upload runner evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bv-aic-r1-runner-evidence
+          path: |
+            bv-aic-r1/reports/
+            bv-aic-r1/out/
+          if-no-files-found: ignore
