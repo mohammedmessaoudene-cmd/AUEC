@@ -58,7 +58,8 @@ jobs:
 
       - name: Local EVM deployment smoke
         working-directory: bv-aic-r1
-        run: "$(brew --prefix)/bin/bash" ./scripts/anvil_deploy_smoke.sh
+        run: |
+          "$(brew --prefix)/bin/bash" ./scripts/anvil_deploy_smoke.sh
 
       - name: Format check
         working-directory: bv-aic-r1
@@ -67,7 +68,8 @@ jobs:
       - name: Public Shido EVM deployment and lifecycle
         if: github.event_name == 'push'
         working-directory: bv-aic-r1
-        run: "$(brew --prefix)/bin/bash" ./scripts/shido_public_deploy.sh
+        run: |
+          "$(brew --prefix)/bin/bash" ./scripts/shido_public_deploy.sh
 
       - name: Seal PASS evidence
         shell: bash
