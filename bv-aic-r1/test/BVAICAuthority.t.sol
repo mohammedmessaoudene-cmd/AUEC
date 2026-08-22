@@ -287,7 +287,7 @@ contract BVAICAuthorityTest {
     }
 
     function testFuzz_HighRiskAmountsEscalate(uint128 amount) public {
-        vm.assume(amount > 50 && amount <= 100);
+        amount = uint128((uint256(amount) % 50) + 51);
         bytes32 id = keccak256(abi.encode("fuzz-high", amount));
         uint64 dl = uint64(block.timestamp + 1 hours);
         bytes32 h = _submit(id, VENDOR, address(token), amount, dl);
