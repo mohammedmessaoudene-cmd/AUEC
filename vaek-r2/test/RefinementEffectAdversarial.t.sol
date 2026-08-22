@@ -9,7 +9,12 @@ contract RefinementEffectAdversarialTest is RefinementEffectTestBase {
         bytes32 h = _submitPurchase(id, 20, false);
         _verify(kernel, id, h);
         adapter.configure(21, false, address(0), bytes32(0));
-        vm.expectRevert(RefinementEffectKernel.PostconditionFailure.selector);
+        vm.expectRevert(
+            abi.encodeWithSelector(
+                RefinementEffectKernel.PostconditionFailure.selector,
+                bytes32("PURCHASE_CHARGE")
+            )
+        );
         kernel.execute(id);
         _assertEq(token.balanceOf(API_PROVIDER), 0, "provider rollback");
         _assertEq(kernel.spentOf(mandateId), 0, "spent rollback");
@@ -47,7 +52,12 @@ contract RefinementEffectAdversarialTest is RefinementEffectTestBase {
         bytes32 m2 = _createMandate(k2, address(feeToken), true, false, 100, 250, 80);
         bytes32 id = keccak256("fee-token");
         _submitTransfer(k2, id, m2, VENDOR, address(feeToken), 20, false);
-        vm.expectRevert(RefinementEffectKernel.PostconditionFailure.selector);
+        vm.expectRevert(
+            abi.encodeWithSelector(
+                RefinementEffectKernel.PostconditionFailure.selector,
+                bytes32("BALANCE_DELTA")
+            )
+        );
         k2.execute(id);
         _assertEq(feeToken.balanceOf(VENDOR), 0, "fee transfer rollback");
         _assertEq(k2.spentOf(m2), 0, "spent rollback");
@@ -61,7 +71,12 @@ contract RefinementEffectAdversarialTest is RefinementEffectTestBase {
         vm.prank(PRINCIPAL);
         kernel.revokeMandate(mandateId);
         _assertEq(kernel.evaluate(id).reason, bytes32("REVOKED"), "revocation");
-        vm.expectRevert(RefinementEffectKernel.EffectNotAuthorized.selector);
+        vm.expectRevert(
+            abi.encodeWithSelector(
+                RefinementEffectKernel.EffectNotAuthorized.selector,
+                bytes32("REVOKED")
+            )
+        );
         kernel.execute(id);
     }
 
