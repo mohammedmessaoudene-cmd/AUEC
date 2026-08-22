@@ -13,7 +13,8 @@ for _ in $(seq 1 30); do if cast chain-id --rpc-url "$RPC_URL" >/dev/null 2>&1; 
 CHAIN_ID=$(cast chain-id --rpc-url "$RPC_URL")
 [[ "$CHAIN_ID" == "31337" ]] || { echo "Unexpected Anvil chain id: $CHAIN_ID" >&2; exit 1; }
 forge create contracts/MockERC20.sol:MockERC20 --rpc-url "$RPC_URL" --private-key "$DEV_KEY" --broadcast >"$LOG_DIR/mock-deploy.txt" 2>&1
-forge create contracts/BVAICAuthority.sol:BVAICAuthority --constructor-args "$DEV_ADDR" --rpc-url "$RPC_URL" --private-key "$DEV_KEY" --broadcast >"$LOG_DIR/authority-deploy.txt" 2>&1
+# --constructor-args is variadic in Forge 1.7.1, so it must be placed after all forge options.
+forge create contracts/BVAICAuthority.sol:BVAICAuthority --rpc-url "$RPC_URL" --private-key "$DEV_KEY" --broadcast --constructor-args "$DEV_ADDR" >"$LOG_DIR/authority-deploy.txt" 2>&1
 grep -Eq 'Deployed to:|deployedTo' "$LOG_DIR/mock-deploy.txt"
 grep -Eq 'Deployed to:|deployedTo' "$LOG_DIR/authority-deploy.txt"
 echo "ANVIL_DEPLOY_SMOKE=PASS"
