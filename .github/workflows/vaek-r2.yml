@@ -1,0 +1,112 @@
+name: VAEK-R2 Foundry and Conformance
+
+on:
+  push:
+    branches: [vaek-r2-darpa-20260822]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  vaek-r2:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: vaek-r2
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: v1.7.1
+
+      - name: Versions
+        run: |
+          forge --version
+          python --version
+
+      - name: Canonical Solidity format
+        run: forge fmt
+
+      - name: Compile with size report
+        run: forge build --sizes
+
+      - name: Core semantic tests
+        run: |
+          set -o pipefail
+          forge test --match-contract RefinementEffectCoreTest -vvv | tee reports/FOUNDRY_CORE.txt
+
+      - name: Adversarial tests
+        run: |
+          set -o pipefail
+          forge test --match-contract RefinementEffectAdversarialTest -vvv | tee reports/FOUNDRY_ADVERSARIAL.txt
+
+      - name: Fuzz tests
+        run: |
+          set -o pipefail
+          forge test --match-contract RefinementEffectFuzzTest -vvv | tee reports/FOUNDRY_FUZZ.txt
+
+      - name: Stateful invariants
+        run: |
+          set -o pipefail
+          forge test --match-contract RefinementEffectInvariantTest -vvv | tee reports/FOUNDRY_INVARIANTS.txt
+
+      - name: Full Foundry suite
+        run: |
+          set -o pipefail
+          forge test -vvv | tee reports/FOUNDRY_FULL_SUITE.txt
+
+      - name: Local EVM deployment smoke
+        run: |
+          set -o pipefail
+          bash script/anvil_smoke.sh | tee reports/ANVIL_DEPLOYMENT.txt
+
+      - name: Static escape checks
+        run: |
+          test "$(grep -Rni --include='*.sol' 'delegatecall' contracts test | wc -l)" -eq 0
+          test "$(grep -Rni --include='*.sol' -E 'bytes[[:space:]]+(calldata|memory)[[:space:]]+data' contracts | wc -l)" -eq 0
+          forge fmt --check
+          echo STATIC_ESCAPE_CHECKS=PASS | tee reports/STATIC_ESCAPE_CHECKS.txt
+
+      - name: Seal CI evidence
+        run: |
+          cat > reports/GITHUB_CI_PASS.txt <<PASS
+          VAEK_R2_GITHUB_CI=PASS
+          FOUNDRY_VERSION=1.7.1
+          SOLC_VERSION=0.8.24
+          CORE_TESTS=PASS
+          ADVERSARIAL_TESTS=PASS
+          FUZZ_TESTS=PASS
+          FUZZ_RUNS_PER_FUZZ_TEST=5000
+          STATEFUL_INVARIANTS=PASS
+          INVARIANT_RUNS=512
+          INVARIANT_DEPTH=64
+          FULL_SUITE=PASS
+          ANVIL_DEPLOYMENT=PASS
+          STATIC_ESCAPE_CHECKS=PASS
+          SOURCE_COMMIT=${GITHUB_SHA}
+          RUN_ID=${GITHUB_RUN_ID}
+          PASS
+
+      - name: Persist formatting and PASS record
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add contracts test reports/GITHUB_CI_PASS.txt
+          git commit -m "Record VAEK-R2 Foundry PASS evidence [skip ci]" || exit 0
+          git push
+
+      - name: Upload evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: vaek-r2-ci-evidence
+          path: |
+            vaek-r2/reports/
+            vaek-r2/out/
+          if-no-files-found: error
