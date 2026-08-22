@@ -101,12 +101,16 @@ jobs:
           git commit -m "Record VAEK-R2 Foundry PASS evidence [skip ci]" || exit 0
           git push
 
-      - name: Upload evidence
+      - name: Upload evidence and exact compiled sources
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: vaek-r2-ci-evidence
+          name: vaek-r2-final-evidence
           path: |
             vaek-r2/reports/
             vaek-r2/out/
+            vaek-r2/contracts/
+            vaek-r2/test/
+            vaek-r2/script/
+            vaek-r2/foundry.toml
           if-no-files-found: error
