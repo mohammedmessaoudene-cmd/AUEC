@@ -4,10 +4,6 @@ pragma solidity ^0.8.24;
 import "../contracts/BVAICAuthority.sol";
 import "../contracts/MockERC20.sol";
 
-interface VmInvariant {
-    function targetContract(address) external;
-}
-
 contract AuthorityHandler {
     BVAICAuthority public auth;
     MockERC20 public token;
@@ -34,6 +30,8 @@ contract AuthorityHandler {
     }
 
     function step(uint128 amount, bool useAttacker, bool verifyIt, bool approveIt) external {
+        // Exercise the meaningful policy space: 0, low-risk, high-risk, and over-limit.
+        amount = uint128(uint256(amount) % 151);
         bytes32 id = keccak256(abi.encodePacked("inv", ++nonce));
         address target = useAttacker ? ATTACKER : VENDOR;
         uint64 dl = uint64(block.timestamp + 1 days);
@@ -54,12 +52,17 @@ contract AuthorityHandler {
 }
 
 contract BVAICInvariantTest {
-    VmInvariant constant vm = VmInvariant(address(uint160(uint256(keccak256("hevm cheat code")))));
     AuthorityHandler handler;
+    address[] private _targetedContracts;
 
     function setUp() public {
         handler = new AuthorityHandler();
-        vm.targetContract(address(handler));
+        _targetedContracts.push(address(handler));
+    }
+
+    // Forge reads this configuration hook during invariant setup.
+    function targetContracts() public view returns (address[] memory) {
+        return _targetedContracts;
     }
 
     function invariant_AttackerNeverReceivesFunds() public view {
