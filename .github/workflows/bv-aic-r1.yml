@@ -16,7 +16,7 @@ permissions:
 jobs:
   foundry-r1:
     if: github.actor != 'github-actions[bot]'
-    runs-on: ubuntu-latest
+    runs-on: macos-14
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
@@ -25,6 +25,13 @@ jobs:
         uses: foundry-rs/foundry-toolchain@v1
         with:
           version: v1.7.1
+
+      - name: Prepare macOS shell tools
+        run: |
+          brew install bash
+          mkdir -p "$RUNNER_TEMP/bin"
+          ln -sf "$(command -v python3)" "$RUNNER_TEMP/bin/python"
+          echo "$RUNNER_TEMP/bin" >> "$GITHUB_PATH"
 
       - name: Foundry version
         run: forge --version
@@ -51,7 +58,7 @@ jobs:
 
       - name: Local EVM deployment smoke
         working-directory: bv-aic-r1
-        run: bash ./scripts/anvil_deploy_smoke.sh
+        run: "$(brew --prefix)/bin/bash" ./scripts/anvil_deploy_smoke.sh
 
       - name: Format check
         working-directory: bv-aic-r1
@@ -60,7 +67,7 @@ jobs:
       - name: Public Shido EVM deployment and lifecycle
         if: github.event_name == 'push'
         working-directory: bv-aic-r1
-        run: bash ./scripts/shido_public_deploy.sh
+        run: "$(brew --prefix)/bin/bash" ./scripts/shido_public_deploy.sh
 
       - name: Seal PASS evidence
         shell: bash
@@ -80,6 +87,7 @@ jobs:
           FORMAT_CHECK=PASS
           PUBLIC_EVM_TESTNET=SHIDO_CHAIN_9007
           PUBLIC_EVM_DEPLOYMENT_AND_LIFECYCLE=PASS
+          RUNNER_OS=macOS
           SOURCE_COMMIT=${GITHUB_SHA}
           RUN_ID=${GITHUB_RUN_ID}
           EOF
