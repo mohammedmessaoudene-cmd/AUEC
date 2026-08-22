@@ -3,6 +3,11 @@ name: BV-AIC R1 Foundry CI
 on:
   push:
     branches: [bv-aic-r1-ci-20260822]
+  pull_request:
+    branches: [main]
+    paths:
+      - "bv-aic-r1/**"
+      - ".github/workflows/bv-aic-r1.yml"
   workflow_dispatch:
 
 permissions:
