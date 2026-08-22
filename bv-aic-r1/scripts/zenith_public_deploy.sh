@@ -21,10 +21,71 @@ PRIVATE_KEY="0x$(openssl rand -hex 32)"
 DEPLOYER="$(cast wallet address --private-key "$PRIVATE_KEY")"
 VENDOR="0x$(openssl rand -hex 20)"
 
-# Request valueless testnet gas from the documented public faucet API.
-curl -fsS -X POST "$FAUCET_URL" \
-  -H 'Content-Type: application/json' \
-  -d "{\"address\":\"$DEPLOYER\"}" > "$LOG_DIR/faucet.json"
+# The public faucet is a separate web service from the EVM RPC and can have transient
+# 502/503 failures. Probe status first, then retry claims with bounded backoff.
+FAUCET_READY=0
+for attempt in $(seq 1 8); do
+  HTTP_CODE="$(curl -sS --connect-timeout 10 --max-time 30 \
+    -o "$LOG_DIR/faucet-status.json" -w '%{http_code}' "$FAUCET_URL" || echo 000)"
+  if [[ "$HTTP_CODE" == "200" ]] && python - "$LOG_DIR/faucet-status.json" <<'PY'
+import json, sys
+try:
+    with open(sys.argv[1], 'r', encoding='utf-8') as f:
+        d=json.load(f)
+    raise SystemExit(0 if d.get('enabled') is True else 1)
+except Exception:
+    raise SystemExit(1)
+PY
+  then
+    FAUCET_READY=1
+    break
+  fi
+  echo "Faucet status attempt $attempt failed (HTTP $HTTP_CODE); retrying" >&2
+  sleep $((attempt * 2))
+done
+[[ "$FAUCET_READY" == "1" ]] || { echo "Zenith faucet status never became healthy" >&2; exit 1; }
+
+CLAIM_OK=0
+for attempt in $(seq 1 10); do
+  : > "$LOG_DIR/faucet-headers.txt"
+  HTTP_CODE="$(curl -sS --connect-timeout 10 --max-time 30 \
+    -D "$LOG_DIR/faucet-headers.txt" \
+    -o "$LOG_DIR/faucet.json" -w '%{http_code}' \
+    -X POST "$FAUCET_URL" \
+    -H 'Content-Type: application/json' \
+    -d "{\"address\":\"$DEPLOYER\"}" || echo 000)"
+
+  if [[ "$HTTP_CODE" =~ ^2[0-9][0-9]$ ]] && python - "$LOG_DIR/faucet.json" <<'PY'
+import json, sys
+try:
+    with open(sys.argv[1], 'r', encoding='utf-8') as f:
+        d=json.load(f)
+    raise SystemExit(0 if d.get('ok') is True else 1)
+except Exception:
+    raise SystemExit(1)
+PY
+  then
+    CLAIM_OK=1
+    break
+  fi
+
+  if [[ "$HTTP_CODE" == "429" ]]; then
+    RETRY_AFTER="$(awk 'BEGIN{IGNORECASE=1} /^Retry-After:/ {gsub("\r",""); print $2}' "$LOG_DIR/faucet-headers.txt" | tail -1)"
+    if [[ "$RETRY_AFTER" =~ ^[0-9]+$ ]] && (( RETRY_AFTER <= 120 )); then
+      echo "Faucet rate-limited; respecting Retry-After=${RETRY_AFTER}s" >&2
+      sleep "$RETRY_AFTER"
+      continue
+    fi
+  fi
+
+  echo "Faucet claim attempt $attempt failed (HTTP $HTTP_CODE); retrying" >&2
+  sleep $((attempt * 3))
+done
+[[ "$CLAIM_OK" == "1" ]] || {
+  echo "Zenith faucet claim failed after bounded retries" >&2
+  cat "$LOG_DIR/faucet.json" >&2 || true
+  exit 1
+}
 
 BALANCE_WEI="0"
 for _ in $(seq 1 30); do
