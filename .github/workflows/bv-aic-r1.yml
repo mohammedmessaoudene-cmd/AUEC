@@ -1,0 +1,44 @@
+name: BV-AIC R1 Foundry CI
+
+on:
+  push:
+    branches: [bv-aic-r1-ci-20260822]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  foundry-r1:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: v1.7.1
+
+      - name: Foundry version
+        run: forge --version
+
+      - name: Format check
+        working-directory: bv-aic-r1
+        run: forge fmt --check
+
+      - name: Compile
+        working-directory: bv-aic-r1
+        run: forge build --sizes
+
+      - name: Directed and fuzz tests
+        working-directory: bv-aic-r1
+        run: forge test --match-contract BVAICAuthorityTest -vvv
+
+      - name: Stateful invariants
+        working-directory: bv-aic-r1
+        run: forge test --match-contract BVAICInvariantTest -vvv
+
+      - name: Full suite
+        working-directory: bv-aic-r1
+        run: forge test -vvv
