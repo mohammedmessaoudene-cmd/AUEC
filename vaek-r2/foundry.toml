@@ -1,0 +1,15 @@
+[profile.default]
+src = "src"
+test = "test"
+script = "script"
+out = "out"
+libs = ["lib"]
+solc_version = "0.8.24"
+optimizer = true
+optimizer_runs = 1
+via_ir = true
+fuzz = { runs = 5000 }
+invariant = { runs = 512, depth = 64, fail_on_revert = false }
+
+[fmt]
+line_length = 120

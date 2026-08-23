@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "VAEK R2 public receipt document",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["chainId", "kernel", "executionId", "mandateId", "effectType", "requestedHash", "authorizedHash", "executedHash", "attenuationWitnessHash", "policyHash", "resourceRegistryVersion", "adapterAddress", "adapterVersion", "adapterCodeHash", "riskTier", "verificationSetHash", "requestedAt", "authorizedAt", "executedAt", "blockNumber", "actualInput", "actualOutput", "resultId", "receiptHash"]
+}
+
