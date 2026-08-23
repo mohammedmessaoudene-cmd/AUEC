@@ -25,6 +25,7 @@ jobs:
       - uses: foundry-rs/foundry-toolchain@v1
         with:
           version: v1.7.1
+      - run: python -m pip install --disable-pip-version-check -r requirements-test.txt
       - run: forge --version
       - run: forge fmt --check
       - run: forge build --sizes
@@ -35,4 +36,3 @@ jobs:
       - run: PYTHONPATH=tools/receipt_verifier python -m unittest discover -s tools/receipt_verifier -p 'test_*.py' -v
       - run: python tools/check_prohibited_surfaces.py
       - run: bash scripts/anvil_demo.sh
-
