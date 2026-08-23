@@ -1,0 +1,38 @@
+name: VAEK R2 research prototype CI
+
+on:
+  pull_request:
+    paths:
+      - "vaek-r2/**"
+      - ".github/workflows/vaek-r2-ci.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  vaek-r2:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    defaults:
+      run:
+        working-directory: vaek-r2
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: v1.7.1
+      - run: forge --version
+      - run: forge fmt --check
+      - run: forge build --sizes
+      - run: forge test --match-contract VAEKKernelTest -vvv
+      - run: forge test --match-contract VAEKInvariantTest -vvv
+      - run: forge test -vvv
+      - run: PYTHONPATH=agent python -m unittest discover -s agent/tests -v
+      - run: PYTHONPATH=tools/receipt_verifier python -m unittest discover -s tools/receipt_verifier -p 'test_*.py' -v
+      - run: python tools/check_prohibited_surfaces.py
+      - run: bash scripts/anvil_demo.sh
+
