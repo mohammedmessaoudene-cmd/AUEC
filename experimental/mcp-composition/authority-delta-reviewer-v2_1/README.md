@@ -20,6 +20,11 @@ The registered protected bodies are byte-identical and have the same event
 hash. Closed structured decision objects are different and produce different
 SHA-256 commitments.
 
+The current-head projection also checks the newly typed optional fields, the
+absent-versus-`null` distinction, and canonical `sources_touched` strings. Those
+rules change how recorded context is encoded but do not add the tested
+requested/host-allowed/effective authority basis to the registration.
+
 Bounded classification:
 `SCHEMA_BACKED_REPRESENTATION_GAP_CONFIRMED`.
 
@@ -77,10 +82,10 @@ python ./build/build_reviewer.py --root . --output ./MCP_AUTHORITY_DELTA_REVIEWE
 
 - Repository: `modelcontextprotocol/modelcontextprotocol`
 - Pull request: `#3004`
-- Tested head: `377f8d260ded5b6854871b2ce3c73621ffcaef1d`
-- Tested tree: `310609f6647d8ee2fef0b892752bbdd8daad3697`
+- Tested head: `1143d96f82ce9316e4e1675a3f6786902b9fe1ce`
+- Tested tree: `9ab700212973ce9a9c873f040712759e7e1a93a1`
 - Source SHA-256:
-  `7e384ff69b2b71e5d5c00c69fd56614df4e5e69eb2b06fc0e09792b12b756c8f`
+  `86742f170f1267ba9dd918ec85ea485252804500f70ce875f9241530d5488345`
 
 The proposal remains upstream work under review. This artifact does not select
 or request a normative representation.

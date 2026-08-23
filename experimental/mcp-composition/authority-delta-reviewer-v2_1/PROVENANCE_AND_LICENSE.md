@@ -11,12 +11,12 @@ current-head projection auditable. Its provenance is:
 - repository: `modelcontextprotocol/modelcontextprotocol`;
 - pull request: `#3004`;
 - author branch head:
-  `377f8d260ded5b6854871b2ce3c73621ffcaef1d`;
+  `1143d96f82ce9316e4e1675a3f6786902b9fe1ce`;
 - file:
   `seps/3004-tamper-evident-audit-record-contract.md`;
-- Git blob: `c4897ade2de7e9c971e38ab7bb707650c3c32655`;
+- Git blob: `96d2dcdec1a2793ec55f6c0f341e01df9c28bb34`;
 - SHA-256:
-  `7e384ff69b2b71e5d5c00c69fd56614df4e5e69eb2b06fc0e09792b12b756c8f`.
+  `86742f170f1267ba9dd918ec85ea485252804500f70ce875f9241530d5488345`.
 
 The upstream repository license notice states that new code and specification
 contributions are Apache-2.0, documentation excluding specifications is

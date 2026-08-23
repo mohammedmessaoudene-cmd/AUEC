@@ -5,11 +5,14 @@
   "testedUpstream": {
     "repository": "modelcontextprotocol/modelcontextprotocol",
     "pullRequest": 3004,
-    "head": "377f8d260ded5b6854871b2ce3c73621ffcaef1d",
-    "tree": "310609f6647d8ee2fef0b892752bbdd8daad3697",
-    "sourceSha256": "7e384ff69b2b71e5d5c00c69fd56614df4e5e69eb2b06fc0e09792b12b756c8f"
+    "head": "1143d96f82ce9316e4e1675a3f6786902b9fe1ce",
+    "tree": "9ab700212973ce9a9c873f040712759e7e1a93a1",
+    "sourceSha256": "86742f170f1267ba9dd918ec85ea485252804500f70ce875f9241530d5488345",
+    "pullRequestState": "open-unmerged",
+    "currentHeadRuleCases": 23,
+    "currentHeadRuleCasesMatched": 23
   },
-  "permittedClaim": "At the tested head, two individually conforming caller-governance records from distinct requested and host-allowed authority bases have the same protected bytes and event hash, while closed structured decision objects yield distinct SHA-256 commitments.",
+  "permittedClaim": "At the tested open, unmerged PR head, after applying its typed optional/null and canonical sources_touched rules, two individually conforming caller-governance records from distinct requested and host-allowed authority bases have the same protected bytes and event hash, while closed structured decision objects yield distinct SHA-256 commitments.",
   "classification": "SCHEMA_BACKED_REPRESENTATION_GAP_CONFIRMED",
   "evidence": {
     "protectedByteLength": 298,
@@ -33,6 +36,7 @@
     "required MCP wire field or new SEP",
     "official MCP conformance, adoption, certification, sponsorship, or endorsement",
     "provider truth or effect occurrence",
-    "production security or regulatory certification"
+    "production security or regulatory certification",
+    "two project-controlled oracles as two external independent verifiers"
   ]
 }

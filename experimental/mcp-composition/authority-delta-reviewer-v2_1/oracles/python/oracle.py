@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: Apache-2.0
 """Independent Python oracle for the narrowed AUEC Authority-Delta V2.1 Core."""
 
 from __future__ import annotations

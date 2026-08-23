@@ -12,6 +12,8 @@
     "mutationsPerOracle": 4096,
     "uniqueMutationsPerOracle": 4096,
     "operatorsPerOracle": 16,
+    "currentHeadRuleCases": 23,
+    "currentHeadRuleCasesMatched": 23,
     "unexpectedAcceptance": 0,
     "sameObjectCausalControlsPerOracle": 5,
     "sameFileCausalControlsPerOracle": 1,
@@ -30,9 +32,11 @@
   "currentHeadProof": {
     "repository": "modelcontextprotocol/modelcontextprotocol",
     "pullRequest": 3004,
-    "head": "377f8d260ded5b6854871b2ce3c73621ffcaef1d",
-    "tree": "310609f6647d8ee2fef0b892752bbdd8daad3697",
-    "sourceSha256": "7e384ff69b2b71e5d5c00c69fd56614df4e5e69eb2b06fc0e09792b12b756c8f",
+    "head": "1143d96f82ce9316e4e1675a3f6786902b9fe1ce",
+    "tree": "9ab700212973ce9a9c873f040712759e7e1a93a1",
+    "sourceSha256": "86742f170f1267ba9dd918ec85ea485252804500f70ce875f9241530d5488345",
+    "pullRequestState": "open-unmerged",
+    "typedOptionalAndSourcesTouchedRulesPass": true,
     "upstreamKnownAnswerPass": true,
     "recordsIndividuallyConforming": true,
     "protectedByteLength": 298,
@@ -64,7 +68,12 @@
     "nodeResultSha256": "a78eb4ef6e2e237e50b1b91db2aa39d458c19b4437734090a98fdd99abf9f587",
     "pythonResultSha256": "27ea400f66929127ccec3b85c17210e6f163b0461f9da6914e67c3ee4e10eaaf",
     "parityResultSha256": "e7914b076b0e6dcebe0c93663773339d597978746282c7aabf76373ae89b3f50",
-    "projectionResultSha256": "f7af279fc90d07b5aac91efc38d993fbb53c271ef4d5dbc2b9b3fa59bbefbad3"
+    "projectionResultSha256": "914ced2cfdfbd17f3c56ebcaaff4a0747ac7a620d6f78ee29adcf4f303fe05c7"
+  },
+  "reviewerBoundary": {
+    "projectControlledImplementations": 2,
+    "externalIndependentVerifiers": 0,
+    "twoOraclesAreTwoIndependentVerifiers": false
   },
   "normativeMcpRepresentationSelected": false,
   "remoteWrites": 0

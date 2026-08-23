@@ -11,13 +11,13 @@
     },
     {
       "path": "CLAIMS_LEDGER_V2_1.json",
-      "bytes": 1804,
-      "sha256": "b57d9ad90c2ff1b73171b5320eb8002f16244853100d2ee4d5e15d6aa0e27fd3"
+      "bytes": 2086,
+      "sha256": "7796371b27bba6f2ffd203354f57c925828d530b6ec24ac63481785caad006c6"
     },
     {
       "path": "FINAL_REPORT.json",
-      "bytes": 3026,
-      "sha256": "c4da60154e061f4fe7af0825cef78d7870f063224195a8fbeb3d371e9adc5fb1"
+      "bytes": 3352,
+      "sha256": "dd06faadd7c0a12cca9790014a58cd4642cb12e62e9076bad42d0865f03a4cf7"
     },
     {
       "path": "LICENSE",
@@ -37,22 +37,22 @@
     {
       "path": "PROVENANCE_AND_LICENSE.md",
       "bytes": 1130,
-      "sha256": "394297dfa6a63ce15ee02ceaa7e946b4b28d69f69fd3b79a7fdee55510139edd"
+      "sha256": "9895fc12e8407bd679e9f6e014889dafcb839ea7a833e6d232839a7217f5e9cf"
     },
     {
       "path": "README.md",
-      "bytes": 3338,
-      "sha256": "b7c3546b711d1140d69ab8385fe7b392137bb067a63fa43aa25b035ebc2bb0fa"
+      "bytes": 3638,
+      "sha256": "ad4a7c6ad6b4cb903d0cdd86de9f100505fb1db3122a43f914ad8eeb5a4b2192"
     },
     {
       "path": "build/build_reviewer.py",
-      "bytes": 3178,
-      "sha256": "11fc3e33cd7bbdef131a0b5a6c6312950c14ff3f96527c61de22f5463460e12d"
+      "bytes": 3216,
+      "sha256": "c9ef1df8990b40ebca3ef898d15fec04c6f285f3d47bda2d1af6800bb4e6b45c"
     },
     {
       "path": "demo/run-review.ps1",
       "bytes": 4624,
-      "sha256": "fd94435069da4d16da9156f19c71150ea860254579309a3064917655b8b44123"
+      "sha256": "d460b6d5f5574a62f43852cd3519c1404028704b6f34ece724c0e486c262d630"
     },
     {
       "path": "oracles/node/oracle.mjs",
@@ -61,13 +61,13 @@
     },
     {
       "path": "oracles/python/oracle.py",
-      "bytes": 28859,
-      "sha256": "3a2f30d6491a9ad705e97b567b97b5eb2e5648a692a4da2b3377c8a0eb04053d"
+      "bytes": 28897,
+      "sha256": "0aac893062fb9198d829e6bff8dbc6209ea5536b49f23090eed147a6bdc4ce53"
     },
     {
       "path": "oracles/sep3004-current-head-projection.mjs",
-      "bytes": 15960,
-      "sha256": "9b080933d29b2f22269204e822c0356bd2244b31552fd94b0a8eb0c021845eb4"
+      "bytes": 25052,
+      "sha256": "2239e81d6d5a595885d997166258a14302ff9914a184be4b5e32200bd1caf677"
     },
     {
       "path": "oracles/verify-independence.mjs",
@@ -91,8 +91,8 @@
     },
     {
       "path": "results/SEP3004_CURRENT_HEAD_PROJECTION.json",
-      "bytes": 9170,
-      "sha256": "f7af279fc90d07b5aac91efc38d993fbb53c271ef4d5dbc2b9b3fa59bbefbad3"
+      "bytes": 15776,
+      "sha256": "914ced2cfdfbd17f3c56ebcaaff4a0747ac7a620d6f78ee29adcf4f303fe05c7"
     },
     {
       "path": "results/node.json",
@@ -116,18 +116,18 @@
     },
     {
       "path": "upstream/CURRENT_HEAD_VERIFICATION.json",
-      "bytes": 594,
-      "sha256": "95d8bb28383eb0219bc3bebbead90205adad2f11f6794f86e7dd4da18b0e0965"
+      "bytes": 590,
+      "sha256": "5f7c080d8c8012ba841c0c369e9ac322c97547e51f5f026798ad1daa9fd67376"
     },
     {
       "path": "upstream/SEP3004_SOURCE_PIN.json",
       "bytes": 649,
-      "sha256": "99690d581b313be3435cb2fe2e1edf375c14cce6a3b1080addcdc99d08cb500d"
+      "sha256": "f5ca5efaa39505ada0e2baa72e9aa796d0f5ad24f2db6ed33f0b674b44f67b9a"
     },
     {
-      "path": "upstream/sep3004-head-377f8d260ded5b6854871b2ce3c73621ffcaef1d.md",
-      "bytes": 43544,
-      "sha256": "7e384ff69b2b71e5d5c00c69fd56614df4e5e69eb2b06fc0e09792b12b756c8f"
+      "path": "upstream/sep3004-head-1143d96f82ce9316e4e1675a3f6786902b9fe1ce.md",
+      "bytes": 45210,
+      "sha256": "86742f170f1267ba9dd918ec85ea485252804500f70ce875f9241530d5488345"
     },
     {
       "path": "vectors/EXACT_SET_MANIFEST.json",

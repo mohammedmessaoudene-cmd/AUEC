@@ -7,7 +7,7 @@ param(
 $ErrorActionPreference = 'Stop'
 $reviewRoot = Split-Path -Parent $PSScriptRoot
 if ([string]::IsNullOrWhiteSpace($McpSource)) {
-    $McpSource = Join-Path $reviewRoot 'upstream\sep3004-head-377f8d260ded5b6854871b2ce3c73621ffcaef1d.md'
+    $McpSource = Join-Path $reviewRoot 'upstream\sep3004-head-1143d96f82ce9316e4e1675a3f6786902b9fe1ce.md'
 }
 $McpSource = [System.IO.Path]::GetFullPath($McpSource)
 if (-not (Test-Path -LiteralPath $McpSource)) {

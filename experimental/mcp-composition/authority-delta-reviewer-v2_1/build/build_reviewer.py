@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: Apache-2.0
 """Build a byte-deterministic narrowed Reviewer V2.1 Core ZIP."""
 
 from __future__ import annotations
