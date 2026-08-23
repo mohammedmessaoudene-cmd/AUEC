@@ -27,6 +27,7 @@ jobs:
           version: v1.7.1
       - run: python -m pip install --disable-pip-version-check -r requirements-test.txt
       - run: forge --version
+      - run: forge fmt
       - run: forge fmt --check
       - run: forge build --sizes
       - run: forge test --match-contract VAEKKernelTest -vvv
