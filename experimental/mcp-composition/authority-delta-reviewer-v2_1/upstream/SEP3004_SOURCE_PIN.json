@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "repository": "modelcontextprotocol/modelcontextprotocol",
+  "pullRequest": 3004,
+  "head": "377f8d260ded5b6854871b2ce3c73621ffcaef1d",
+  "tree": "310609f6647d8ee2fef0b892752bbdd8daad3697",
+  "path": "seps/3004-tamper-evident-audit-record-contract.md",
+  "embeddedFile": "sep3004-head-377f8d260ded5b6854871b2ce3c73621ffcaef1d.md",
+  "gitBlobSha1": "c4897ade2de7e9c971e38ab7bb707650c3c32655",
+  "sha256": "7e384ff69b2b71e5d5c00c69fd56614df4e5e69eb2b06fc0e09792b12b756c8f",
+  "bytes": 43544,
+  "lineEndings": "LF",
+  "acquisition": "read-only fetch of exact PR head; embedded bytes equal the Git blob",
+  "remoteWrites": 0
+}

@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "canonicalization": "auec-authority-delta-c14n-v2_1",
+  "cases": [
+    {
+      "id": "UTF8_ORDER_ASTRAL_BMP",
+      "value": {
+        "😀": "astral",
+        "": "bmp"
+      },
+      "canonicalUtf8Hex": "7b22ee8080223a22626d70222c22f09f9880223a2261737472616c227d",
+      "digest": "sha256:4874d36535a1b5dfdad7f2b3af83f87debd2f0795ae7d2d09447e17223c42dd0"
+    },
+    {
+      "id": "SCALAR_ARRAY_CONTROL",
+      "value": {
+        "z": 0,
+        "a": [
+          true,
+          null,
+          "é"
+        ]
+      },
+      "canonicalUtf8Hex": "7b2261223a5b747275652c6e756c6c2c22c3a9225d2c227a223a307d",
+      "digest": "sha256:c3def2e9f3389c01aaa26f79114911addc9fbcfbb4130c412bd98ea9c38a33bb"
+    },
+    {
+      "id": "NESTED_EXTENSION_ORDER",
+      "value": {
+        "tenantId": "tenant-a",
+        "anchor": {
+          "id": "a",
+          "generation": "7"
+        }
+      },
+      "canonicalUtf8Hex": "7b22616e63686f72223a7b2267656e65726174696f6e223a2237222c226964223a2261227d2c2274656e616e744964223a2274656e616e742d61227d",
+      "digest": "sha256:07d218356e1b853f5b80e57c55bd5118ca182b2f36540d008d95ac8c578bd7e3"
+    }
+  ]
+}

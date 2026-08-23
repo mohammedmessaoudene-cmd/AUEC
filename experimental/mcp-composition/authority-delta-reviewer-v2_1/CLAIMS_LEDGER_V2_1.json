@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "artifact": "MCP_AUTHORITY_DELTA_REVIEWER_V2_1_CORE_20260823",
+  "status": "experimental-external-profile",
+  "testedUpstream": {
+    "repository": "modelcontextprotocol/modelcontextprotocol",
+    "pullRequest": 3004,
+    "head": "377f8d260ded5b6854871b2ce3c73621ffcaef1d",
+    "tree": "310609f6647d8ee2fef0b892752bbdd8daad3697",
+    "sourceSha256": "7e384ff69b2b71e5d5c00c69fd56614df4e5e69eb2b06fc0e09792b12b756c8f"
+  },
+  "permittedClaim": "At the tested head, two individually conforming caller-governance records from distinct requested and host-allowed authority bases have the same protected bytes and event hash, while closed structured decision objects yield distinct SHA-256 commitments.",
+  "classification": "SCHEMA_BACKED_REPRESENTATION_GAP_CONFIRMED",
+  "evidence": {
+    "protectedByteLength": 298,
+    "eventHash": "a795c1d969512a3c62646124cbad52758ee58b9cba17816da71fdc6fdb968dd5",
+    "decisionCommitmentA": "sha256:204bf01669510688a16dddf90e3f8dae45f23c78199e2714e476001b5c2555e0",
+    "decisionCommitmentB": "sha256:fde36a175777bd5e314be69a4f9ba170b70235bf417c5d1720bd67e1ef6010d1",
+    "protectedBytesEqual": true,
+    "eventHashesEqual": true,
+    "decisionCommitmentsDifferent": true
+  },
+  "scope": {
+    "acceptedPublicForm": "closed structured decision object + sha-256 commitment",
+    "digestOnly": "excluded",
+    "digestEvidenceRef": "excluded",
+    "effectDisposition": "excluded",
+    "normativeRepresentationSelected": false
+  },
+  "forbiddenClaims": [
+    "cryptographic collision",
+    "universal impossibility",
+    "required MCP wire field or new SEP",
+    "official MCP conformance, adoption, certification, sponsorship, or endorsement",
+    "provider truth or effect occurrence",
+    "production security or regulatory certification"
+  ]
+}
