@@ -497,6 +497,16 @@ MUTATION_OPERATORS = [
 ]
 
 
+MUTATION_REASONS = [
+    "SCHEMA_UNKNOWN_FIELD", "SCHEMA_UNKNOWN_FIELD", "EFFECTIVE_NOT_EXACT_INTERSECTION",
+    "DENIED_SET_MISMATCH", "REDUCED_SET_MISMATCH", "BUDGET_INCREASE", "BUDGET_DENIED_MISMATCH",
+    "DECLARATION_UNAUTHENTICATED", "SERVER_NOT_ADMITTED", "FUTURE_CAPTURE_REJECTED",
+    "MATERIAL_CHANGE_REQUIRES_REGATE", "REASON_CODES_INVALID", "DECISION_COMMITMENT_SUBSTITUTED",
+    "DECISION_ALGORITHM_UNSUPPORTED", "IDEMPOTENCY_DIGEST_TYPE", "DECISION_COMMITMENT_SUBSTITUTED",
+]
+SEMANTIC_OPERATORS = frozenset(list(range(2, 12)) + [14])
+
+
 def mutate_by_operator(record, operator_index, index):
     marker = f"mutation-{operator_index}-{index}"
     if operator_index == 0:
@@ -515,7 +525,7 @@ def mutate_by_operator(record, operator_index, index):
         elif operator_index == 5:
             record["decision"]["budgets"]["effective"] = str(1000 + index)
         elif operator_index == 6:
-            record["decision"]["budgets"]["denied"] = str(index + 1)
+            record["decision"]["budgets"]["denied"] = str(1000 + index)
         elif operator_index == 7:
             record["decision"]["declaration"]["authenticated"] = False
         elif operator_index == 8:
@@ -529,9 +539,12 @@ def mutate_by_operator(record, operator_index, index):
         elif operator_index == 12:
             record["decisionEvidence"]["digest"] = f"sha256:{index:064x}"
         elif operator_index == 13:
-            record["decisionEvidence"]["algorithm"] = f"sha-{index + 1}"
+            record["decisionEvidence"]["algorithm"] = f"unsupported-{index}"
         elif operator_index == 14:
             record["decision"]["idempotencyContractDigest"] = f"invalid-{index}"
+    if operator_index in SEMANTIC_OPERATORS:
+        # Isolate semantic contradictions from stale commitment rejection.
+        record["decisionEvidence"]["digest"] = commitment_for_decision(record["decision"])
 
 
 def mutation_suite(base, count=4096):
@@ -541,6 +554,7 @@ def mutation_suite(base, count=4096):
     reasons = {}
     operators = {}
     unexpected = 0
+    unexpected_reason = 0
     for index in range(count):
         operator_index = index // 256
         operator = MUTATION_OPERATORS[operator_index]
@@ -550,6 +564,8 @@ def mutation_suite(base, count=4096):
         result = evaluate(record)
         if result["verdict"] != "REJECT":
             unexpected += 1
+        if result != {"verdict": "REJECT", "reason": MUTATION_REASONS[operator_index]}:
+            unexpected_reason += 1
         reasons[result["reason"]] = reasons.get(result["reason"], 0) + 1
         operators[operator] = operators.get(operator, 0) + 1
         digests.append(sha({"operator": operator, "instance": instance, "record": record}))
@@ -561,6 +577,8 @@ def mutation_suite(base, count=4096):
         "operators": operators,
         "corpusRoot": "sha256:" + root,
         "unexpectedAcceptance": unexpected,
+        "unexpectedReason": unexpected_reason,
+        "semanticResealedCount": 2816,
         "reasonCounts": {key: reasons[key] for key in sorted(reasons, key=utf8_key)},
     }
 
@@ -709,6 +727,7 @@ def main():
         and report["mutations"]["unique"] == 4096
         and report["mutations"]["operatorCount"] >= 16
         and report["mutations"]["unexpectedAcceptance"] == 0
+        and report["mutations"]["unexpectedReason"] == 0
         and all(item["pass"] for item in report["causalControls"])
         and report["fileRestorationControl"]["pass"]
     )

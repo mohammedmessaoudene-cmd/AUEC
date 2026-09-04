@@ -15,3 +15,10 @@ This artifact does not claim:
 
 The positive result is limited to the exact current-head construction and the
 tested closed structured-decision profile.
+
+The 2026-09-04 local integration adds exact-reason and resealed semantic
+controls. Its 22 source mutants cover 11 selected rules in two project-owned
+implementations, not every possible defect. Shared fixtures and shared project
+control do not establish organizational independence. Static scanner results
+are limited to their declared patterns, not proof that secrets or network
+paths cannot exist. Historical receipts are not newly rerun external reviews.

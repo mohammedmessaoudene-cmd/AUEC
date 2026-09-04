@@ -26,8 +26,8 @@
     },
     {
       "path": "NON_CLAIMS.md",
-      "bytes": 723,
-      "sha256": "1b364a41c1947355a906b40268a603c0376f59494ae61131337f106fec996f36"
+      "bytes": 1182,
+      "sha256": "1d34a563180f3c71ee9a64ff5a2ae99ed3e9c5ec8966da6d7001255c60b690ec"
     },
     {
       "path": "PROFILE.md",
@@ -41,8 +41,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 3638,
-      "sha256": "d3496d1934597f6838de0e306ba74a9c5410dccbc741eecc3e19f4d9848db0f3"
+      "bytes": 5127,
+      "sha256": "d186a13670dbc3e3b04a9b94f0aba9b0662c172d2917064c54279fde12acc369"
     },
     {
       "path": "build/build_reviewer.py",
@@ -51,18 +51,18 @@
     },
     {
       "path": "demo/run-review.ps1",
-      "bytes": 4624,
-      "sha256": "addb56af40f543996404c323c792e282e7e7e44ce7937d666673817e3bd2acd6"
+      "bytes": 5397,
+      "sha256": "d67f667ef2c5e465f143841b92d69fed0825be6dd3505f07a53cbe30057fb3b2"
     },
     {
       "path": "oracles/node/oracle.mjs",
-      "bytes": 26147,
-      "sha256": "d152a566528b16719c54840adbe7ea34043d38aa8fc8c2d83ef568e7b25a58cf"
+      "bytes": 27043,
+      "sha256": "fef48d28851456c101efcffb30eb38d643db2d8ebf6d78a545b251bfbc80b61c"
     },
     {
       "path": "oracles/python/oracle.py",
-      "bytes": 28897,
-      "sha256": "0aac893062fb9198d829e6bff8dbc6209ea5536b49f23090eed147a6bdc4ce53"
+      "bytes": 29957,
+      "sha256": "c7f4d6041aed86fa509b68aa77091edabe51622b5f845d66ec71b27cdb1ff1f7"
     },
     {
       "path": "oracles/sep3004-current-head-projection.mjs",
@@ -76,8 +76,13 @@
     },
     {
       "path": "oracles/verify-parity-and-collision.mjs",
-      "bytes": 6208,
-      "sha256": "96144821b2354fc4573e470fbfbc4d4866d19d807cfd052949c403fa387668e0"
+      "bytes": 6316,
+      "sha256": "76f8f8ea8098187a9e3fec48b9f5fee0089031ccc7ddf272fd8831cec5c2f019"
+    },
+    {
+      "path": "oracles/verify-semantic-source-mutations.py",
+      "bytes": 6818,
+      "sha256": "401001d3b1dd2f664aee40d5a026bebda279199927d07188b3d1f031fbff07a7"
     },
     {
       "path": "results/PACKAGE_INDEPENDENCE.json",
@@ -86,8 +91,13 @@
     },
     {
       "path": "results/PARITY_AND_COMMITMENT.json",
-      "bytes": 6289,
-      "sha256": "e7914b076b0e6dcebe0c93663773339d597978746282c7aabf76373ae89b3f50"
+      "bytes": 6323,
+      "sha256": "38a3bbaf17e36d0248c6ab91210e2693ebe6564458901855dfb0bd1a742bbd49"
+    },
+    {
+      "path": "results/SEMANTIC_SOURCE_MUTATIONS.json",
+      "bytes": 7819,
+      "sha256": "5c730bc42c20ca3121a17d9e2633d2af53b710c0b74606e00e8433644d13a568"
     },
     {
       "path": "results/SEP3004_CURRENT_HEAD_PROJECTION.json",
@@ -96,8 +106,8 @@
     },
     {
       "path": "results/node.json",
-      "bytes": 33536,
-      "sha256": "a78eb4ef6e2e237e50b1b91db2aa39d458c19b4437734090a98fdd99abf9f587"
+      "bytes": 33598,
+      "sha256": "a2435b91f817441a9145e5ace144a38fda47b404dd597e1badc3cf85564e2be8"
     },
     {
       "path": "results/node.json.causal-restored.json",
@@ -106,8 +116,8 @@
     },
     {
       "path": "results/python.json",
-      "bytes": 33542,
-      "sha256": "27ea400f66929127ccec3b85c17210e6f163b0461f9da6914e67c3ee4e10eaaf"
+      "bytes": 33604,
+      "sha256": "2c61efa965a7c67e8e9e8bba726ba724953240ef609298c6629a947d180caf5f"
     },
     {
       "path": "results/python.json.causal-restored.json",

@@ -139,7 +139,8 @@
     "katsAtLeast3": true,
     "mutationsExact4096": true,
     "operatorsAtLeast16": true,
-    "unexpectedAcceptanceZero": true
+    "unexpectedAcceptanceZero": true,
+    "assignedReasonsMatch": true
   },
   "boundedConclusion": "The narrowed V2.1 Core has cross-language byte/digest parity on the pinned domain, a closed structured decision schema, and an explicit fully committed extensions map.",
   "nonClaims": [

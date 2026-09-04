@@ -62,6 +62,10 @@ try {
         $reviewRoot,
         '.\results\PACKAGE_INDEPENDENCE.json'
     )
+    Invoke-Checked python @(
+        '-B', '.\oracles\verify-semantic-source-mutations.py',
+        '.\results\SEMANTIC_SOURCE_MUTATIONS.json'
+    )
 }
 finally {
     Pop-Location
@@ -78,8 +82,9 @@ $pythonResult = Get-Content -Raw -LiteralPath (Join-Path $reviewRoot 'results\py
 $parityResult = Get-Content -Raw -LiteralPath (Join-Path $reviewRoot 'results\PARITY_AND_COMMITMENT.json') | ConvertFrom-Json
 $projectionResult = Get-Content -Raw -LiteralPath (Join-Path $reviewRoot 'results\SEP3004_CURRENT_HEAD_PROJECTION.json') | ConvertFrom-Json
 $independenceResult = Get-Content -Raw -LiteralPath (Join-Path $reviewRoot 'results\PACKAGE_INDEPENDENCE.json') | ConvertFrom-Json
+$semanticResult = Get-Content -Raw -LiteralPath (Join-Path $reviewRoot 'results\SEMANTIC_SOURCE_MUTATIONS.json') | ConvertFrom-Json
 
-$pass = $nodeResult.pass -and $pythonResult.pass -and $parityResult.pass -and $projectionResult.pass -and $independenceResult.pass
+$pass = $nodeResult.pass -and $pythonResult.pass -and $parityResult.pass -and $projectionResult.pass -and $independenceResult.pass -and $semanticResult.pass
 if (-not $pass) {
     throw 'One or more Reviewer V2.1 Core gates failed.'
 }
@@ -93,6 +98,10 @@ if ($nodeResult.mutations.count -ne 4096 -or $nodeResult.mutations.unique -ne 40
     $pythonResult.mutations.operatorCount -lt 16 -or $pythonResult.mutations.unexpectedAcceptance -ne 0) {
     throw 'Reviewer V2.1 mutation breadth gate failed.'
 }
+if ($nodeResult.mutations.unexpectedReason -ne 0 -or $pythonResult.mutations.unexpectedReason -ne 0 -or
+    $semanticResult.semanticRules -ne 11 -or $semanticResult.sourceMutants -ne 22 -or -not $semanticResult.sameSourceBytes) {
+    throw 'Reviewer V2.1 assigned-reason/source-mutation gate failed.'
+}
 
 [pscustomobject]@{
     verdict = 'PASS'
@@ -105,6 +114,8 @@ if ($nodeResult.mutations.count -ne 4096 -or $nodeResult.mutations.unique -ne 40
     mutationInstancesPerOracle = $nodeResult.mutations.count
     mutationOperatorsPerOracle = $nodeResult.mutations.operatorCount
     unexpectedAcceptance = $nodeResult.mutations.unexpectedAcceptance + $pythonResult.mutations.unexpectedAcceptance
+    unexpectedReason = $nodeResult.mutations.unexpectedReason + $pythonResult.mutations.unexpectedReason
+    semanticSourceMutants = $semanticResult.sourceMutants
     currentHeadClassification = $projectionResult.classification
     remoteWrites = 0
 } | ConvertTo-Json -Compress

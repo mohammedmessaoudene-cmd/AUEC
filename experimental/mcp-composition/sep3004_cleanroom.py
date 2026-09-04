@@ -160,7 +160,7 @@ def validate_extensions(record: dict[str, Any]) -> list[str]:
         failures.append(f"unregistered extension types: {sorted(unknown)}")
 
     caller = extensions.get("caller-governance")
-    if caller is not None:
+    if "caller-governance" in extensions:
         if not isinstance(caller, dict):
             failures.append("caller-governance must be an object")
         else:
@@ -181,7 +181,7 @@ def validate_extensions(record: dict[str, Any]) -> list[str]:
                     failures.extend(validate_sources_touched(value))
 
     runtime = extensions.get("runtime-security")
-    if runtime is not None:
+    if "runtime-security" in extensions:
         if not isinstance(runtime, dict):
             failures.append("runtime-security must be an object")
         else:
@@ -201,11 +201,11 @@ def validate_extensions(record: dict[str, Any]) -> list[str]:
                 failures.append(f"runtime-security missing fields: {sorted(missing)}")
             if any(not isinstance(value, str) for value in runtime.values()):
                 failures.append("runtime-security values must all be strings")
-            if runtime.get("drift_status") not in {"none", "observed", "confirmed"}:
+            if not isinstance(runtime.get("drift_status"), str) or runtime["drift_status"] not in {"none", "observed", "confirmed"}:
                 failures.append("runtime-security drift_status is invalid")
-            if runtime.get("severity") not in {"info", "low", "medium", "high"}:
+            if not isinstance(runtime.get("severity"), str) or runtime["severity"] not in {"info", "low", "medium", "high"}:
                 failures.append("runtime-security severity is invalid")
-            if runtime.get("quarantine_decision") not in {
+            if not isinstance(runtime.get("quarantine_decision"), str) or runtime["quarantine_decision"] not in {
                 "release",
                 "hold",
                 "quarantine",
@@ -227,7 +227,7 @@ def validate_skeleton(record: dict[str, Any]) -> list[str]:
             failures.append(f"{field} must be a string")
     if not _is_string_or_null(record["tool_name"]):
         failures.append("tool_name must be string or null")
-    if record["outcome"] not in OUTCOMES:
+    if not isinstance(record["outcome"], str) or record["outcome"] not in OUTCOMES:
         failures.append("outcome is outside the closed disposition vocabulary")
     occurred_at = record["occurred_at"]
     if not isinstance(occurred_at, str) or not TIMESTAMP_RE.fullmatch(occurred_at):

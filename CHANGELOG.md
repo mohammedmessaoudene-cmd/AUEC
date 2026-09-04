@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- hardened the experimental SEP-3004 validator's declared-extension null and
+  enumeration-type boundaries, with 12 regression tests;
+- strengthened the project-controlled authority-delta reviewer with assigned
+  rejection reasons, resealed semantic cases, and 11 per-rule source controls
+  in each oracle; documented finite coverage and independent-review limits;
 - refreshed the public defensive-publication, copyright-status, and provenance
   statements after the v0.35 and v0.36 GitHub/Zenodo releases;
 - added bounded human-readable and machine-readable ledgers for public

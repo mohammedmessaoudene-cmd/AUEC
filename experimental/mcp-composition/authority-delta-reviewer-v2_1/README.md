@@ -60,7 +60,7 @@ pwsh -NoProfile -File ./demo/run-review.ps1
 ```
 
 The command performs no network operation. It regenerates the exact corpus,
-runs independent Node and Python implementations, checks cross-language parity,
+runs separately written, project-controlled Node and Python implementations, checks cross-language parity,
 reproduces the pinned current-head projection, runs the mutation and causal
 controls, and writes receipts under `results/`.
 
@@ -69,13 +69,17 @@ Current sealed counts:
 - 70 vectors across 18 two-sided families;
 - 27 parser-hostile fixtures;
 - 3 canonicalization known-answer tests;
-- 4,096 unique mutations from 16 operators per implementation;
+- 4,096 mutation instances from 16 operators per implementation, each requiring
+  its assigned rejection reason (not merely any rejection);
+- 2,816 of those instances reseal the commitment after semantic changes;
+- 11 selected semantic rules individually disabled in each oracle: 22 source
+  mutants, with positive controls and hash-checked reference restoration;
 - 5 same-object and 1 same-file GREEN→RED→GREEN controls.
 
 The deterministic ZIP builder is:
 
 ```powershell
-python ./build/build_reviewer.py --root . --output ./MCP_AUTHORITY_DELTA_REVIEWER_V2_1_CORE_20260823.zip
+python ./build/build_reviewer.py --root . --output ../MCP_AUTHORITY_DELTA_REVIEWER_V2_1_CORE_20260823.zip
 ```
 
 ## Upstream pin
@@ -90,11 +94,31 @@ python ./build/build_reviewer.py --root . --output ./MCP_AUTHORITY_DELTA_REVIEWE
 The proposal remains upstream work under review. This artifact does not select
 or request a normative representation.
 
+The pin is an explicit tested snapshot, not a claim that it remains the live
+upstream HEAD. Cross-language parity here covers the shared normalized input
+subset. The standalone Python SEP validator also normalizes input strings;
+this is not a claim of identical acceptance behavior for every raw Python and
+Node input, or of complete RFC 8785 conformance.
+
+## Local integration review (2026-09-04)
+
+The new semantic gate prevents a stale commitment from masking the semantic
+rule under test. Its budget witness preserves reduced-budget arithmetic so
+that disabling the ceiling check is not masked by a different rejection.
+The 4,096 instance count is breadth, not 4,096 independent causal rules.
+The two oracles and this review remain under the same project control; they
+are not two organizationally independent verifiers or a clean-room adoption.
+
+For authority notation, use Delta (or Unicode delta) for the refused authority
+set and `decision_ref` for an opaque decision reference. They are different
+concepts even when earlier documents used the letter D for both.
+
 ## Responsibility and licensing
 
 OpenAI ChatGPT and Codex substantially assisted implementation, testing,
-analysis, and drafting. Mohammed Messaoudene reviewed the executed evidence and
-remains responsible for the claims.
+analysis, and drafting. Historical human review does not automatically extend
+to this new local integration. These changes await Mohammed Messaoudene's
+review before any separately authorized publication.
 
 AUEC-authored implementation, vector, and build files in this experimental
 directory are routed as Apache-2.0 by the repository license map. See

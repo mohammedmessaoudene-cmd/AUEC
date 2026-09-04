@@ -1,0 +1,217 @@
+{
+  "pass": true,
+  "semanticRules": 11,
+  "sourceMutants": 22,
+  "positiveControlsPerOracle": 2,
+  "sourceHashesBefore": [
+    "c7f4d6041aed86fa509b68aa77091edabe51622b5f845d66ec71b27cdb1ff1f7",
+    "fef48d28851456c101efcffb30eb38d643db2d8ebf6d78a545b251bfbc80b61c"
+  ],
+  "sourceHashesAfter": [
+    "c7f4d6041aed86fa509b68aa77091edabe51622b5f845d66ec71b27cdb1ff1f7",
+    "fef48d28851456c101efcffb30eb38d643db2d8ebf6d78a545b251bfbc80b61c"
+  ],
+  "sameSourceBytes": true,
+  "rules": [
+    {
+      "reason": "EFFECTIVE_NOT_EXACT_INTERSECTION",
+      "python": {
+        "reference": "REJECT_ASSIGNED_REASON",
+        "mutant": "PASS",
+        "restored": "REJECT_ASSIGNED_REASON",
+        "changed_conditions": 1,
+        "mutant_source_sha256": "ed497a165d049bd3b7654414b80d37cfd0cdeeec6e6fcadc7c5461a77e5b6825"
+      },
+      "node": {
+        "reason": "EFFECTIVE_NOT_EXACT_INTERSECTION",
+        "reference": "REJECT_ASSIGNED_REASON",
+        "mutant": "PASS",
+        "restored": "REJECT_ASSIGNED_REASON",
+        "changed_conditions": 1,
+        "mutant_source_sha256": "6cf1cd2ed53b747f20107fe7cd701d255df24cbfeb2004d1bc1ef5fbc74db051"
+      }
+    },
+    {
+      "reason": "DENIED_SET_MISMATCH",
+      "python": {
+        "reference": "REJECT_ASSIGNED_REASON",
+        "mutant": "PASS",
+        "restored": "REJECT_ASSIGNED_REASON",
+        "changed_conditions": 1,
+        "mutant_source_sha256": "fd23337692208b97854c3fe68a826d52bf9a2742bcad664936f8ac85d19a4105"
+      },
+      "node": {
+        "reason": "DENIED_SET_MISMATCH",
+        "reference": "REJECT_ASSIGNED_REASON",
+        "mutant": "PASS",
+        "restored": "REJECT_ASSIGNED_REASON",
+        "changed_conditions": 1,
+        "mutant_source_sha256": "c7e6de70bcc8b882b75316c328279bb758e43ca86995aeede69077c17cf9338e"
+      }
+    },
+    {
+      "reason": "REDUCED_SET_MISMATCH",
+      "python": {
+        "reference": "REJECT_ASSIGNED_REASON",
+        "mutant": "PASS",
+        "restored": "REJECT_ASSIGNED_REASON",
+        "changed_conditions": 1,
+        "mutant_source_sha256": "87965ffbb79080b617bc2bb0e04983259d68b7eb661f2aeb6564b8b56bae8fef"
+      },
+      "node": {
+        "reason": "REDUCED_SET_MISMATCH",
+        "reference": "REJECT_ASSIGNED_REASON",
+        "mutant": "PASS",
+        "restored": "REJECT_ASSIGNED_REASON",
+        "changed_conditions": 1,
+        "mutant_source_sha256": "a4ee677f402c9ce0bc9c515f6ee11019d9ebaca5bd3d6d2bf3d55a3f1f28d92e"
+      }
+    },
+    {
+      "reason": "BUDGET_INCREASE",
+      "python": {
+        "reference": "REJECT_ASSIGNED_REASON",
+        "mutant": "PASS",
+        "restored": "REJECT_ASSIGNED_REASON",
+        "changed_conditions": 1,
+        "mutant_source_sha256": "23c5daba44bc2bcb600a054f7a25d9af03b3f7452d600f572dce96f2bde803e1"
+      },
+      "node": {
+        "reason": "BUDGET_INCREASE",
+        "reference": "REJECT_ASSIGNED_REASON",
+        "mutant": "PASS",
+        "restored": "REJECT_ASSIGNED_REASON",
+        "changed_conditions": 1,
+        "mutant_source_sha256": "2f4719dbd46cfff5f41def186d328862cff8bf1a7392499b6720cee085080f9c"
+      }
+    },
+    {
+      "reason": "BUDGET_DENIED_MISMATCH",
+      "python": {
+        "reference": "REJECT_ASSIGNED_REASON",
+        "mutant": "PASS",
+        "restored": "REJECT_ASSIGNED_REASON",
+        "changed_conditions": 1,
+        "mutant_source_sha256": "bb980a779a45d6728bffc7c1849dbda29a55d3aaf2e1334ed8efc1491e9e073c"
+      },
+      "node": {
+        "reason": "BUDGET_DENIED_MISMATCH",
+        "reference": "REJECT_ASSIGNED_REASON",
+        "mutant": "PASS",
+        "restored": "REJECT_ASSIGNED_REASON",
+        "changed_conditions": 1,
+        "mutant_source_sha256": "afc1d231995af4e7845e588363817139b7511bf59b9e0c08221aca87568d7ca7"
+      }
+    },
+    {
+      "reason": "DECLARATION_UNAUTHENTICATED",
+      "python": {
+        "reference": "REJECT_ASSIGNED_REASON",
+        "mutant": "PASS",
+        "restored": "REJECT_ASSIGNED_REASON",
+        "changed_conditions": 1,
+        "mutant_source_sha256": "2b0a1bf55c4f1f57d86fcf406ea1f2af56999eacec40757a06c35869d0af5d3a"
+      },
+      "node": {
+        "reason": "DECLARATION_UNAUTHENTICATED",
+        "reference": "REJECT_ASSIGNED_REASON",
+        "mutant": "PASS",
+        "restored": "REJECT_ASSIGNED_REASON",
+        "changed_conditions": 1,
+        "mutant_source_sha256": "645e710e034c9bf7fe6cac1ffacd64d0b6dcce1fbeb1276b522c0a31e7cae6f6"
+      }
+    },
+    {
+      "reason": "SERVER_NOT_ADMITTED",
+      "python": {
+        "reference": "REJECT_ASSIGNED_REASON",
+        "mutant": "PASS",
+        "restored": "REJECT_ASSIGNED_REASON",
+        "changed_conditions": 1,
+        "mutant_source_sha256": "529f92ec17de7a140a3ed8af861fd4e6c051095a63f7d855ac1b3186129a8275"
+      },
+      "node": {
+        "reason": "SERVER_NOT_ADMITTED",
+        "reference": "REJECT_ASSIGNED_REASON",
+        "mutant": "PASS",
+        "restored": "REJECT_ASSIGNED_REASON",
+        "changed_conditions": 1,
+        "mutant_source_sha256": "0eeeaf5a58d24e3e754296fc39c0dc0c3310ef44dd8d110bb6e573ace09839a4"
+      }
+    },
+    {
+      "reason": "FUTURE_CAPTURE_REJECTED",
+      "python": {
+        "reference": "REJECT_ASSIGNED_REASON",
+        "mutant": "PASS",
+        "restored": "REJECT_ASSIGNED_REASON",
+        "changed_conditions": 1,
+        "mutant_source_sha256": "1b0672ea6a736892ef30da7d5b822e2ee02e61d675cfb5f10e5b9cce6f582103"
+      },
+      "node": {
+        "reason": "FUTURE_CAPTURE_REJECTED",
+        "reference": "REJECT_ASSIGNED_REASON",
+        "mutant": "PASS",
+        "restored": "REJECT_ASSIGNED_REASON",
+        "changed_conditions": 1,
+        "mutant_source_sha256": "b61d9ebe5f598ec90722af9c44d1402027fc78dddaf077eb49ee0d08a69e09d1"
+      }
+    },
+    {
+      "reason": "MATERIAL_CHANGE_REQUIRES_REGATE",
+      "python": {
+        "reference": "REJECT_ASSIGNED_REASON",
+        "mutant": "PASS",
+        "restored": "REJECT_ASSIGNED_REASON",
+        "changed_conditions": 1,
+        "mutant_source_sha256": "82c8c7e66eac30ced14e9fdefceeeb25eb528912e6059c74f413d849673620a4"
+      },
+      "node": {
+        "reason": "MATERIAL_CHANGE_REQUIRES_REGATE",
+        "reference": "REJECT_ASSIGNED_REASON",
+        "mutant": "PASS",
+        "restored": "REJECT_ASSIGNED_REASON",
+        "changed_conditions": 1,
+        "mutant_source_sha256": "64a26bf4980b86bc1b874226d8f3960f8400392b4e2c2a2fabb84693c916cb0f"
+      }
+    },
+    {
+      "reason": "REASON_CODES_INVALID",
+      "python": {
+        "reference": "REJECT_ASSIGNED_REASON",
+        "mutant": "PASS",
+        "restored": "REJECT_ASSIGNED_REASON",
+        "changed_conditions": 1,
+        "mutant_source_sha256": "c5e3c0c1516d60e78c409704aef5318f7ec8ad06695c01d8a78fe75f024f99a8"
+      },
+      "node": {
+        "reason": "REASON_CODES_INVALID",
+        "reference": "REJECT_ASSIGNED_REASON",
+        "mutant": "PASS",
+        "restored": "REJECT_ASSIGNED_REASON",
+        "changed_conditions": 1,
+        "mutant_source_sha256": "9238c1467379dbc2ac1c5c3fd10baa5f43a74b03cf0312c92c94b9340c3e40fc"
+      }
+    },
+    {
+      "reason": "IDEMPOTENCY_DIGEST_TYPE",
+      "python": {
+        "reference": "REJECT_ASSIGNED_REASON",
+        "mutant": "PASS",
+        "restored": "REJECT_ASSIGNED_REASON",
+        "changed_conditions": 1,
+        "mutant_source_sha256": "e8bec4066fd65064b04d621929053fb2bea4d31f87a7813b2d9994726153237c"
+      },
+      "node": {
+        "reason": "IDEMPOTENCY_DIGEST_TYPE",
+        "reference": "REJECT_ASSIGNED_REASON",
+        "mutant": "PASS",
+        "restored": "REJECT_ASSIGNED_REASON",
+        "changed_conditions": 1,
+        "mutant_source_sha256": "fb7e71a1178772cd8f4d3b3c351becd07030a2eb6ac6dc351cc52081e74c8046"
+      }
+    }
+  ],
+  "scope": "11 selected semantic rules per implementation, not all possible source mutations; shared fixture family",
+  "remoteWrites": 0
+}

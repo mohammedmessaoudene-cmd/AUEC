@@ -346,6 +346,14 @@ const MUTATION_OPERATORS = [
   'evidence-digest-substitution', 'algorithm-substitution', 'idempotency-digest-invalid', 'committed-extension-substitution',
 ];
 
+const MUTATION_REASONS = [
+  'SCHEMA_UNKNOWN_FIELD', 'SCHEMA_UNKNOWN_FIELD', 'EFFECTIVE_NOT_EXACT_INTERSECTION',
+  'DENIED_SET_MISMATCH', 'REDUCED_SET_MISMATCH', 'BUDGET_INCREASE', 'BUDGET_DENIED_MISMATCH',
+  'DECLARATION_UNAUTHENTICATED', 'SERVER_NOT_ADMITTED', 'FUTURE_CAPTURE_REJECTED',
+  'MATERIAL_CHANGE_REQUIRES_REGATE', 'REASON_CODES_INVALID', 'DECISION_COMMITMENT_SUBSTITUTED',
+  'DECISION_ALGORITHM_UNSUPPORTED', 'IDEMPOTENCY_DIGEST_TYPE', 'DECISION_COMMITMENT_SUBSTITUTED',
+];
+
 function mutateByOperator(record, operatorIndex, index) {
   const marker = `mutation-${operatorIndex}-${index}`;
   if (operatorIndex === 0) record[`unknown_${index}`] = marker;
@@ -354,16 +362,19 @@ function mutateByOperator(record, operatorIndex, index) {
   if (operatorIndex === 3) { record.decision.extensions.mutationMarker = marker; record.decision.operations.denied = [`denied:${index}`]; }
   if (operatorIndex === 4) { record.decision.extensions.mutationMarker = marker; record.decision.operations.reduced = [`reduced:${index}`]; }
   if (operatorIndex === 5) { record.decision.extensions.mutationMarker = marker; record.decision.budgets.effective = String(1000 + index); }
-  if (operatorIndex === 6) { record.decision.extensions.mutationMarker = marker; record.decision.budgets.denied = String(index + 1); }
+  if (operatorIndex === 6) { record.decision.extensions.mutationMarker = marker; record.decision.budgets.denied = String(1000 + index); }
   if (operatorIndex === 7) { record.decision.extensions.mutationMarker = marker; record.decision.declaration.authenticated = false; }
   if (operatorIndex === 8) { record.decision.extensions.mutationMarker = marker; record.decision.admission.status = 'denied'; }
   if (operatorIndex === 9) { record.decision.extensions.mutationMarker = marker; record.decision.anchor.captureGeneration = String(1000 + index); }
   if (operatorIndex === 10) { record.decision.extensions.mutationMarker = marker; record.decision.listState.epoch = `epoch-${index}`; record.decision.listState.materialChange = true; record.decision.listState.regated = false; }
   if (operatorIndex === 11) { record.decision.extensions.mutationMarker = marker; record.decision.reasonCodes = [`Z-${index}`, `A-${index}`]; }
   if (operatorIndex === 12) { record.decision.extensions.mutationMarker = marker; record.decisionEvidence.digest = `sha256:${index.toString(16).padStart(64, '0')}`; }
-  if (operatorIndex === 13) { record.decision.extensions.mutationMarker = marker; record.decisionEvidence.algorithm = `sha-${index + 1}`; }
+  if (operatorIndex === 13) { record.decision.extensions.mutationMarker = marker; record.decisionEvidence.algorithm = `unsupported-${index}`; }
   if (operatorIndex === 14) { record.decision.extensions.mutationMarker = marker; record.decision.idempotencyContractDigest = `invalid-${index}`; }
   if (operatorIndex === 15) record.decision.extensions.mutationMarker = marker;
+  if ((operatorIndex >= 2 && operatorIndex <= 11) || operatorIndex === 14) {
+    record.decisionEvidence.digest = commitmentForDecision(record.decision);
+  }
 }
 
 function mutationSuite(base, count = 4096) {
@@ -372,6 +383,7 @@ function mutationSuite(base, count = 4096) {
   const reasons = {};
   const operators = {};
   let unexpectedAcceptance = 0;
+  let unexpectedReason = 0;
   for (let index = 0; index < count; index += 1) {
     const operatorIndex = Math.floor(index / 256);
     const operator = MUTATION_OPERATORS[operatorIndex];
@@ -380,6 +392,7 @@ function mutationSuite(base, count = 4096) {
     mutateByOperator(record, operatorIndex, instance);
     const result = evaluate(record);
     if (result.verdict !== 'REJECT') unexpectedAcceptance += 1;
+    if (result.verdict !== 'REJECT' || result.reason !== MUTATION_REASONS[operatorIndex]) unexpectedReason += 1;
     reasons[result.reason] = (reasons[result.reason] || 0) + 1;
     operators[operator] = (operators[operator] || 0) + 1;
     digests.push(sha({ operator, instance, record }));
@@ -391,6 +404,8 @@ function mutationSuite(base, count = 4096) {
     operators,
     corpusRoot: `sha256:${crypto.createHash('sha256').update(digests.join('\n'), 'utf8').digest('hex')}`,
     unexpectedAcceptance,
+    unexpectedReason,
+    semanticResealedCount: 2816,
     reasonCounts: Object.fromEntries(Object.entries(reasons).sort(([a], [b]) => compareUtf8(a, b))),
   };
 }
@@ -510,6 +525,7 @@ function main() {
     && report.knownAnswerTests.every((item) => item.pass)
     && report.mutations.count === 4096 && report.mutations.unique === 4096
     && report.mutations.operatorCount >= 16 && report.mutations.unexpectedAcceptance === 0
+    && report.mutations.unexpectedReason === 0
     && report.causalControls.every((item) => item.pass) && report.fileRestorationControl.pass;
   fs.writeFileSync(options.output, `${JSON.stringify(report, null, 2)}\n`, 'utf8');
   console.log(JSON.stringify({ implementation: report.implementation, pass: report.pass, vectors: report.vectorCount,

@@ -81,6 +81,7 @@ const report = {
     mutationsExact4096: node.mutations.count === 4096 && python.mutations.count === 4096,
     operatorsAtLeast16: node.mutations.operatorCount >= 16 && python.mutations.operatorCount >= 16,
     unexpectedAcceptanceZero: node.mutations.unexpectedAcceptance === 0 && python.mutations.unexpectedAcceptance === 0,
+    assignedReasonsMatch: node.mutations.unexpectedReason === 0 && python.mutations.unexpectedReason === 0,
   },
   boundedConclusion: 'The narrowed V2.1 Core has cross-language byte/digest parity on the pinned domain, a closed structured decision schema, and an explicit fully committed extensions map.',
   nonClaims: [
