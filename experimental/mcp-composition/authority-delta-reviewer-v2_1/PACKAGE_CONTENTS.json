@@ -1,0 +1,168 @@
+{
+  "schemaVersion": 1,
+  "artifact": "MCP_AUTHORITY_DELTA_REVIEWER_V2_1_CORE_20260823",
+  "deterministicBuild": true,
+  "fixedZipTimestamp": "2026-08-23T00:00:00Z",
+  "files": [
+    {
+      "path": "AI_ASSISTANCE.md",
+      "bytes": 530,
+      "sha256": "acb760d64eaa8229fa459a79c289f5473b779bb1e550239eaeb65192656bff70"
+    },
+    {
+      "path": "CLAIMS_LEDGER_V2_1.json",
+      "bytes": 2086,
+      "sha256": "7bc6adba5ed6b954b500ac966acfbc692280ce984d7be5fb5df21d9a13d0d066"
+    },
+    {
+      "path": "FINAL_REPORT.json",
+      "bytes": 3352,
+      "sha256": "0ef709b967a2b887d8f30d1f864496b168007e3ad5a4bbb33a27aee701212f3f"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "NON_CLAIMS.md",
+      "bytes": 1182,
+      "sha256": "1d34a563180f3c71ee9a64ff5a2ae99ed3e9c5ec8966da6d7001255c60b690ec"
+    },
+    {
+      "path": "PROFILE.md",
+      "bytes": 970,
+      "sha256": "f52a86b2f8095094b7d6d8333f3893e32f679d8a921e90077d4d5e8de018719f"
+    },
+    {
+      "path": "PROVENANCE_AND_LICENSE.md",
+      "bytes": 1130,
+      "sha256": "fac5692affd9b0d479cf010727475d4e1928526c74b6f3b7d3ea4341b02b026a"
+    },
+    {
+      "path": "README.md",
+      "bytes": 5127,
+      "sha256": "d186a13670dbc3e3b04a9b94f0aba9b0662c172d2917064c54279fde12acc369"
+    },
+    {
+      "path": "build/build_reviewer.py",
+      "bytes": 3216,
+      "sha256": "c9ef1df8990b40ebca3ef898d15fec04c6f285f3d47bda2d1af6800bb4e6b45c"
+    },
+    {
+      "path": "demo/run-review.ps1",
+      "bytes": 5397,
+      "sha256": "d67f667ef2c5e465f143841b92d69fed0825be6dd3505f07a53cbe30057fb3b2"
+    },
+    {
+      "path": "oracles/node/oracle.mjs",
+      "bytes": 27043,
+      "sha256": "fef48d28851456c101efcffb30eb38d643db2d8ebf6d78a545b251bfbc80b61c"
+    },
+    {
+      "path": "oracles/python/oracle.py",
+      "bytes": 29957,
+      "sha256": "c7f4d6041aed86fa509b68aa77091edabe51622b5f845d66ec71b27cdb1ff1f7"
+    },
+    {
+      "path": "oracles/sep3004-current-head-projection.mjs",
+      "bytes": 25308,
+      "sha256": "d768778c26c90db4d42130ab36b2e7a636604a33fb939ad98a1bfd3bb853d02d"
+    },
+    {
+      "path": "oracles/verify-independence.mjs",
+      "bytes": 2557,
+      "sha256": "35f5c90ceceafb302f9bd4a959a00ccee4720d31d091c903a2363446153b31e6"
+    },
+    {
+      "path": "oracles/verify-parity-and-collision.mjs",
+      "bytes": 6316,
+      "sha256": "76f8f8ea8098187a9e3fec48b9f5fee0089031ccc7ddf272fd8831cec5c2f019"
+    },
+    {
+      "path": "oracles/verify-semantic-source-mutations.py",
+      "bytes": 6818,
+      "sha256": "401001d3b1dd2f664aee40d5a026bebda279199927d07188b3d1f031fbff07a7"
+    },
+    {
+      "path": "results/PACKAGE_INDEPENDENCE.json",
+      "bytes": 2143,
+      "sha256": "cbbd789d460f8f0201a8077afb8fb3aaee565fe75df72356809b992a6ff5219b"
+    },
+    {
+      "path": "results/PARITY_AND_COMMITMENT.json",
+      "bytes": 6323,
+      "sha256": "38a3bbaf17e36d0248c6ab91210e2693ebe6564458901855dfb0bd1a742bbd49"
+    },
+    {
+      "path": "results/SEMANTIC_SOURCE_MUTATIONS.json",
+      "bytes": 7819,
+      "sha256": "5c730bc42c20ca3121a17d9e2633d2af53b710c0b74606e00e8433644d13a568"
+    },
+    {
+      "path": "results/SEP3004_CURRENT_HEAD_PROJECTION.json",
+      "bytes": 15776,
+      "sha256": "50d2fd72e7791cc00e5d4b3aaded5c1d51385d9f7ae0bbc06766357624e776bc"
+    },
+    {
+      "path": "results/node.json",
+      "bytes": 33598,
+      "sha256": "a2435b91f817441a9145e5ace144a38fda47b404dd597e1badc3cf85564e2be8"
+    },
+    {
+      "path": "results/node.json.causal-restored.json",
+      "bytes": 1731,
+      "sha256": "50c3f7b7ba5fa7829a7239e80953a6d006c2eaee256fe388851a3d6ce1475aba"
+    },
+    {
+      "path": "results/python.json",
+      "bytes": 33604,
+      "sha256": "2c61efa965a7c67e8e9e8bba726ba724953240ef609298c6629a947d180caf5f"
+    },
+    {
+      "path": "results/python.json.causal-restored.json",
+      "bytes": 1731,
+      "sha256": "50c3f7b7ba5fa7829a7239e80953a6d006c2eaee256fe388851a3d6ce1475aba"
+    },
+    {
+      "path": "upstream/CURRENT_HEAD_VERIFICATION.json",
+      "bytes": 719,
+      "sha256": "3fb1dab2bc667ff52d68bcfd429b10963b121466db0d1574d43a388f38b0d006"
+    },
+    {
+      "path": "upstream/SEP3004_SOURCE_PIN.json",
+      "bytes": 645,
+      "sha256": "e8b194c23c9c47b3d263d1c6490a2da98e4413bd362b612b975e27aacfcf7939"
+    },
+    {
+      "path": "upstream/sep3004-head-9405ba2ff8be99b9e0005bebd0ea4b77ac4dc885.md",
+      "bytes": 47008,
+      "sha256": "629cccd1ef795d1d3d32bf07ccf80294ced8e12608ce362333cf5fd39633d205"
+    },
+    {
+      "path": "vectors/EXACT_SET_MANIFEST.json",
+      "bytes": 4300,
+      "sha256": "3f02d9df9c893b529a4f2a796db3ec7cad759762231d22ce14fbbfd0a7cca926"
+    },
+    {
+      "path": "vectors/canonicalization-kats.json",
+      "bytes": 1166,
+      "sha256": "63c19dbc5884ce4fdd68617a9fccd8096f19835117602d9aeafdaf37643a81aa"
+    },
+    {
+      "path": "vectors/corpus.json",
+      "bytes": 208982,
+      "sha256": "9c50ce5e188eced867ebe0d113ca4aab1d606d2c64c9879a7751e92592fe7234"
+    },
+    {
+      "path": "vectors/generate-corpus.mjs",
+      "bytes": 18399,
+      "sha256": "e5b3a4a84f92154c90174d48ff054bf39fdb26f53481f8c906ba1d8f90a28ae5"
+    },
+    {
+      "path": "vectors/parser-hostile.jsonl",
+      "bytes": 478477,
+      "sha256": "2787eec1206aa913ac04357fc57b8831c2af2b0f28058e8df161d859c3e85fcf"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "acquisition": "read-only exact Git checkout and Git blob",
+  "observedAtUtc": "2026-09-04T16:00:00Z",
+  "repository": "modelcontextprotocol/modelcontextprotocol",
+  "pullRequestIn": "modelcontextprotocol/modelcontextprotocol#3004",
+  "head": "9405ba2ff8be99b9e0005bebd0ea4b77ac4dc885",
+  "path": "seps/3004-tamper-evident-audit-record-contract.md",
+  "gitBlobSha1": "3c0f3fb0332f491ac06467de5ca21de562ca28dc",
+  "bytes": 47008,
+  "sha256": "629cccd1ef795d1d3d32bf07ccf80294ced8e12608ce362333cf5fd39633d205",
+  "embeddedBytesExact": true,
+  "remoteWrites": 0,
+  "tree": "e98b2d230d0cb2f616d6010056caf783439bab0c",
+  "embeddedFile": "sep3004-head-9405ba2ff8be99b9e0005bebd0ea4b77ac4dc885.md"
+}

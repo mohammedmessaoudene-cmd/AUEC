@@ -5,3 +5,4 @@ wheel,unspecified,build dependency,MIT,false,not vendored
 MCP,"2025-11-25 and tested 2026-07-28 profile",interoperability target,third-party specification,false,name acknowledged
 A2A,"1.0",interoperability target,third-party specification,false,name acknowledged
 IEEEtran,report document class,paper build dependency,LaTeX Project Public License or package terms,false,not vendored in repository snapshot
+GIF SEP-3004 vectors,e1f02a95506e81e7766c3ba3a684ecad7cfff12f,adapted conformance fixture definitions,Apache-2.0,true,attribution retained in adapted Python file and notices

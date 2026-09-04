@@ -1,0 +1,127 @@
+# MCP authority-delta composition experiment
+
+Status: **experimental, draft-aligned, non-conformant**
+
+This draft-only experiment tests a narrow composition:
+
+1. SEP-3140-style authenticated declarations are decision inputs, not authority.
+2. A host-owned validator computes requested, host-allowed and effective
+   authority plus the requested-to-effective delta.
+3. A separate action-boundary emitter verifies the action, principal, decision
+   digest and explicit authority outcome.
+4. The boundary emits the current SEP-3004 record shape without claiming that
+   an allowed decision proves a provider-side effect.
+5. A private lifecycle model separates `AuthorityDecision`, `EffectAttempt`,
+   `EffectObservation` and append-only `ReconciliationRecord` objects.
+
+```bash
+make demo-mcp-composition
+python -m unittest discover -s experimental/mcp-composition/tests -v
+python experimental/mcp-composition/sep3004_vectors.py
+python experimental/mcp-composition/effect_mutation_harness.py
+python experimental/mcp-composition/effect_stress.py --iterations 10000
+```
+
+The implementation performs no network request and no consequential action.
+It uses deterministic fixtures, fixed upstream commit pins, disposable source
+mutants and a clean-room Python verifier.
+
+## Non-negotiable authority boundary
+
+```text
+signature != authority
+trust label != authority
+annotation != authority
+audit record != authority
+claim != authority
+```
+
+Only host policy grants effective authority. The caller cannot set the
+decision time, decision authority, boundary emitter, governed principal or
+chain link.
+
+## Evidence envelope
+
+`auec.authority-decision-evidence.v0` commits to:
+
+- `requested`, `hostAllowed`, `effective` and `delta`;
+- policy id, version and digest;
+- principal and exact action digest;
+- declaration, epistemic, consent and ignored-audit digests;
+- separate `decisionAuthorityId` and `recordEmitterId`;
+- verdict and bounded reason codes.
+
+The envelope is an internal evidence object, not a new MCP wire primitive.
+
+## Decision/effect separation
+
+Authorization and provider-side effect state are independent axes. An allowed
+decision can validly remain `not_attempted` or become `outcome_unknown`; it is
+not evidence of `confirmed_occurred`. Terminal occurrence or absence requires
+a configured authoritative provider or system-of-record observer. Local
+timeouts, lost responses, emitter crashes and audit-append failures remain
+unknown until append-only reconciliation supplies authoritative evidence.
+
+The model binds every attempt and observation to a stable logical operation,
+a distinct attempt id, the decision evidence, action, payload and principal.
+Only an idempotency-key digest is retained. Reusing one key with a different
+operation, action or payload fails closed, and an unknown irreversible effect
+cannot be retried blindly.
+
+The `effect-disposition` projection is an unregistered private candidate. It
+is experimental and non-conformant; no MCP field or SEP-3004 change is claimed
+as adopted.
+
+## SEP-3004 boundary
+
+The Python implementation reproduces the published two-extension KAT
+`f733fed9cc757165f810b778e4baba1f51a45504988e937707aaab4361b2f064`
+and all 23 published C-REC-1…7 vector expectations.
+
+A concrete vector shows that current `caller-governance` records cannot commit
+to different policy limits and deltas when their core fields are otherwise the
+same. One optional `decision_evidence_hash` field is evaluated privately.
+It remains unregistered and is rejected by the unchanged current verifier.
+
+## External fixture cross-run
+
+The exact Git blobs for Tersign vectors `p18`, `n25` and `n26` at commit
+`46ad663b90805a2e526ef3cd28c3f70762883125` were run through a documented AUEC
+adapter without changing inputs or expected outcomes: 3/3 pass. The fixtures are
+third-party-authored; the adapter and execution are AUEC/Codex-controlled. This
+is an external-suite cross-run, not independent validation.
+
+The two-sided authority-decision binding contribution is open as draft
+[Tersign PR #5](https://github.com/tersignhq/evidence-record-conformance/pull/5).
+Its local and fresh-clone gates are green; the external GitHub Actions run is
+awaiting maintainer approval and is not reported as an external CI pass. Exact
+receipts and evidence tiers are recorded in
+[`EXTERNAL_FIXTURE_CROSSRUN.md`](EXTERNAL_FIXTURE_CROSSRUN.md).
+
+### Tier 2B — third-party boundary-binding reproduction report
+
+An external participant reported running only the three applicable
+boundary-binding fixtures at the same Tersign base pin through an independently
+written adapter and an unchanged AOS verifier: p18 accepted, n25 unattested and
+n26 unattested, matching 3/3 expected dispositions. The reported ordered-file
+bundle SHA-256 is recorded but was not reconstructed because the composition
+method, adapter source and raw logs were not linked.
+
+This evidence tier is limited to p18/n25/n26. It does not reproduce
+p19/n27/n28, any AUEC result or the Tersign harness, and it does not establish
+independent validation of AUEC. The machine-readable bounded receipt is
+[`evidence/third-party-boundary-binding-reproduction-20260809.json`](evidence/third-party-boundary-binding-reproduction-20260809.json).
+
+## Trust limit
+
+A valid hash chain proves integrity after emission, not the truth or
+independence of its producer. Outputs from this experiment are
+`self_attested`; no external anchor or independent producer authentication is
+claimed.
+
+This is not official MCP conformance, acceptance, endorsement, production
+hardening or external security validation. The pull request remains a draft.
+
+AI assistance disclosure: OpenAI Codex assisted with implementation, tests,
+analysis and drafting. Mohammed Messaoudene reviewed the executed evidence and
+remains responsible for the contribution.

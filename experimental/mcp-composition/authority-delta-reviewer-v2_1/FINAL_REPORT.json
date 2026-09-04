@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "verdict": "REVIEWER_V2_1_CORE_PASS_SCHEMA_BACKED_REPRESENTATION_GAP_CONFIRMED",
+  "profile": "auec-authority-delta-decision-v2_1",
+  "canonicalization": "auec-authority-delta-c14n-v2_1",
+  "publicForm": "closed structured decision object + sha-256 commitment",
+  "scopeGates": {
+    "vectors": 70,
+    "kinds": 18,
+    "parserHostile": 27,
+    "canonicalizationKats": 3,
+    "mutationsPerOracle": 4096,
+    "uniqueMutationsPerOracle": 4096,
+    "operatorsPerOracle": 16,
+    "currentHeadRuleCases": 23,
+    "currentHeadRuleCasesMatched": 23,
+    "unexpectedAcceptance": 0,
+    "sameObjectCausalControlsPerOracle": 5,
+    "sameFileCausalControlsPerOracle": 1,
+    "nodePass": true,
+    "pythonPass": true,
+    "exactParity": true
+  },
+  "requiredRegressions": {
+    "invalidCalendarInstant": "PASS_REJECTED",
+    "invalidNonLeapDay": "PASS_REJECTED",
+    "emptyExtensionKey": "PASS_REJECTED",
+    "digestOnlyForm": "PASS_REJECTED",
+    "evidenceReferenceForm": "PASS_REJECTED",
+    "effectField": "PASS_REJECTED"
+  },
+  "currentHeadProof": {
+    "repository": "modelcontextprotocol/modelcontextprotocol",
+    "pullRequest": 3004,
+    "head": "9405ba2ff8be99b9e0005bebd0ea4b77ac4dc885",
+    "tree": "e98b2d230d0cb2f616d6010056caf783439bab0c",
+    "sourceSha256": "629cccd1ef795d1d3d32bf07ccf80294ced8e12608ce362333cf5fd39633d205",
+    "pullRequestState": "open-unmerged",
+    "typedOptionalAndSourcesTouchedRulesPass": true,
+    "upstreamKnownAnswerPass": true,
+    "recordsIndividuallyConforming": true,
+    "protectedByteLength": 298,
+    "protectedBytesEqual": true,
+    "eventHash": "a795c1d969512a3c62646124cbad52758ee58b9cba17816da71fdc6fdb968dd5",
+    "eventHashesEqual": true,
+    "decisionCommitmentA": "sha256:204bf01669510688a16dddf90e3f8dae45f23c78199e2714e476001b5c2555e0",
+    "decisionCommitmentB": "sha256:fde36a175777bd5e314be69a4f9ba170b70235bf417c5d1720bd67e1ef6010d1",
+    "decisionCommitmentsDifferent": true,
+    "classification": "SCHEMA_BACKED_REPRESENTATION_GAP_CONFIRMED"
+  },
+  "portability": {
+    "windowsPowerShellReplay": "PASS",
+    "gitBashPosixShellReplay": "PASS",
+    "generatedFilesCompared": 11,
+    "crossShellByteIdentity": true,
+    "wsl": "NOT_RUN_HYPERV_VIRTUALIZATION_UNAVAILABLE_NO_INSTALL_ATTEMPTED"
+  },
+  "independence": {
+    "networkDuringReplay": 0,
+    "remoteWritesDuringReplay": 0,
+    "externalProfileDependencies": 0,
+    "secretLikeTokens": 0
+  },
+  "generatedBindings": {
+    "corpusSha256": "9c50ce5e188eced867ebe0d113ca4aab1d606d2c64c9879a7751e92592fe7234",
+    "parserHostileSha256": "2787eec1206aa913ac04357fc57b8831c2af2b0f28058e8df161d859c3e85fcf",
+    "canonicalizationKatsSha256": "63c19dbc5884ce4fdd68617a9fccd8096f19835117602d9aeafdaf37643a81aa",
+    "nodeResultSha256": "a78eb4ef6e2e237e50b1b91db2aa39d458c19b4437734090a98fdd99abf9f587",
+    "pythonResultSha256": "27ea400f66929127ccec3b85c17210e6f163b0461f9da6914e67c3ee4e10eaaf",
+    "parityResultSha256": "e7914b076b0e6dcebe0c93663773339d597978746282c7aabf76373ae89b3f50",
+    "projectionResultSha256": "914ced2cfdfbd17f3c56ebcaaff4a0747ac7a620d6f78ee29adcf4f303fe05c7"
+  },
+  "reviewerBoundary": {
+    "projectControlledImplementations": 2,
+    "externalIndependentVerifiers": 0,
+    "twoOraclesAreTwoIndependentVerifiers": false
+  },
+  "normativeMcpRepresentationSelected": false,
+  "remoteWrites": 0
+}

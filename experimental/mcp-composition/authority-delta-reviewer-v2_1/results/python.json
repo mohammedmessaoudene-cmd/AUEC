@@ -1,0 +1,1253 @@
+{
+  "schemaVersion": 3,
+  "profile": "auec-authority-delta-decision-v2_1",
+  "canonicalization": "auec-authority-delta-c14n-v2_1",
+  "implementation": "python-independent-v2_1",
+  "runtimeFamily": "python",
+  "limits": {
+    "documentBytes": 262144,
+    "depth": 64,
+    "nodes": 10000,
+    "stringBytes": 16384,
+    "totalStringBytes": 131072,
+    "integerDigits": 16,
+    "decimalDigits": 64
+  },
+  "vectorCount": 70,
+  "kindCount": 18,
+  "vectors": [
+    {
+      "id": "BASE_STRUCTURED",
+      "kind": "public-form",
+      "expected": {
+        "verdict": "PASS",
+        "reason": "PASS_STRUCTURED_DECISION"
+      },
+      "verdict": "PASS",
+      "reason": "PASS_STRUCTURED_DECISION",
+      "expectationMatched": true
+    },
+    {
+      "id": "BASE_NO_REDUCTION",
+      "kind": "public-form",
+      "expected": {
+        "verdict": "PASS",
+        "reason": "PASS_STRUCTURED_DECISION"
+      },
+      "verdict": "PASS",
+      "reason": "PASS_STRUCTURED_DECISION",
+      "expectationMatched": true
+    },
+    {
+      "id": "DIGEST_ONLY_FORM",
+      "kind": "public-form",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "UNSUPPORTED_PUBLIC_FORM"
+      },
+      "verdict": "REJECT",
+      "reason": "UNSUPPORTED_PUBLIC_FORM",
+      "expectationMatched": true
+    },
+    {
+      "id": "EVIDENCE_REF_FORM",
+      "kind": "public-form",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "UNSUPPORTED_PUBLIC_FORM"
+      },
+      "verdict": "REJECT",
+      "reason": "UNSUPPORTED_PUBLIC_FORM",
+      "expectationMatched": true
+    },
+    {
+      "id": "EFFECT_FIELD",
+      "kind": "public-form",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "SCHEMA_UNKNOWN_FIELD"
+      },
+      "verdict": "REJECT",
+      "reason": "SCHEMA_UNKNOWN_FIELD",
+      "expectationMatched": true
+    },
+    {
+      "id": "MODE_FIELD",
+      "kind": "public-form",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "SCHEMA_UNKNOWN_FIELD"
+      },
+      "verdict": "REJECT",
+      "reason": "SCHEMA_UNKNOWN_FIELD",
+      "expectationMatched": true
+    },
+    {
+      "id": "DECLARATION_CONTROL",
+      "kind": "declaration",
+      "expected": {
+        "verdict": "PASS",
+        "reason": "PASS_STRUCTURED_DECISION"
+      },
+      "verdict": "PASS",
+      "reason": "PASS_STRUCTURED_DECISION",
+      "expectationMatched": true
+    },
+    {
+      "id": "DECLARATION_UNAUTHENTICATED",
+      "kind": "declaration",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "DECLARATION_UNAUTHENTICATED"
+      },
+      "verdict": "REJECT",
+      "reason": "DECLARATION_UNAUTHENTICATED",
+      "expectationMatched": true
+    },
+    {
+      "id": "DECLARATION_DIGEST_TYPE",
+      "kind": "declaration",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "DECLARATION_DIGEST_TYPE"
+      },
+      "verdict": "REJECT",
+      "reason": "DECLARATION_DIGEST_TYPE",
+      "expectationMatched": true
+    },
+    {
+      "id": "DECLARATION_AUTH_TYPE",
+      "kind": "declaration",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "DECLARATION_AUTH_TYPE"
+      },
+      "verdict": "REJECT",
+      "reason": "DECLARATION_AUTH_TYPE",
+      "expectationMatched": true
+    },
+    {
+      "id": "ADMISSION_CONTROL",
+      "kind": "admission",
+      "expected": {
+        "verdict": "PASS",
+        "reason": "PASS_STRUCTURED_DECISION"
+      },
+      "verdict": "PASS",
+      "reason": "PASS_STRUCTURED_DECISION",
+      "expectationMatched": true
+    },
+    {
+      "id": "ADMISSION_DENIED",
+      "kind": "admission",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "SERVER_NOT_ADMITTED"
+      },
+      "verdict": "REJECT",
+      "reason": "SERVER_NOT_ADMITTED",
+      "expectationMatched": true
+    },
+    {
+      "id": "ADMISSION_REFERENCE_EMPTY",
+      "kind": "admission",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "ADMISSION_TYPE"
+      },
+      "verdict": "REJECT",
+      "reason": "ADMISSION_TYPE",
+      "expectationMatched": true
+    },
+    {
+      "id": "OPERATIONS_EXACT",
+      "kind": "operation-delta",
+      "expected": {
+        "verdict": "PASS",
+        "reason": "PASS_STRUCTURED_DECISION"
+      },
+      "verdict": "PASS",
+      "reason": "PASS_STRUCTURED_DECISION",
+      "expectationMatched": true
+    },
+    {
+      "id": "OPERATIONS_ESCALATION",
+      "kind": "operation-delta",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "EFFECTIVE_NOT_EXACT_INTERSECTION"
+      },
+      "verdict": "REJECT",
+      "reason": "EFFECTIVE_NOT_EXACT_INTERSECTION",
+      "expectationMatched": true
+    },
+    {
+      "id": "OPERATIONS_UNDERSTATEMENT",
+      "kind": "operation-delta",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "EFFECTIVE_NOT_EXACT_INTERSECTION"
+      },
+      "verdict": "REJECT",
+      "reason": "EFFECTIVE_NOT_EXACT_INTERSECTION",
+      "expectationMatched": true
+    },
+    {
+      "id": "OPERATIONS_DENIED_MISMATCH",
+      "kind": "operation-delta",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "DENIED_SET_MISMATCH"
+      },
+      "verdict": "REJECT",
+      "reason": "DENIED_SET_MISMATCH",
+      "expectationMatched": true
+    },
+    {
+      "id": "OPERATIONS_REDUCED_MISMATCH",
+      "kind": "operation-delta",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "REDUCED_SET_MISMATCH"
+      },
+      "verdict": "REJECT",
+      "reason": "REDUCED_SET_MISMATCH",
+      "expectationMatched": true
+    },
+    {
+      "id": "OPERATIONS_SET_CONTROL",
+      "kind": "operation-set",
+      "expected": {
+        "verdict": "PASS",
+        "reason": "PASS_STRUCTURED_DECISION"
+      },
+      "verdict": "PASS",
+      "reason": "PASS_STRUCTURED_DECISION",
+      "expectationMatched": true
+    },
+    {
+      "id": "OPERATIONS_REQUESTED_UNSORTED",
+      "kind": "operation-set",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "REQUESTED_SET_INVALID"
+      },
+      "verdict": "REJECT",
+      "reason": "REQUESTED_SET_INVALID",
+      "expectationMatched": true
+    },
+    {
+      "id": "OPERATIONS_REQUESTED_DUPLICATE",
+      "kind": "operation-set",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "REQUESTED_SET_INVALID"
+      },
+      "verdict": "REJECT",
+      "reason": "REQUESTED_SET_INVALID",
+      "expectationMatched": true
+    },
+    {
+      "id": "BUDGET_EXACT",
+      "kind": "budget-delta",
+      "expected": {
+        "verdict": "PASS",
+        "reason": "PASS_STRUCTURED_DECISION"
+      },
+      "verdict": "PASS",
+      "reason": "PASS_STRUCTURED_DECISION",
+      "expectationMatched": true
+    },
+    {
+      "id": "BUDGET_INCREASE",
+      "kind": "budget-delta",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "BUDGET_INCREASE"
+      },
+      "verdict": "REJECT",
+      "reason": "BUDGET_INCREASE",
+      "expectationMatched": true
+    },
+    {
+      "id": "BUDGET_UNDERSTATEMENT",
+      "kind": "budget-delta",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "BUDGET_EFFECTIVE_NOT_EXACT_MIN"
+      },
+      "verdict": "REJECT",
+      "reason": "BUDGET_EFFECTIVE_NOT_EXACT_MIN",
+      "expectationMatched": true
+    },
+    {
+      "id": "BUDGET_DENIED_MISMATCH",
+      "kind": "budget-delta",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "BUDGET_DENIED_MISMATCH"
+      },
+      "verdict": "REJECT",
+      "reason": "BUDGET_DENIED_MISMATCH",
+      "expectationMatched": true
+    },
+    {
+      "id": "BUDGET_REDUCED_MISMATCH",
+      "kind": "budget-delta",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "BUDGET_REDUCED_MISMATCH"
+      },
+      "verdict": "REJECT",
+      "reason": "BUDGET_REDUCED_MISMATCH",
+      "expectationMatched": true
+    },
+    {
+      "id": "BUDGET_BOOLEAN",
+      "kind": "numeric-domain",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "BUDGET_TYPE"
+      },
+      "verdict": "REJECT",
+      "reason": "BUDGET_TYPE",
+      "expectationMatched": true
+    },
+    {
+      "id": "BUDGET_LARGE_DECIMAL_STRING",
+      "kind": "numeric-domain",
+      "expected": {
+        "verdict": "PASS",
+        "reason": "PASS_STRUCTURED_DECISION"
+      },
+      "verdict": "PASS",
+      "reason": "PASS_STRUCTURED_DECISION",
+      "expectationMatched": true
+    },
+    {
+      "id": "IDENTITY_CONTROL",
+      "kind": "identity-binding",
+      "expected": {
+        "verdict": "PASS",
+        "reason": "PASS_STRUCTURED_DECISION"
+      },
+      "verdict": "PASS",
+      "reason": "PASS_STRUCTURED_DECISION",
+      "expectationMatched": true
+    },
+    {
+      "id": "POLICY_REVISION_EMPTY",
+      "kind": "identity-binding",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "DECISION_IDENTITY_TYPE"
+      },
+      "verdict": "REJECT",
+      "reason": "DECISION_IDENTITY_TYPE",
+      "expectationMatched": true
+    },
+    {
+      "id": "PRINCIPAL_EMPTY",
+      "kind": "identity-binding",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "DECISION_IDENTITY_TYPE"
+      },
+      "verdict": "REJECT",
+      "reason": "DECISION_IDENTITY_TYPE",
+      "expectationMatched": true
+    },
+    {
+      "id": "DECISION_ID_EMPTY",
+      "kind": "identity-binding",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "DECISION_IDENTITY_TYPE"
+      },
+      "verdict": "REJECT",
+      "reason": "DECISION_IDENTITY_TYPE",
+      "expectationMatched": true
+    },
+    {
+      "id": "ACTION_DIGEST_INVALID",
+      "kind": "identity-binding",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "ACTION_DIGEST_TYPE"
+      },
+      "verdict": "REJECT",
+      "reason": "ACTION_DIGEST_TYPE",
+      "expectationMatched": true
+    },
+    {
+      "id": "RFC3339_CONTROL",
+      "kind": "rfc3339",
+      "expected": {
+        "verdict": "PASS",
+        "reason": "PASS_STRUCTURED_DECISION"
+      },
+      "verdict": "PASS",
+      "reason": "PASS_STRUCTURED_DECISION",
+      "expectationMatched": true
+    },
+    {
+      "id": "INVALID_MONTH_DAY_TIME_VECTOR",
+      "kind": "rfc3339",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "INVALID_RFC3339_INSTANT"
+      },
+      "verdict": "REJECT",
+      "reason": "INVALID_RFC3339_INSTANT",
+      "expectationMatched": true
+    },
+    {
+      "id": "INVALID_NONLEAP_DAY_VECTOR",
+      "kind": "rfc3339",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "INVALID_RFC3339_INSTANT"
+      },
+      "verdict": "REJECT",
+      "reason": "INVALID_RFC3339_INSTANT",
+      "expectationMatched": true
+    },
+    {
+      "id": "RFC3339_FORMAT_INVALID",
+      "kind": "rfc3339",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "INVALID_RFC3339_INSTANT"
+      },
+      "verdict": "REJECT",
+      "reason": "INVALID_RFC3339_INSTANT",
+      "expectationMatched": true
+    },
+    {
+      "id": "ANCHOR_BOUND",
+      "kind": "generation-binding",
+      "expected": {
+        "verdict": "PASS",
+        "reason": "PASS_STRUCTURED_DECISION"
+      },
+      "verdict": "PASS",
+      "reason": "PASS_STRUCTURED_DECISION",
+      "expectationMatched": true
+    },
+    {
+      "id": "ANCHOR_PREBINDING_INACTIVE",
+      "kind": "generation-binding",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "PREBINDING_INACTIVE"
+      },
+      "verdict": "REJECT",
+      "reason": "PREBINDING_INACTIVE",
+      "expectationMatched": true
+    },
+    {
+      "id": "ANCHOR_FUTURE_CAPTURE",
+      "kind": "generation-binding",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "FUTURE_CAPTURE_REJECTED"
+      },
+      "verdict": "REJECT",
+      "reason": "FUTURE_CAPTURE_REJECTED",
+      "expectationMatched": true
+    },
+    {
+      "id": "ANCHOR_SETTLEMENT_SUBSTITUTED",
+      "kind": "generation-binding",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "HISTORICAL_BINDING_MISMATCH"
+      },
+      "verdict": "REJECT",
+      "reason": "HISTORICAL_BINDING_MISMATCH",
+      "expectationMatched": true
+    },
+    {
+      "id": "ANCHOR_POST_BINDING_DEACTIVATED",
+      "kind": "generation-binding",
+      "expected": {
+        "verdict": "PASS",
+        "reason": "PASS_STRUCTURED_DECISION"
+      },
+      "verdict": "PASS",
+      "reason": "PASS_STRUCTURED_DECISION",
+      "expectationMatched": true
+    },
+    {
+      "id": "LIST_MATERIAL_REGATED",
+      "kind": "list-regating",
+      "expected": {
+        "verdict": "PASS",
+        "reason": "PASS_STRUCTURED_DECISION"
+      },
+      "verdict": "PASS",
+      "reason": "PASS_STRUCTURED_DECISION",
+      "expectationMatched": true
+    },
+    {
+      "id": "LIST_MATERIAL_NOT_REGATED",
+      "kind": "list-regating",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "MATERIAL_CHANGE_REQUIRES_REGATE"
+      },
+      "verdict": "REJECT",
+      "reason": "MATERIAL_CHANGE_REQUIRES_REGATE",
+      "expectationMatched": true
+    },
+    {
+      "id": "LIST_DIGEST_INVALID",
+      "kind": "list-regating",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "LIST_STATE_TYPE"
+      },
+      "verdict": "REJECT",
+      "reason": "LIST_STATE_TYPE",
+      "expectationMatched": true
+    },
+    {
+      "id": "IDEMPOTENCY_CONTROL",
+      "kind": "idempotency",
+      "expected": {
+        "verdict": "PASS",
+        "reason": "PASS_STRUCTURED_DECISION"
+      },
+      "verdict": "PASS",
+      "reason": "PASS_STRUCTURED_DECISION",
+      "expectationMatched": true
+    },
+    {
+      "id": "IDEMPOTENCY_DIGEST_INVALID",
+      "kind": "idempotency",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "IDEMPOTENCY_DIGEST_TYPE"
+      },
+      "verdict": "REJECT",
+      "reason": "IDEMPOTENCY_DIGEST_TYPE",
+      "expectationMatched": true
+    },
+    {
+      "id": "REASON_CODES_SORTED",
+      "kind": "reason-codes",
+      "expected": {
+        "verdict": "PASS",
+        "reason": "PASS_STRUCTURED_DECISION"
+      },
+      "verdict": "PASS",
+      "reason": "PASS_STRUCTURED_DECISION",
+      "expectationMatched": true
+    },
+    {
+      "id": "REASON_CODES_UNSORTED",
+      "kind": "reason-codes",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "REASON_CODES_INVALID"
+      },
+      "verdict": "REJECT",
+      "reason": "REASON_CODES_INVALID",
+      "expectationMatched": true
+    },
+    {
+      "id": "REASON_CODES_DUPLICATE",
+      "kind": "reason-codes",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "REASON_CODES_INVALID"
+      },
+      "verdict": "REJECT",
+      "reason": "REASON_CODES_INVALID",
+      "expectationMatched": true
+    },
+    {
+      "id": "REASON_CODES_EMPTY_WITH_REDUCTION",
+      "kind": "reason-codes",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "REASON_CODES_REQUIRED"
+      },
+      "verdict": "REJECT",
+      "reason": "REASON_CODES_REQUIRED",
+      "expectationMatched": true
+    },
+    {
+      "id": "REASON_CODES_EMPTY_NO_REDUCTION",
+      "kind": "reason-codes",
+      "expected": {
+        "verdict": "PASS",
+        "reason": "PASS_STRUCTURED_DECISION"
+      },
+      "verdict": "PASS",
+      "reason": "PASS_STRUCTURED_DECISION",
+      "expectationMatched": true
+    },
+    {
+      "id": "ROOT_EXACT_CONTROL",
+      "kind": "closed-root",
+      "expected": {
+        "verdict": "PASS",
+        "reason": "PASS_STRUCTURED_DECISION"
+      },
+      "verdict": "PASS",
+      "reason": "PASS_STRUCTURED_DECISION",
+      "expectationMatched": true
+    },
+    {
+      "id": "UNKNOWN_TOP_LEVEL",
+      "kind": "closed-root",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "SCHEMA_UNKNOWN_FIELD"
+      },
+      "verdict": "REJECT",
+      "reason": "SCHEMA_UNKNOWN_FIELD",
+      "expectationMatched": true
+    },
+    {
+      "id": "MISSING_DECISION",
+      "kind": "closed-root",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "SCHEMA_REQUIRED_FIELD_MISSING"
+      },
+      "verdict": "REJECT",
+      "reason": "SCHEMA_REQUIRED_FIELD_MISSING",
+      "expectationMatched": true
+    },
+    {
+      "id": "DECISION_EXACT_CONTROL",
+      "kind": "closed-decision",
+      "expected": {
+        "verdict": "PASS",
+        "reason": "PASS_STRUCTURED_DECISION"
+      },
+      "verdict": "PASS",
+      "reason": "PASS_STRUCTURED_DECISION",
+      "expectationMatched": true
+    },
+    {
+      "id": "UNKNOWN_DECISION_FIELD",
+      "kind": "closed-decision",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "SCHEMA_UNKNOWN_FIELD"
+      },
+      "verdict": "REJECT",
+      "reason": "SCHEMA_UNKNOWN_FIELD",
+      "expectationMatched": true
+    },
+    {
+      "id": "UNKNOWN_NESTED_POLICY_FIELD",
+      "kind": "closed-decision",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "SCHEMA_UNKNOWN_FIELD"
+      },
+      "verdict": "REJECT",
+      "reason": "SCHEMA_UNKNOWN_FIELD",
+      "expectationMatched": true
+    },
+    {
+      "id": "MISSING_ANCHOR_ID",
+      "kind": "closed-decision",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "SCHEMA_REQUIRED_FIELD_MISSING"
+      },
+      "verdict": "REJECT",
+      "reason": "SCHEMA_REQUIRED_FIELD_MISSING",
+      "expectationMatched": true
+    },
+    {
+      "id": "EXTENSIONS_NOT_OBJECT",
+      "kind": "closed-decision",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "EXTENSIONS_TYPE"
+      },
+      "verdict": "REJECT",
+      "reason": "EXTENSIONS_TYPE",
+      "expectationMatched": true
+    },
+    {
+      "id": "COMMITTED_EXTENSION_TENANT_A",
+      "kind": "extension-commitment",
+      "expected": {
+        "verdict": "PASS",
+        "reason": "PASS_STRUCTURED_DECISION"
+      },
+      "verdict": "PASS",
+      "reason": "PASS_STRUCTURED_DECISION",
+      "expectationMatched": true
+    },
+    {
+      "id": "COMMITTED_EXTENSION_TENANT_B",
+      "kind": "extension-commitment",
+      "expected": {
+        "verdict": "PASS",
+        "reason": "PASS_STRUCTURED_DECISION"
+      },
+      "verdict": "PASS",
+      "reason": "PASS_STRUCTURED_DECISION",
+      "expectationMatched": true
+    },
+    {
+      "id": "EXTENSION_KEY_CONTROL",
+      "kind": "extension-key",
+      "expected": {
+        "verdict": "PASS",
+        "reason": "PASS_STRUCTURED_DECISION"
+      },
+      "verdict": "PASS",
+      "reason": "PASS_STRUCTURED_DECISION",
+      "expectationMatched": true
+    },
+    {
+      "id": "EMPTY_EXTENSION_KEY_VECTOR",
+      "kind": "extension-key",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "EXTENSION_KEY"
+      },
+      "verdict": "REJECT",
+      "reason": "EXTENSION_KEY",
+      "expectationMatched": true
+    },
+    {
+      "id": "NESTED_EMPTY_EXTENSION_KEY",
+      "kind": "extension-key",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "EXTENSION_KEY"
+      },
+      "verdict": "REJECT",
+      "reason": "EXTENSION_KEY",
+      "expectationMatched": true
+    },
+    {
+      "id": "COMMITMENT_CONTROL",
+      "kind": "decision-commitment",
+      "expected": {
+        "verdict": "PASS",
+        "reason": "PASS_STRUCTURED_DECISION"
+      },
+      "verdict": "PASS",
+      "reason": "PASS_STRUCTURED_DECISION",
+      "expectationMatched": true
+    },
+    {
+      "id": "COMMITMENT_SUBSTITUTED",
+      "kind": "decision-commitment",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "DECISION_COMMITMENT_SUBSTITUTED"
+      },
+      "verdict": "REJECT",
+      "reason": "DECISION_COMMITMENT_SUBSTITUTED",
+      "expectationMatched": true
+    },
+    {
+      "id": "COMMITMENT_ALGORITHM_UNKNOWN",
+      "kind": "decision-commitment",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "DECISION_ALGORITHM_UNSUPPORTED"
+      },
+      "verdict": "REJECT",
+      "reason": "DECISION_ALGORITHM_UNSUPPORTED",
+      "expectationMatched": true
+    },
+    {
+      "id": "COMMITMENT_CANONICALIZATION_UNKNOWN",
+      "kind": "decision-commitment",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "DECISION_COMMITMENT_TYPE"
+      },
+      "verdict": "REJECT",
+      "reason": "DECISION_COMMITMENT_TYPE",
+      "expectationMatched": true
+    },
+    {
+      "id": "COMMITMENT_MISSING_DIGEST",
+      "kind": "decision-commitment",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "DECISION_COMMITMENT_MISSING"
+      },
+      "verdict": "REJECT",
+      "reason": "DECISION_COMMITMENT_MISSING",
+      "expectationMatched": true
+    }
+  ],
+  "parser": [
+    {
+      "id": "PARSER_SAFE_OBJECT",
+      "expected": {
+        "verdict": "PASS",
+        "reason": "PARSE_PASS"
+      },
+      "verdict": "PASS",
+      "reason": "PARSE_PASS",
+      "expectationMatched": true
+    },
+    {
+      "id": "PARSER_UTF8_KEY_ORDER",
+      "expected": {
+        "verdict": "PASS",
+        "reason": "PARSE_PASS"
+      },
+      "verdict": "PASS",
+      "reason": "PARSE_PASS",
+      "expectationMatched": true
+    },
+    {
+      "id": "DUPLICATE_KEY",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "DUPLICATE_JSON_KEY"
+      },
+      "verdict": "REJECT",
+      "reason": "DUPLICATE_JSON_KEY",
+      "expectationMatched": true
+    },
+    {
+      "id": "LONE_SURROGATE",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "LONE_SURROGATE"
+      },
+      "verdict": "REJECT",
+      "reason": "LONE_SURROGATE",
+      "expectationMatched": true
+    },
+    {
+      "id": "PARSER_VALID_SURROGATE_PAIR",
+      "expected": {
+        "verdict": "PASS",
+        "reason": "PARSE_PASS"
+      },
+      "verdict": "PASS",
+      "reason": "PARSE_PASS",
+      "expectationMatched": true
+    },
+    {
+      "id": "OVERLONG_INTEGER",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "LIMIT_INTEGER_DIGITS"
+      },
+      "verdict": "REJECT",
+      "reason": "LIMIT_INTEGER_DIGITS",
+      "expectationMatched": true
+    },
+    {
+      "id": "PARSER_UNSAFE_INTEGER",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "UNSAFE_INTEGER"
+      },
+      "verdict": "REJECT",
+      "reason": "UNSAFE_INTEGER",
+      "expectationMatched": true
+    },
+    {
+      "id": "PARSER_FLOAT",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "FLOAT_NOT_ALLOWED"
+      },
+      "verdict": "REJECT",
+      "reason": "FLOAT_NOT_ALLOWED",
+      "expectationMatched": true
+    },
+    {
+      "id": "OVER_DEPTH",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "LIMIT_DEPTH"
+      },
+      "verdict": "REJECT",
+      "reason": "LIMIT_DEPTH",
+      "expectationMatched": true
+    },
+    {
+      "id": "PARSER_DEPTH_63_ARRAYS",
+      "expected": {
+        "verdict": "PASS",
+        "reason": "PARSE_PASS"
+      },
+      "verdict": "PASS",
+      "reason": "PARSE_PASS",
+      "expectationMatched": true
+    },
+    {
+      "id": "PARSER_DEPTH_64_ARRAYS",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "LIMIT_DEPTH"
+      },
+      "verdict": "REJECT",
+      "reason": "LIMIT_DEPTH",
+      "expectationMatched": true
+    },
+    {
+      "id": "PARSER_NODE_LIMIT_CONTROL",
+      "expected": {
+        "verdict": "PASS",
+        "reason": "PARSE_PASS"
+      },
+      "verdict": "PASS",
+      "reason": "PARSE_PASS",
+      "expectationMatched": true
+    },
+    {
+      "id": "PARSER_NODE_LIMIT_EXCEEDED",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "LIMIT_NODES"
+      },
+      "verdict": "REJECT",
+      "reason": "LIMIT_NODES",
+      "expectationMatched": true
+    },
+    {
+      "id": "PARSER_STRING_LIMIT_EXCEEDED",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "LIMIT_STRING_BYTES"
+      },
+      "verdict": "REJECT",
+      "reason": "LIMIT_STRING_BYTES",
+      "expectationMatched": true
+    },
+    {
+      "id": "PARSER_TOTAL_STRING_LIMIT_EXCEEDED",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "LIMIT_TOTAL_STRING_BYTES"
+      },
+      "verdict": "REJECT",
+      "reason": "LIMIT_TOTAL_STRING_BYTES",
+      "expectationMatched": true
+    },
+    {
+      "id": "PARSER_DOCUMENT_LIMIT_EXCEEDED",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "LIMIT_DOCUMENT_BYTES"
+      },
+      "verdict": "REJECT",
+      "reason": "LIMIT_DOCUMENT_BYTES",
+      "expectationMatched": true
+    },
+    {
+      "id": "PARSER_NON_NFC",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "NON_NFC_STRING"
+      },
+      "verdict": "REJECT",
+      "reason": "NON_NFC_STRING",
+      "expectationMatched": true
+    },
+    {
+      "id": "PARSER_NFC_CONTROL",
+      "expected": {
+        "verdict": "PASS",
+        "reason": "PARSE_PASS"
+      },
+      "verdict": "PASS",
+      "reason": "PARSE_PASS",
+      "expectationMatched": true
+    },
+    {
+      "id": "PARSER_BOOLEAN_CONTROL",
+      "expected": {
+        "verdict": "PASS",
+        "reason": "PARSE_PASS"
+      },
+      "verdict": "PASS",
+      "reason": "PARSE_PASS",
+      "expectationMatched": true
+    },
+    {
+      "id": "PARSER_INVALID_SYNTAX",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "JSON_SYNTAX"
+      },
+      "verdict": "REJECT",
+      "reason": "JSON_SYNTAX",
+      "expectationMatched": true
+    },
+    {
+      "id": "INVALID_MONTH_DAY_TIME",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "INVALID_RFC3339_INSTANT"
+      },
+      "verdict": "REJECT",
+      "reason": "INVALID_RFC3339_INSTANT",
+      "expectationMatched": true
+    },
+    {
+      "id": "INVALID_NONLEAP_DAY",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "INVALID_RFC3339_INSTANT"
+      },
+      "verdict": "REJECT",
+      "reason": "INVALID_RFC3339_INSTANT",
+      "expectationMatched": true
+    },
+    {
+      "id": "EMPTY_EXTENSION_KEY",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "EXTENSION_KEY"
+      },
+      "verdict": "REJECT",
+      "reason": "EXTENSION_KEY",
+      "expectationMatched": true
+    },
+    {
+      "id": "PARSER_NESTED_EMPTY_EXTENSION_KEY",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "EXTENSION_KEY"
+      },
+      "verdict": "REJECT",
+      "reason": "EXTENSION_KEY",
+      "expectationMatched": true
+    },
+    {
+      "id": "PARSER_DIGEST_ONLY_FORM",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "UNSUPPORTED_PUBLIC_FORM"
+      },
+      "verdict": "REJECT",
+      "reason": "UNSUPPORTED_PUBLIC_FORM",
+      "expectationMatched": true
+    },
+    {
+      "id": "PARSER_EVIDENCE_REF_FORM",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "UNSUPPORTED_PUBLIC_FORM"
+      },
+      "verdict": "REJECT",
+      "reason": "UNSUPPORTED_PUBLIC_FORM",
+      "expectationMatched": true
+    },
+    {
+      "id": "PARSER_EFFECT_FIELD",
+      "expected": {
+        "verdict": "REJECT",
+        "reason": "SCHEMA_UNKNOWN_FIELD"
+      },
+      "verdict": "REJECT",
+      "reason": "SCHEMA_UNKNOWN_FIELD",
+      "expectationMatched": true
+    }
+  ],
+  "knownAnswerTests": [
+    {
+      "id": "UTF8_ORDER_ASTRAL_BMP",
+      "expectedCanonicalUtf8Hex": "7b22ee8080223a22626d70222c22f09f9880223a2261737472616c227d",
+      "actualCanonicalUtf8Hex": "7b22ee8080223a22626d70222c22f09f9880223a2261737472616c227d",
+      "expectedDigest": "sha256:4874d36535a1b5dfdad7f2b3af83f87debd2f0795ae7d2d09447e17223c42dd0",
+      "actualDigest": "sha256:4874d36535a1b5dfdad7f2b3af83f87debd2f0795ae7d2d09447e17223c42dd0",
+      "error": null,
+      "pass": true
+    },
+    {
+      "id": "SCALAR_ARRAY_CONTROL",
+      "expectedCanonicalUtf8Hex": "7b2261223a5b747275652c6e756c6c2c22c3a9225d2c227a223a307d",
+      "actualCanonicalUtf8Hex": "7b2261223a5b747275652c6e756c6c2c22c3a9225d2c227a223a307d",
+      "expectedDigest": "sha256:c3def2e9f3389c01aaa26f79114911addc9fbcfbb4130c412bd98ea9c38a33bb",
+      "actualDigest": "sha256:c3def2e9f3389c01aaa26f79114911addc9fbcfbb4130c412bd98ea9c38a33bb",
+      "error": null,
+      "pass": true
+    },
+    {
+      "id": "NESTED_EXTENSION_ORDER",
+      "expectedCanonicalUtf8Hex": "7b22616e63686f72223a7b2267656e65726174696f6e223a2237222c226964223a2261227d2c2274656e616e744964223a2274656e616e742d61227d",
+      "actualCanonicalUtf8Hex": "7b22616e63686f72223a7b2267656e65726174696f6e223a2237222c226964223a2261227d2c2274656e616e744964223a2274656e616e742d61227d",
+      "expectedDigest": "sha256:07d218356e1b853f5b80e57c55bd5118ca182b2f36540d008d95ac8c578bd7e3",
+      "actualDigest": "sha256:07d218356e1b853f5b80e57c55bd5118ca182b2f36540d008d95ac8c578bd7e3",
+      "error": null,
+      "pass": true
+    }
+  ],
+  "mutations": {
+    "count": 4096,
+    "unique": 4096,
+    "operatorCount": 16,
+    "operators": {
+      "unknown-top-level": 256,
+      "unknown-decision-field": 256,
+      "effective-escalation": 256,
+      "denied-set-mismatch": 256,
+      "reduced-set-mismatch": 256,
+      "budget-increase": 256,
+      "budget-denied-mismatch": 256,
+      "declaration-unauthenticated": 256,
+      "admission-denied": 256,
+      "future-capture": 256,
+      "material-list-not-regated": 256,
+      "reason-codes-unsorted": 256,
+      "evidence-digest-substitution": 256,
+      "algorithm-substitution": 256,
+      "idempotency-digest-invalid": 256,
+      "committed-extension-substitution": 256
+    },
+    "corpusRoot": "sha256:9c990d62a9202c4d50ccec51bb6ad9679fec5ace9ed49351169f45ea3532fcca",
+    "unexpectedAcceptance": 0,
+    "unexpectedReason": 0,
+    "semanticResealedCount": 2816,
+    "reasonCounts": {
+      "BUDGET_DENIED_MISMATCH": 256,
+      "BUDGET_INCREASE": 256,
+      "DECISION_ALGORITHM_UNSUPPORTED": 256,
+      "DECISION_COMMITMENT_SUBSTITUTED": 512,
+      "DECLARATION_UNAUTHENTICATED": 256,
+      "DENIED_SET_MISMATCH": 256,
+      "EFFECTIVE_NOT_EXACT_INTERSECTION": 256,
+      "FUTURE_CAPTURE_REJECTED": 256,
+      "IDEMPOTENCY_DIGEST_TYPE": 256,
+      "MATERIAL_CHANGE_REQUIRES_REGATE": 256,
+      "REASON_CODES_INVALID": 256,
+      "REDUCED_SET_MISMATCH": 256,
+      "SCHEMA_UNKNOWN_FIELD": 512,
+      "SERVER_NOT_ADMITTED": 256
+    }
+  },
+  "causalControls": [
+    {
+      "id": "effective-escalation",
+      "sameObject": true,
+      "green": {
+        "verdict": "PASS",
+        "reason": "PASS_STRUCTURED_DECISION"
+      },
+      "red": {
+        "verdict": "REJECT",
+        "reason": "EFFECTIVE_NOT_EXACT_INTERSECTION"
+      },
+      "restored": {
+        "verdict": "PASS",
+        "reason": "PASS_STRUCTURED_DECISION"
+      },
+      "beforeDigest": "sha256:52dbd0ff801ad342615b4ad0c040ca29c3ba15b72dacaabee77e1515d329cb60",
+      "afterDigest": "sha256:52dbd0ff801ad342615b4ad0c040ca29c3ba15b72dacaabee77e1515d329cb60",
+      "byteEquality": true,
+      "pass": true
+    },
+    {
+      "id": "policy-revision-substitution",
+      "sameObject": true,
+      "green": {
+        "verdict": "PASS",
+        "reason": "PASS_STRUCTURED_DECISION"
+      },
+      "red": {
+        "verdict": "REJECT",
+        "reason": "DECISION_COMMITMENT_SUBSTITUTED"
+      },
+      "restored": {
+        "verdict": "PASS",
+        "reason": "PASS_STRUCTURED_DECISION"
+      },
+      "beforeDigest": "sha256:52dbd0ff801ad342615b4ad0c040ca29c3ba15b72dacaabee77e1515d329cb60",
+      "afterDigest": "sha256:52dbd0ff801ad342615b4ad0c040ca29c3ba15b72dacaabee77e1515d329cb60",
+      "byteEquality": true,
+      "pass": true
+    },
+    {
+      "id": "anchor-id-substitution",
+      "sameObject": true,
+      "green": {
+        "verdict": "PASS",
+        "reason": "PASS_STRUCTURED_DECISION"
+      },
+      "red": {
+        "verdict": "REJECT",
+        "reason": "DECISION_COMMITMENT_SUBSTITUTED"
+      },
+      "restored": {
+        "verdict": "PASS",
+        "reason": "PASS_STRUCTURED_DECISION"
+      },
+      "beforeDigest": "sha256:52dbd0ff801ad342615b4ad0c040ca29c3ba15b72dacaabee77e1515d329cb60",
+      "afterDigest": "sha256:52dbd0ff801ad342615b4ad0c040ca29c3ba15b72dacaabee77e1515d329cb60",
+      "byteEquality": true,
+      "pass": true
+    },
+    {
+      "id": "extension-substitution",
+      "sameObject": true,
+      "green": {
+        "verdict": "PASS",
+        "reason": "PASS_STRUCTURED_DECISION"
+      },
+      "red": {
+        "verdict": "REJECT",
+        "reason": "DECISION_COMMITMENT_SUBSTITUTED"
+      },
+      "restored": {
+        "verdict": "PASS",
+        "reason": "PASS_STRUCTURED_DECISION"
+      },
+      "beforeDigest": "sha256:52dbd0ff801ad342615b4ad0c040ca29c3ba15b72dacaabee77e1515d329cb60",
+      "afterDigest": "sha256:52dbd0ff801ad342615b4ad0c040ca29c3ba15b72dacaabee77e1515d329cb60",
+      "byteEquality": true,
+      "pass": true
+    },
+    {
+      "id": "action-digest-substitution",
+      "sameObject": true,
+      "green": {
+        "verdict": "PASS",
+        "reason": "PASS_STRUCTURED_DECISION"
+      },
+      "red": {
+        "verdict": "REJECT",
+        "reason": "DECISION_COMMITMENT_SUBSTITUTED"
+      },
+      "restored": {
+        "verdict": "PASS",
+        "reason": "PASS_STRUCTURED_DECISION"
+      },
+      "beforeDigest": "sha256:52dbd0ff801ad342615b4ad0c040ca29c3ba15b72dacaabee77e1515d329cb60",
+      "afterDigest": "sha256:52dbd0ff801ad342615b4ad0c040ca29c3ba15b72dacaabee77e1515d329cb60",
+      "byteEquality": true,
+      "pass": true
+    }
+  ],
+  "fileRestorationControl": {
+    "path": "results/python.json.causal-restored.json",
+    "samePath": true,
+    "beforeSha256": "sha256:50c3f7b7ba5fa7829a7239e80953a6d006c2eaee256fe388851a3d6ce1475aba",
+    "afterSha256": "sha256:50c3f7b7ba5fa7829a7239e80953a6d006c2eaee256fe388851a3d6ce1475aba",
+    "byteEquality": true,
+    "red": {
+      "verdict": "REJECT",
+      "reason": "DECISION_COMMITMENT_SUBSTITUTED"
+    },
+    "restored": {
+      "verdict": "PASS",
+      "reason": "PASS_STRUCTURED_DECISION"
+    },
+    "pass": true
+  },
+  "pass": true
+}

@@ -1,0 +1,56 @@
+{
+  "schema": "auec.third-party-fixture-crossrun-receipt.v1",
+  "classification": "THIRD_PARTY_FIXTURE_CROSSRUN",
+  "independentValidation": false,
+  "tersign": {
+    "repository": "tersignhq/evidence-record-conformance",
+    "commit": "46ad663b90805a2e526ef3cd28c3f70762883125",
+    "tree": "0bb14fc71c2a5470b8a8349ba7ba3bd8c9f47a7f",
+    "verifyBlob": "5b47042f8625bc404a2f868810879bcd549c0039",
+    "keccakBlob": "c8af65ec6cc5c59fda8e1e63f8e238eb9a4d0157",
+    "license": "Apache-2.0"
+  },
+  "sourceFixtures": [
+    {
+      "id": "p18-boundary-binds-prefix-and-position",
+      "gitBlob": "d0f56b9574553a3708762b2bfac0941f0863915b",
+      "expect": "valid",
+      "observed": "valid"
+    },
+    {
+      "id": "n25-boundary-prefix-only-no-position",
+      "gitBlob": "2eeae70027cae3bfebe4e527955495563da91be6",
+      "expect": "reject",
+      "observed": "reject"
+    },
+    {
+      "id": "n26-coverage-claimed-over-empty-attestation",
+      "gitBlob": "52104df195be3b20a378bf4f344ce05d835407fc",
+      "expect": "reject",
+      "observed": "reject"
+    }
+  ],
+  "crossrun": {
+    "passed": 3,
+    "total": 3,
+    "adapterSha256": "5f9cf6d49a2b3ec019a81778d00f11b487674ef2d75692595d5c05762047d12f",
+    "auecR56HarnessSha256": "8fb51d1e6a9e22d13f4cca0c4be72ca543c493a7e50fe20de25194c9db68ebb7"
+  },
+  "contribution": {
+    "commit": "c23a985c51b99cf8ec71aebf5af9f53aa34747cc",
+    "pullRequest": "https://github.com/tersignhq/evidence-record-conformance/pull/5",
+    "python": "47/47",
+    "typescript": "47/47",
+    "differentialCases": 299,
+    "differentialOffCorpus": 252,
+    "differentialDivergences": 0,
+    "externalCi": {
+      "state": "ACTION_REQUIRED_AWAITING_MAINTAINER_APPROVAL",
+      "run": "https://github.com/tersignhq/evidence-record-conformance/actions/runs/31318111163",
+      "jobs": 0,
+      "passClaimed": false
+    }
+  },
+  "thirdPartyHumanReview": "NOT_OBTAINED",
+  "externalMerge": "NOT_OBTAINED"
+}

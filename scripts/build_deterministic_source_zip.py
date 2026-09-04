@@ -22,10 +22,15 @@ EXCLUDED_RELATIVE_PATHS = {
 }
 EXCLUDED_DIRECTORY_NAMES = {
     ".git",
+    ".mypy_cache",
     ".pytest_cache",
+    ".ruff_cache",
+    ".tox",
+    ".venv",
     "__pycache__",
     "build",
     "dist",
+    "venv",
 }
 
 

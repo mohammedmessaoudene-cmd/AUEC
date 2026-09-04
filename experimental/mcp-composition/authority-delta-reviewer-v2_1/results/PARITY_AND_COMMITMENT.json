@@ -1,0 +1,152 @@
+{
+  "schemaVersion": 3,
+  "nodePass": true,
+  "pythonPass": true,
+  "vectorParity": true,
+  "parserParity": true,
+  "katParity": true,
+  "mutationParity": true,
+  "causalParity": true,
+  "fileRestorationParity": true,
+  "canonicalizationDigestParity": [
+    {
+      "id": "UTF8_ORDER_ASTRAL_BMP",
+      "node": "sha256:4874d36535a1b5dfdad7f2b3af83f87debd2f0795ae7d2d09447e17223c42dd0",
+      "python": "sha256:4874d36535a1b5dfdad7f2b3af83f87debd2f0795ae7d2d09447e17223c42dd0",
+      "equal": true
+    },
+    {
+      "id": "SCALAR_ARRAY_CONTROL",
+      "node": "sha256:c3def2e9f3389c01aaa26f79114911addc9fbcfbb4130c412bd98ea9c38a33bb",
+      "python": "sha256:c3def2e9f3389c01aaa26f79114911addc9fbcfbb4130c412bd98ea9c38a33bb",
+      "equal": true
+    },
+    {
+      "id": "NESTED_EXTENSION_ORDER",
+      "node": "sha256:07d218356e1b853f5b80e57c55bd5118ca182b2f36540d008d95ac8c578bd7e3",
+      "python": "sha256:07d218356e1b853f5b80e57c55bd5118ca182b2f36540d008d95ac8c578bd7e3",
+      "equal": true
+    }
+  ],
+  "commitmentControls": [
+    {
+      "id": "policy-id",
+      "originalDigest": "sha256:204bf01669510688a16dddf90e3f8dae45f23c78199e2714e476001b5c2555e0",
+      "changedDigest": "sha256:e40d4a6dc6248fb41564123dffeb651c91dc849aa8605a032c2511ee5daceb8a",
+      "different": true
+    },
+    {
+      "id": "policy-revision",
+      "originalDigest": "sha256:204bf01669510688a16dddf90e3f8dae45f23c78199e2714e476001b5c2555e0",
+      "changedDigest": "sha256:a1189c8cefbb7524799747e2fcd432181a8e1c9f9f8bc1c52332bc877329e4b6",
+      "different": true
+    },
+    {
+      "id": "principal-id",
+      "originalDigest": "sha256:204bf01669510688a16dddf90e3f8dae45f23c78199e2714e476001b5c2555e0",
+      "changedDigest": "sha256:9c9f817e99818d3b1871a37f209362b61a434dc8bd607f146a417036a9d7d14f",
+      "different": true
+    },
+    {
+      "id": "server-id",
+      "originalDigest": "sha256:204bf01669510688a16dddf90e3f8dae45f23c78199e2714e476001b5c2555e0",
+      "changedDigest": "sha256:a8a7fc33ddf69900e921b79feee89e02152de9bc46504c905f210173e74cfb2a",
+      "different": true
+    },
+    {
+      "id": "tool-id",
+      "originalDigest": "sha256:204bf01669510688a16dddf90e3f8dae45f23c78199e2714e476001b5c2555e0",
+      "changedDigest": "sha256:2035324fbfe9a9442ba40b6c51f78cc1a6f8a95a6d422ce04ae6723fe2811fa2",
+      "different": true
+    },
+    {
+      "id": "action-digest",
+      "originalDigest": "sha256:204bf01669510688a16dddf90e3f8dae45f23c78199e2714e476001b5c2555e0",
+      "changedDigest": "sha256:438896b245a2a92a05439ebf41e60b9cf4927c8e24a29b013ced38c32fdc43c1",
+      "different": true
+    },
+    {
+      "id": "admission-reference",
+      "originalDigest": "sha256:204bf01669510688a16dddf90e3f8dae45f23c78199e2714e476001b5c2555e0",
+      "changedDigest": "sha256:914177dc680f3e3e7f970e0840834a7b56e717c5b91ebb94f978eac5a7cdd3de",
+      "different": true
+    },
+    {
+      "id": "requested-operations",
+      "originalDigest": "sha256:204bf01669510688a16dddf90e3f8dae45f23c78199e2714e476001b5c2555e0",
+      "changedDigest": "sha256:9be3f8f261d17310ee4ca8158e321f4664ca60884ceb5bc90e5b34458e4282c8",
+      "different": true
+    },
+    {
+      "id": "host-allowed-operations",
+      "originalDigest": "sha256:204bf01669510688a16dddf90e3f8dae45f23c78199e2714e476001b5c2555e0",
+      "changedDigest": "sha256:c8276664b134d642ac41aa548c32dbe498555574e7ee83e5f139d5d5435eee1e",
+      "different": true
+    },
+    {
+      "id": "budget-requested",
+      "originalDigest": "sha256:204bf01669510688a16dddf90e3f8dae45f23c78199e2714e476001b5c2555e0",
+      "changedDigest": "sha256:99f8fddee86a1d9f4b470c21b7998d1a3930e2e22c7831ba6c3d363fcc656f2b",
+      "different": true
+    },
+    {
+      "id": "list-epoch",
+      "originalDigest": "sha256:204bf01669510688a16dddf90e3f8dae45f23c78199e2714e476001b5c2555e0",
+      "changedDigest": "sha256:8edfe20ea4521dcc46f5dc472166444c688642c913c958a1f37ad4256c2e43c2",
+      "different": true
+    },
+    {
+      "id": "anchor-id",
+      "originalDigest": "sha256:204bf01669510688a16dddf90e3f8dae45f23c78199e2714e476001b5c2555e0",
+      "changedDigest": "sha256:1408b972350014ced38bd2ee35c033632455607b5d24a5396cf35bb77aea1262",
+      "different": true
+    },
+    {
+      "id": "anchor-generation",
+      "originalDigest": "sha256:204bf01669510688a16dddf90e3f8dae45f23c78199e2714e476001b5c2555e0",
+      "changedDigest": "sha256:652fd2f2a9eb54b8399471ab79eb421d0f93ee292dfc864fdebae37ebb29a3f0",
+      "different": true
+    },
+    {
+      "id": "idempotency-contract",
+      "originalDigest": "sha256:204bf01669510688a16dddf90e3f8dae45f23c78199e2714e476001b5c2555e0",
+      "changedDigest": "sha256:c91718b8ec8e5c3318708ed57434e07339879cd8841bb40c92906e17baa7217d",
+      "different": true
+    },
+    {
+      "id": "reason-codes",
+      "originalDigest": "sha256:204bf01669510688a16dddf90e3f8dae45f23c78199e2714e476001b5c2555e0",
+      "changedDigest": "sha256:d149aed17e89a9df4b60ce0146717893384581f8dd1026d25df0d8be7830f719",
+      "different": true
+    },
+    {
+      "id": "extensions",
+      "originalDigest": "sha256:204bf01669510688a16dddf90e3f8dae45f23c78199e2714e476001b5c2555e0",
+      "changedDigest": "sha256:73b4efa7ac9a43692f1ffb9a299445201a18ce2ab98ca69f28ae5384ad0efd23",
+      "different": true
+    }
+  ],
+  "extensionCollisionControl": {
+    "tenantA": "sha256:204bf01669510688a16dddf90e3f8dae45f23c78199e2714e476001b5c2555e0",
+    "tenantB": "sha256:73b4efa7ac9a43692f1ffb9a299445201a18ce2ab98ca69f28ae5384ad0efd23",
+    "decisionsDifferent": true,
+    "commitmentsDifferent": true
+  },
+  "scopeGates": {
+    "vectorsAtLeast48": true,
+    "kindsAtLeast16": true,
+    "parserAtLeast24": true,
+    "katsAtLeast3": true,
+    "mutationsExact4096": true,
+    "operatorsAtLeast16": true,
+    "unexpectedAcceptanceZero": true,
+    "assignedReasonsMatch": true
+  },
+  "boundedConclusion": "The narrowed V2.1 Core has cross-language byte/digest parity on the pinned domain, a closed structured decision schema, and an explicit fully committed extensions map.",
+  "nonClaims": [
+    "This does not make the profile normative MCP text.",
+    "This does not establish production deployment, upstream acceptance, effect occurrence, provider truth, retry behavior, or payment semantics.",
+    "Finite vectors and mutations do not prove universal correctness."
+  ],
+  "pass": true
+}

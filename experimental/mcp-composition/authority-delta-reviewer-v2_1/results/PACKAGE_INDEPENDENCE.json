@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 3,
+  "runtimeInputs": [
+    "vectors/corpus.json",
+    "vectors/parser-hostile.jsonl",
+    "vectors/canonicalization-kats.json",
+    "byte-pinned current-head SEP-3004 source"
+  ],
+  "sourceChecks": [
+    {
+      "file": "oracles/node/oracle.mjs",
+      "externalProfileDependencyReference": false,
+      "outboundNetworkPrimitive": false,
+      "remoteWriteCommand": false,
+      "secretLikeToken": false
+    },
+    {
+      "file": "oracles/python/oracle.py",
+      "externalProfileDependencyReference": false,
+      "outboundNetworkPrimitive": false,
+      "remoteWriteCommand": false,
+      "secretLikeToken": false
+    },
+    {
+      "file": "oracles/verify-parity-and-collision.mjs",
+      "externalProfileDependencyReference": false,
+      "outboundNetworkPrimitive": false,
+      "remoteWriteCommand": false,
+      "secretLikeToken": false
+    },
+    {
+      "file": "oracles/sep3004-current-head-projection.mjs",
+      "externalProfileDependencyReference": false,
+      "outboundNetworkPrimitive": false,
+      "remoteWriteCommand": false,
+      "secretLikeToken": false
+    },
+    {
+      "file": "oracles/verify-independence.mjs",
+      "externalProfileDependencyReference": false,
+      "outboundNetworkPrimitive": false,
+      "remoteWriteCommand": false,
+      "secretLikeToken": false
+    },
+    {
+      "file": "vectors/generate-corpus.mjs",
+      "externalProfileDependencyReference": false,
+      "outboundNetworkPrimitive": false,
+      "remoteWriteCommand": false,
+      "secretLikeToken": false
+    },
+    {
+      "file": "demo/run-review.ps1",
+      "externalProfileDependencyReference": false,
+      "outboundNetworkPrimitive": false,
+      "remoteWriteCommand": false,
+      "secretLikeToken": false
+    },
+    {
+      "file": "build/build_reviewer.py",
+      "externalProfileDependencyReference": false,
+      "outboundNetworkPrimitive": false,
+      "remoteWriteCommand": false,
+      "secretLikeToken": false
+    }
+  ],
+  "externalProfileDependencyCount": 0,
+  "outboundNetworkPrimitiveCount": 0,
+  "remoteWriteCommandCount": 0,
+  "secretLikeTokenCount": 0,
+  "remoteWrites": 0,
+  "pass": true
+}
