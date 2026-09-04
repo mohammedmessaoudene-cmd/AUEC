@@ -1,7 +1,7 @@
 {
   "schema": "auec.upstream-contributions-ledger.v1",
-  "statusCheckedAtUtc": "2026-08-11T22:20:31.4939016Z",
-  "evidenceIntegratedThroughUtc": "2026-08-11T18:50:09Z",
+  "statusCheckedAtUtc": "2026-08-13T02:35:32Z",
+  "evidenceIntegratedThroughUtc": "2026-08-12T23:59:12Z",
   "author": {
     "name": "Mohammed Messaoudene",
     "github": "mohammedmessaoudene-cmd",
@@ -9,7 +9,7 @@
   },
   "auecPublicRecord": {
     "repositoryUrl": "https://github.com/mohammedmessaoudene-cmd/AUEC",
-    "repositorySnapshot": "cefcae95b1401b5365a3bceec621b181b549980e",
+    "repositorySnapshot": "3cabb79e2a9c84db2dd256b64c97134c385d187d",
     "conceptDoi": "10.5281/zenodo.21796635",
     "versions": [
       {
@@ -162,6 +162,16 @@
           "authorAssociation": "NONE",
           "bodySha256": "2ed703a0dde5da07196ce72b57d92e6a94678146155cd2329f243e29eff5e405",
           "scope": "corrected T1 classes and exact public T1/T3 gist"
+        },
+        {
+          "id": 5274195840,
+          "url": "https://github.com/aos-standard/catalog/issues/1#issuecomment-5274195840",
+          "createdAtUtc": "2026-08-12T23:59:12Z",
+          "updatedAtUtc": "2026-08-12T23:59:12Z",
+          "author": "Tetsurohhori",
+          "authorAssociation": "MEMBER",
+          "bodyWithTerminalLfSha256": "9472c74bf247e0aebfeaba0bca5f5f7add38ab86259bbce3f489db2ee0e64d78",
+          "scope": "maintainer report of the v0.8 release, two narrowings arising from Mohammed Messaoudene's question, honest-stream acceptance run, preserved v0.7 tag, and AI assistance"
         }
       ],
       "upstream": {
@@ -170,7 +180,13 @@
         "v05Tag": "anchors-verify-v0.5",
         "v05Snapshot": "3602e695d32167876871578b975031bc7b0331c7",
         "v06Tag": "anchors-verify-v0.6",
-        "v06Snapshot": "e86a08673daa6e1ea2a4ab152c7690a0d268d8e6"
+        "v06Snapshot": "e86a08673daa6e1ea2a4ab152c7690a0d268d8e6",
+        "v07Tag": "anchors-verify-v0.7",
+        "v07Snapshot": "d541ad0d2e8353f09d3febdc22e58d3d347ee621",
+        "v08Tag": "anchors-verify-v0.8",
+        "v08TagKind": "lightweight",
+        "v08Snapshot": "15f2b50a77b78a0857d3c7e697726373406cd0ef",
+        "v08Tree": "89d7a250db6544b190e23a6663361c303429ced8"
       },
       "projectV04Receipt": {
         "path": "evidence/upstream/aos-anchors-verify/v0.4-nine-separator-receipts.json",
@@ -219,17 +235,60 @@
         },
         "aosMaintainerDisposition": "not_observed"
       },
-      "scope": "bounded separator receipts, maintainer fix and T2 report, project-controlled v0.5 reconstruction, and exact project-controlled v0.6 T1/T3 gist reproduction",
-      "status": "v04_separator_defect_maintainer_reproduced_and_fixed_nine_v04_separator_cases_project_controlled_reproduced_v05_t2_reported_matrix_held_t1_t3_gist_project_reproduced_maintainer_disposition_pending",
+      "projectV08ExactReproduction": {
+        "status": "BOUNDED_NONSECURITY_GAPS_REPRODUCED",
+        "implementationAuthorship": "AOS",
+        "questionAndCausalControl": "Mohammed Messaoudene",
+        "aiAssistance": "OpenAI ChatGPT and Codex",
+        "humanResponsibility": "Mohammed Messaoudene",
+        "receipts": [
+          {
+            "path": "evidence/upstream/aos-anchors-verify/v0.8-tag-and-object-receipt.json",
+            "sha256": "f7418bcef688ebfaa5f9699a68022a676bd454cb74b1e555d871dd57947a2b36"
+          },
+          {
+            "path": "evidence/upstream/aos-anchors-verify/v0.8-project-controlled-rerun.json",
+            "sha256": "cd3de682ad7ae9979adb7009775708da96938cad2e686cbde0c458d43ccb2b1a"
+          },
+          {
+            "path": "evidence/upstream/aos-anchors-verify/v0.8-differential-v0.7.json",
+            "sha256": "6b77b4751bb3efd28e5c271b7ddbfeb6f5e9bdecc7c296ebc2d90d2b143906b7"
+          },
+          {
+            "path": "evidence/upstream/aos-anchors-verify/v0.8-challenge-matrix.json",
+            "sha256": "e028a05515ead49b1b6e7ba864f6e32234297679707595a494ed12763a1a1905"
+          },
+          {
+            "path": "evidence/upstream/aos-anchors-verify/v0.8-maintainer-comment.json",
+            "sha256": "49c17801214dfee25941d920b988a61d9b6e5ebd54af5219bcf6ace5b9e41a4a"
+          }
+        ],
+        "runtimeCount": 5,
+        "selfTestsPerRuntime": "16/16 PASS",
+        "honestStream": "VERIFY_PARTIAL_18_OF_25_EXIT_3",
+        "historicalT2": "11/11 EXPECTED_DISPOSITIONS_MATCHED",
+        "historicalSeparators": "9/9 FAIL_CLOSED",
+        "macOS": "NOT_TESTED",
+        "securityCandidateEstablished": false,
+        "remoteMutationsDuringTests": 0
+      },
+      "scope": "bounded separator receipts, maintainer fix and T2 report, project-controlled v0.5 reconstruction, exact project-controlled v0.6 T1/T3 gist reproduction, and exact project-controlled v0.8 reproduction with bounded challenge receipts",
+      "status": "v08_exactly_reproduced_bounded_nonsecurity_gaps_recorded_maintainer_release_report_linked",
       "limits": [
-        "No VERIFY OK result or complete verification bypass is claimed.",
+        "No honest-stream VERIFY OK or complete verification bypass is claimed.",
         "The maintainer did not report reproducing all nine project v0.4 separator cases.",
         "The exact maintainer T2 construction artifacts were not linked.",
         "The project v0.5 reconstruction is project-controlled evidence, not independent validation.",
         "The v0.6 T1/T3 gist reproduction is project-controlled, and the gist author's AOS association is NONE.",
         "The T1 result is bounded to the tested current retrospective append construction and is not an absolute cryptographic impossibility claim.",
         "The T3 whole result remains VERIFY PARTIAL, and no AOS maintainer disposition on T1/T3 is claimed.",
-        "T2 remains open; no proof of unbreakability is claimed."
+        "T2 remains open; no proof of unbreakability is claimed.",
+        "The v0.8 asset_id collision closure is limited to string values; accepted non-string values remain a bounded schema-type gap and did not become records.",
+        "line_count true produced VERIFY OK with integer-equivalent semantics to one and covered the same record; no additional or different attested bytes were accepted.",
+        "Mutable Git references expose a reproducibility and potential TOCTOU gap, but no actual race or unauthorized-history acceptance was demonstrated.",
+        "Producer/verifier parity is maintainer-reported and not independently reproducible from the public v0.8 tag because the exporter is absent.",
+        "No security impact, independent validation, AOS or MCP adoption, or requirement for a v0.9 release is claimed.",
+        "The AUEC v0.36 DOI record predates these v0.8 receipts and is not a complete top-level title/artifact/hash binding for them."
       ]
     }
   ],
@@ -237,6 +296,7 @@
     "This ledger records public chronology and observed disposition, not adoption, endorsement, partnership, or independent validation; a merge is recorded only where the entry cites its exact merged commit and receipt.",
     "This ledger does not assert rights over ideas, methods, or independently created implementations.",
     "Statuses are snapshots and may change at the linked upstream artifacts.",
-    "VERIFY PARTIAL is not VERIFY OK, and maintainer-reported evidence remains distinct from project-controlled reproduction."
+    "VERIFY PARTIAL is not VERIFY OK, and maintainer-reported evidence remains distinct from project-controlled reproduction.",
+    "AOS authored and published the v0.8 implementation; the project-controlled question, causal controls, and public evidence compilation are attributed separately."
   ]
 }

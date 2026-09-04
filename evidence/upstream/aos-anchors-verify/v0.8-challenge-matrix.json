@@ -1,0 +1,91 @@
+{
+  "schema": "auec.aos-anchors-v08-bounded-challenge-matrix.v1",
+  "status": "BOUNDED_NONSECURITY_GAPS_REPRODUCED",
+  "scope": "project-controlled causal tests across five runtime matrices",
+  "findings": {
+    "H1": {
+      "classification": "DOCUMENTATION_RAW_BYTE_MISMATCH",
+      "observation": "Removing only the final LF changed raw SHA-256 from 934239c6f37fca09d9d9da5500cc042d87fcd3ae92074c715f9126f6d770a96f to 536a0bd2492c241a2eb79a5a33d415f4a5fd03f3a73c489d1d7286f82fce6730 while preserving parsed lines and VERIFY PARTIAL / exit 3 with the unchanged sidecar.",
+      "negativeControls": [
+        "a second final LF failed",
+        "a final CRLF failed"
+      ],
+      "boundary": "The changed byte was at the unattested final tip; acceptance of changed attested bytes was not demonstrated."
+    },
+    "H2": {
+      "classification": "SCHEMA_TYPE_GAP_NO_SECURITY_IMPACT_ESTABLISHED",
+      "eventsTested": 3,
+      "acceptedAssetIdTypes": [
+        "null",
+        "false",
+        "zero",
+        "object",
+        "array"
+      ],
+      "rejectedControls": [
+        "non-empty string",
+        "empty string"
+      ],
+      "boundary": "The v0.8 collision closure applies when asset_id has a string value; mere key presence is not closed, and accepted non-string values did not become records."
+    },
+    "H3": {
+      "classification": "SCHEMA_SCOPE_AND_TYPE_GAP_NO_SECURITY_IMPACT_ESTABLISHED",
+      "boundaryEvents": "the exact recognized event/version pairs failed closed",
+      "ordinaryRecords": "known strings and several non-string values were accepted while an unknown non-empty string was rejected",
+      "boundary": "No changed attested bytes or trust-anchor substitution was demonstrated."
+    },
+    "H4": {
+      "classification": "CROSS_PARSER_INTEROPERABILITY_GAP",
+      "minimizedCases": 6,
+      "observation": "Python and Node used the last occurrence; a strict project-controlled parser rejected every duplicate.",
+      "boundary": "Neither an operational consumer with contradictory semantics nor a security effect was demonstrated."
+    },
+    "H5": {
+      "classification": "SCHEMA_TYPE_GAP_NO_SECURITY_IMPACT_ESTABLISHED",
+      "lineCount": {
+        "true": "VERIFY OK / exit 0 with integer-equivalent semantics to 1 and coverage of the same single record",
+        "false": "rejected",
+        "zeroNegativeStringFloat": "rejected"
+      },
+      "byteLengthTrue": "crossed the integer type check but failed the exact length comparison",
+      "aheadBy": {
+        "false": "accepted only under a controlled mock, with semantics equivalent to 0",
+        "true": "rejected under a controlled mock, with semantics equivalent to 1"
+      },
+      "boundary": "This is a JSON type/schema gap; line_count true did not attest additional or different bytes."
+    },
+    "H6": {
+      "classification": "REPRODUCIBILITY_AND_TOCTOU_GAP",
+      "liveGetAccepted": [
+        "full SHA",
+        "short SHA",
+        "main",
+        "HEAD",
+        "lightweight tag"
+      ],
+      "mockOnly": [
+        "refs/pull/2/head",
+        "abnormal ahead_by values"
+      ],
+      "negativeControl": "ahead_by 1 was rejected",
+      "boundary": "All live references observed resolved to authorized history; no actual race, bypass, or unauthorized-history acceptance was demonstrated."
+    },
+    "H7": {
+      "classification": "MAINTAINER_REPORTED_NOT_INDEPENDENTLY_REPRODUCIBLE_FROM_TAG",
+      "publicExporterAtTag": false,
+      "verifierRecordShapeHelperDefinitions": 1,
+      "verifierRecordShapeHelperCalls": 2,
+      "boundary": "The tag permits inspection of the verifier helper but does not independently reproduce parity with an absent exporter."
+    }
+  },
+  "securityBoundary": {
+    "securityCandidateEstablished": false,
+    "alteredAttestedBytesAccepted": false,
+    "unauthorizedGitHistoryAccepted": false,
+    "trustAnchorConfusionDemonstrated": false,
+    "securityImpactClaimed": false,
+    "scope": "bounded matrix only, not universal"
+  },
+  "remoteMutations": 0,
+  "rawPayloadsPublished": false
+}

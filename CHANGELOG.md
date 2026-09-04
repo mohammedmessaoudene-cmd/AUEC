@@ -23,6 +23,10 @@
   reconciled its two `PARTIAL` plus three `VerifyError` outcomes without
   claiming independent validation, AOS adoption, global `VERIFY OK`, or an
   absolute cryptographic impossibility result.
+- recorded a sanitized, project-controlled exact AOS v0.8 reproduction across
+  five runtime matrices, with bounded documentation, schema-type,
+  parser-interoperability and Git-identity gaps and no security-impact or
+  independent-validation claim.
 
 ## 0.36.0-prestandard - 2026-08-06
 

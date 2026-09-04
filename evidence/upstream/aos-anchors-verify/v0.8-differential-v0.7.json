@@ -1,0 +1,40 @@
+{
+  "schema": "auec.aos-anchors-v08-differential-v07.v1",
+  "scope": "project-controlled behavioral and object comparison; no AOS source is vendored",
+  "versions": {
+    "v07": {
+      "tag": "anchors-verify-v0.7",
+      "commit": "d541ad0d2e8353f09d3febdc22e58d3d347ee621",
+      "preserved": true
+    },
+    "v08": {
+      "tag": "anchors-verify-v0.8",
+      "commit": "15f2b50a77b78a0857d3c7e697726373406cd0ef",
+      "tree": "89d7a250db6544b190e23a6663361c303429ced8",
+      "parent": "1d6f4b709f963228713e1f94a48653407500e3a4"
+    }
+  },
+  "projectControlledObservations": {
+    "v07FrozenReplay": "24 lines / 18 attested / VERIFY PARTIAL / exit 3 on Windows and WSL",
+    "v08HonestStream": "25 lines / 18 attested / VERIFY PARTIAL / exit 3 across five runtimes",
+    "v08SelfTests": {
+      "total": "16/16 PASS per runtime",
+      "newNarrowingChecksObserved": [
+        "hybrid event plus string asset_id fails closed",
+        "unknown rule_version fails closed",
+        "known boundary event and rule_version pairs interpret"
+      ]
+    },
+    "v07OkPredicateControl": "VERIFY OK remained reachable when the suffix after the attested prefix contained only recognized boundary events"
+  },
+  "maintainerReportedContext": {
+    "commentUrl": "https://github.com/aos-standard/catalog/issues/1#issuecomment-5274195840",
+    "report": "AOS reported that v0.8 contains two narrowings arising from Mohammed Messaoudene's question and that the honest stream remains PARTIAL at exit 3.",
+    "producerVerifierParity": "MAINTAINER_REPORTED_NOT_INDEPENDENTLY_REPRODUCIBLE_FROM_TAG"
+  },
+  "limits": [
+    "The collision check observed by the project is string-value-specific: non-string asset_id values remain a bounded schema-type gap.",
+    "The public tag does not contain the exporter needed to independently reproduce producer/verifier helper parity.",
+    "No general AOS or AUEC validation and no requirement for a v0.9 release are claimed."
+  ]
+}

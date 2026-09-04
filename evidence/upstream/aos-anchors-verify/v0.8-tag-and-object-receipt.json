@@ -1,0 +1,41 @@
+{
+  "schema": "auec.aos-anchors-v08-tag-object-receipt.v1",
+  "repository": "aos-standard/catalog",
+  "capturedAtUtc": "2026-08-13T02:35:32Z",
+  "tag": {
+    "name": "anchors-verify-v0.8",
+    "kind": "lightweight",
+    "objectType": "commit",
+    "commit": "15f2b50a77b78a0857d3c7e697726373406cd0ef"
+  },
+  "commit": {
+    "tree": "89d7a250db6544b190e23a6663361c303429ced8",
+    "parent": "1d6f4b709f963228713e1f94a48653407500e3a4",
+    "signatureVerified": false,
+    "signatureReason": "unsigned"
+  },
+  "v07": {
+    "tag": "anchors-verify-v0.7",
+    "commit": "d541ad0d2e8353f09d3febdc22e58d3d347ee621",
+    "preserved": true
+  },
+  "blobs": {
+    "ANCHORS.jsonl": "195431dd800f540af635370bc5ea97271f5514be",
+    "ANCHORS.jsonl.digests.json": "eccf97fe3bc8f6df9cf0428001f62441872a5813",
+    "ANCHORS_VERIFY.md": "ece42e7795a1f431f52fd1dda3864337ff26c88a",
+    "anchors_verify.py": "facb758906d4d8361966e575446fc789e5c0cc57",
+    "README.md": "aa7c44826dbf2e2d1d60b856ca9382114dda1fc4",
+    "CONDUCT.jsonl": "7dc69bb83c51aafdf987e87afe0e8e397dda98b5",
+    "T2_CONSTRUCTIONS.md": "224fe05e2cd98b55f613a03565ffda07185ced28",
+    "t2_constructions.py": "2b22ea356b3ba799e537a4e9e99be0b1273273a0"
+  },
+  "rawSha256": {
+    "ANCHORS.jsonl": "934239c6f37fca09d9d9da5500cc042d87fcd3ae92074c715f9126f6d770a96f",
+    "ANCHORS.jsonl.digests.json": "a6725071e8d183f41f4a32aa673a93b21373641193a8786e3358677336f74e67",
+    "anchors_verify.py": "f78b1a29bc42f5923da7d09648596e907f4de137af06bc60e9d3b603445ff732"
+  },
+  "result": "PASS_EXACT_TAG_COMMIT_TREE_BLOBS_AND_RAW_BYTES",
+  "method": "project-controlled GET-only authentication and clean acquisitions",
+  "remoteMutations": 0,
+  "claimBoundary": "The lightweight tag is unsigned; authentication of public Git objects is not an authorship signature or independent validation."
+}

@@ -1,0 +1,35 @@
+{
+  "schema": "auec.aos-anchors-v08-maintainer-comment-receipt.v1",
+  "repository": "aos-standard/catalog",
+  "issue": 1,
+  "comment": {
+    "id": 5274195840,
+    "url": "https://github.com/aos-standard/catalog/issues/1#issuecomment-5274195840",
+    "author": "Tetsurohhori",
+    "authorAssociation": "MEMBER",
+    "createdAtUtc": "2026-08-12T23:59:12Z",
+    "updatedAtUtc": "2026-08-12T23:59:12Z",
+    "uneditedAtCapture": true,
+    "bodyReceiptWithTerminalLf": {
+      "encoding": "UTF-8",
+      "bytes": 1410,
+      "sha256": "9472c74bf247e0aebfeaba0bca5f5f7add38ab86259bbce3f489db2ee0e64d78"
+    }
+  },
+  "boundedSummary": {
+    "release": "AOS reported that anchors-verify-v0.8 was released with two narrowings arising from Mohammed Messaoudene's question.",
+    "collisionNarrowing": "AOS reported recognized boundary events combined with record-shaped fields now fail closed.",
+    "ruleVersionNarrowing": "AOS reported unknown rule_version values now fail closed and named three known event/version values.",
+    "recordPredicate": "AOS reported one shared record predicate for verifier and exporter and a guard against a second definition.",
+    "honestCase": "AOS reported its own stream remained VERIFY PARTIAL / exit 3 with 25 lines and 18 attested.",
+    "preservation": "AOS reported that the v0.7 tag remains preserved.",
+    "upstreamAiDisclosure": "The maintainer reported assistance by Claude and Cursor and retained responsibility for the claims."
+  },
+  "claimBoundary": [
+    "This receipt summarizes a public AOS maintainer statement; it does not transfer authorship of the v0.8 implementation to AUEC.",
+    "Producer/verifier parity remains maintainer-reported because the public v0.8 tag does not include the exporter.",
+    "The project-controlled tests are recorded separately and are not independent third-party validation."
+  ],
+  "rawCommentBodyVendored": false,
+  "remoteMutations": 0
+}
