@@ -125,6 +125,31 @@ def _is_string_or_null(value: Any) -> bool:
     return value is None or isinstance(value, str)
 
 
+def validate_sources_touched(value: str) -> list[str]:
+    """Validate the canonical JSON-array string required by SEP-3004 §2.2."""
+    try:
+        decoded = json.loads(value)
+    except (json.JSONDecodeError, UnicodeError):
+        return ["caller-governance sources_touched must encode a JSON array"]
+    if not isinstance(decoded, list) or any(not isinstance(item, str) for item in decoded):
+        return ["caller-governance sources_touched must encode a string array"]
+    if not decoded:
+        return ["caller-governance an empty sources_touched set must be null"]
+    if any(not item for item in decoded):
+        return ["caller-governance sources_touched elements must be non-empty"]
+    try:
+        normalized = [normalize_string(item) for item in decoded]
+    except Sep3004Error as exc:
+        return [f"caller-governance sources_touched element invalid: {exc}"]
+    if normalized != decoded:
+        return ["caller-governance sources_touched elements must already be normalized"]
+    canonical_items = sorted(set(decoded), key=lambda item: item.encode("utf-8"))
+    canonical = json.dumps(canonical_items, ensure_ascii=False, separators=(",", ":"))
+    if canonical != value:
+        return ["caller-governance sources_touched is not canonical"]
+    return []
+
+
 def validate_extensions(record: dict[str, Any]) -> list[str]:
     failures: list[str] = []
     extensions = record.get("extensions")
@@ -148,10 +173,12 @@ def validate_extensions(record: dict[str, Any]) -> list[str]:
                 failures.append("caller-governance purpose_declared is required")
             for field, value in caller.items():
                 if field == "flagged":
-                    if not isinstance(value, bool):
-                        failures.append("caller-governance flagged must be boolean")
+                    if value is not None and not isinstance(value, bool):
+                        failures.append("caller-governance flagged must be boolean or null")
                 elif not _is_string_or_null(value):
                     failures.append(f"caller-governance {field} must be string or null")
+                if field == "sources_touched" and isinstance(value, str):
+                    failures.extend(validate_sources_touched(value))
 
     runtime = extensions.get("runtime-security")
     if runtime is not None:

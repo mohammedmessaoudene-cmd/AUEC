@@ -4,7 +4,7 @@ import { execFileSync } from 'node:child_process';
 import { canonical as profileCanonical, clone, commitmentForDecision, evaluate, C14N } from './node/oracle.mjs';
 
 const [, , sourceInput, corpusPath, outputPath] = process.argv;
-const EXPECTED_HEAD = '1143d96f82ce9316e4e1675a3f6786902b9fe1ce';
+const EXPECTED_HEAD = '9405ba2ff8be99b9e0005bebd0ea4b77ac4dc885';
 const sha256Hex = (bytes) => crypto.createHash('sha256').update(bytes).digest('hex');
 const sha256Prefixed = (value) => `sha256:${sha256Hex(Buffer.from(profileCanonical(value), 'utf8'))}`;
 let sourcePath;
@@ -38,6 +38,13 @@ const normativeRulesPresent = [
   'An OPTIONAL field that is absent means the',
   '`sources_touched` encoding.',
   'recorded-but-empty set is carried as `null`, never as `"[]"`',
+  'require **well-formed Unicode**',
+  'UTF-16 code units',
+  'Unicode category Cc',
+  'UTF-8 byte sequences (equivalently, Unicode code-point order)',
+  '**Escape minimally and encode as UTF-8.**',
+  'MUST be expressed as **lowercase',
+  'hexadecimal**',
 ].every((fragment) => source.includes(fragment));
 
 const CORE = ['event_id', 'occurred_at', 'principal_id', 'event_type', 'tool_name', 'outcome', 'extensions', 'previous_hash', 'event_hash'];

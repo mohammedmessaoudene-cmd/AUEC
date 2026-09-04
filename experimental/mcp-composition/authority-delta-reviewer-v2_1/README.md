@@ -82,10 +82,10 @@ python ./build/build_reviewer.py --root . --output ./MCP_AUTHORITY_DELTA_REVIEWE
 
 - Repository: `modelcontextprotocol/modelcontextprotocol`
 - Pull request: `#3004`
-- Tested head: `1143d96f82ce9316e4e1675a3f6786902b9fe1ce`
-- Tested tree: `9ab700212973ce9a9c873f040712759e7e1a93a1`
+- Tested head: `9405ba2ff8be99b9e0005bebd0ea4b77ac4dc885`
+- Tested tree: `e98b2d230d0cb2f616d6010056caf783439bab0c`
 - Source SHA-256:
-  `86742f170f1267ba9dd918ec85ea485252804500f70ce875f9241530d5488345`
+  `629cccd1ef795d1d3d32bf07ccf80294ced8e12608ce362333cf5fd39633d205`
 
 The proposal remains upstream work under review. This artifact does not select
 or request a normative representation.
