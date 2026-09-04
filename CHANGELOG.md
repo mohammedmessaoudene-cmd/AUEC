@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- added a read-only CI job to replay the complete authority-delta reviewer,
+  including both oracles and the selected semantic source mutations, then
+  compare regenerated evidence with the tracked repository hashes;
 - hardened the experimental SEP-3004 validator's declared-extension null and
   enumeration-type boundaries, with 12 regression tests;
 - strengthened the project-controlled authority-delta reviewer with assigned
