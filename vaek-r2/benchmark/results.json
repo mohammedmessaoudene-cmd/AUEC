@@ -1,0 +1,58 @@
+{
+  "classes": {
+    "nested_multicall": {
+      "assumption": "outer multicall selector is allowlisted and nested bytes are not protocol-parsed",
+      "cases": 1000,
+      "generic_false_allow": 1000,
+      "generic_false_block": 0,
+      "vaek_false_allow": 0,
+      "vaek_false_block": 0
+    },
+    "receipt_tamper": {
+      "assumption": "generic baseline lacks requested/authorized/executed semantic fields, so equivalent classification is not representable",
+      "cases": 1000,
+      "generic_false_allow": null,
+      "generic_false_block": null,
+      "vaek_false_allow": 0,
+      "vaek_false_block": 0
+    },
+    "recipient_substitution": {
+      "assumption": "generic comparator has an ERC20 transfer parser",
+      "cases": 1000,
+      "generic_false_allow": 0,
+      "generic_false_block": 0,
+      "vaek_false_allow": 0,
+      "vaek_false_block": 0
+    },
+    "semantic_or_registry_drift": {
+      "assumption": "generic target+selector remains allowed while semantics change; VAEK result bounds remain measured",
+      "cases": 1000,
+      "generic_false_allow": 1000,
+      "generic_false_block": 0,
+      "vaek_false_allow": 0,
+      "vaek_false_block": 0
+    },
+    "swap_bound_variations": {
+      "assumption": "generic comparator receives a dedicated swap parser equivalent to VAEK bounds",
+      "cases": 1000,
+      "generic_false_allow": 0,
+      "generic_false_block": 0,
+      "vaek_false_allow": 0,
+      "vaek_false_block": 0
+    },
+    "valid_transfer": {
+      "cases": 1000,
+      "generic_false_allow": 0,
+      "generic_false_block": 0,
+      "vaek_false_allow": 0,
+      "vaek_false_block": 0
+    }
+  },
+  "classification": "MEASURED_SYNTHETIC_REFERENCE_MODEL",
+  "limitations": [
+    "Counts are deterministic model evaluations, not 6000 on-chain transactions.",
+    "Directed Foundry tests separately demonstrate the nested-call and mutable-semantics counterexamples.",
+    "A protocol-specific generic parser can match typed checks at the cost of one parser per integration."
+  ],
+  "seed": 20260823
+}

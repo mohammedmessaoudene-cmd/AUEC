@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/vaek/effect_request.schema.json",
+  "title": "VAEK Effect Request R2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "effectType", "executionId", "mandateId", "nonce", "validAfter", "deadline", "observationHash", "modelCommitment", "policyCommitment", "contextHash", "payload"],
+  "properties": {
+    "schemaVersion": {"const": "0.2"},
+    "effectType": {"enum": ["TRANSFER_ERC20", "SWAP_EXACT_INPUT", "BUY_SERVICE_ESCROW"]},
+    "executionId": {"$ref": "#/$defs/bytes32"},
+    "mandateId": {"$ref": "#/$defs/bytes32"},
+    "nonce": {"$ref": "#/$defs/uintString"},
+    "validAfter": {"$ref": "#/$defs/uintString"},
+    "deadline": {"$ref": "#/$defs/uintString"},
+    "observationHash": {"$ref": "#/$defs/bytes32"},
+    "modelCommitment": {"$ref": "#/$defs/bytes32"},
+    "policyCommitment": {"$ref": "#/$defs/bytes32"},
+    "contextHash": {"$ref": "#/$defs/bytes32"},
+    "payload": {"type": "object"}
+  },
+  "allOf": [
+    {"if": {"properties": {"effectType": {"const": "TRANSFER_ERC20"}}}, "then": {"properties": {"payload": {"$ref": "#/$defs/transfer"}}}},
+    {"if": {"properties": {"effectType": {"const": "SWAP_EXACT_INPUT"}}}, "then": {"properties": {"payload": {"$ref": "#/$defs/swap"}}}},
+    {"if": {"properties": {"effectType": {"const": "BUY_SERVICE_ESCROW"}}}, "then": {"properties": {"payload": {"$ref": "#/$defs/service"}}}}
+  ],
+  "$defs": {
+    "bytes32": {"type": "string", "pattern": "^0x[0-9a-fA-F]{64}$"},
+    "uintString": {"type": "string", "pattern": "^(0|[1-9][0-9]*)$"},
+    "transfer": {
+      "type": "object", "additionalProperties": false,
+      "required": ["assetId", "recipientId", "requestedAmount"],
+      "properties": {"assetId": {"$ref": "#/$defs/bytes32"}, "recipientId": {"$ref": "#/$defs/bytes32"}, "requestedAmount": {"$ref": "#/$defs/uintString"}}
+    },
+    "swap": {
+      "type": "object", "additionalProperties": false,
+      "required": ["assetInId", "assetOutId", "venueId", "recipientId", "maxInput", "minOutput", "quoteCommitment", "quoteValidUntil"],
+      "properties": {
+        "assetInId": {"$ref": "#/$defs/bytes32"}, "assetOutId": {"$ref": "#/$defs/bytes32"},
+        "venueId": {"$ref": "#/$defs/bytes32"}, "recipientId": {"$ref": "#/$defs/bytes32"},
+        "maxInput": {"$ref": "#/$defs/uintString"}, "minOutput": {"$ref": "#/$defs/uintString"},
+        "quoteCommitment": {"$ref": "#/$defs/bytes32"}, "quoteValidUntil": {"$ref": "#/$defs/uintString"}
+      }
+    },
+    "service": {
+      "type": "object", "additionalProperties": false,
+      "required": ["providerId", "serviceId", "paymentAssetId", "maxPrice", "deliveryCommitment", "serviceDeadline", "evaluatorId"],
+      "properties": {
+        "providerId": {"$ref": "#/$defs/bytes32"}, "serviceId": {"$ref": "#/$defs/bytes32"},
+        "paymentAssetId": {"$ref": "#/$defs/bytes32"}, "maxPrice": {"$ref": "#/$defs/uintString"},
+        "deliveryCommitment": {"$ref": "#/$defs/bytes32"}, "serviceDeadline": {"$ref": "#/$defs/uintString"},
+        "evaluatorId": {"$ref": "#/$defs/bytes32"}
+      }
+    }
+  }
+}
+
